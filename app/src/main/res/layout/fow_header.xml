@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/round_rect"
+    android:backgroundTint="@color/purple_200"
+    android:orientation="horizontal"
+    android:paddingHorizontal="10dp"
+    android:paddingVertical="5dp"
+    android:weightSum="3">
+
+    <TextView
+        android:id="@+id/tv_out_name"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:autoSizeMaxTextSize="17sp"
+        android:autoSizeMinTextSize="15sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/roboto"
+        android:text="@string/batsman"
+        android:textColor="@color/white"
+        tools:targetApi="o" />
+
+    <TextView
+        android:id="@+id/tv_score"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:autoSizeMaxTextSize="17sp"
+        android:autoSizeMinTextSize="15sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/roboto"
+        android:text="@string/score"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        tools:targetApi="o" />
+
+    <TextView
+        android:id="@+id/tv_over"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:autoSizeMaxTextSize="17sp"
+        android:autoSizeMinTextSize="15sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/roboto"
+        android:text="@string/over"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        tools:targetApi="o" />
+
+</LinearLayout>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tv_match"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="@string/extra_test"
+            android:textColor="@color/purple_500"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:targetApi="o" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/roboto"
+            android:text="@string/extra_time"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_match"
+            tools:targetApi="o" />
+
+        <TextView
+            android:id="@+id/tv_match_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/roboto"
+            android:text="@string/status"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_time"
+            tools:targetApi="o" />
+
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoSizeTextType="uniform"
+            android:background="@drawable/circle_bg"
+            android:backgroundTint="@color/dark_blue"
+            android:fontFamily="@font/roboto"
+            android:padding="10dp"
+            android:text="@string/vs"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_match_status"
+            tools:targetApi="o" />
+
+        <TextView
+            android:id="@+id/tv_fStrike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:autoSizeTextType="uniform"
+            android:background="@drawable/round_rect"
+            android:fontFamily="@font/roboto"
+            android:padding="5dp"
+            android:text="@string/_3_5"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_sStrike"
+            app:layout_constraintStart_toStartOf="@+id/textView8"
+            app:layout_constraintTop_toBottomOf="@+id/textView8"
+            tools:targetApi="o" />
+
+        <TextView
+            android:id="@+id/tv_sStrike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:autoSizeTextType="uniform"
+            android:background="@drawable/round_rect"
+            android:fontFamily="@font/roboto"
+            android:padding="5dp"
+            android:text="@string/_3_5"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/textView8"
+            app:layout_constraintStart_toEndOf="@+id/tv_fStrike"
+            app:layout_constraintTop_toBottomOf="@+id/textView8"
+            tools:targetApi="o" />
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_first_team"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_match_status" />
+
+        <TextView
+            android:id="@+id/tv_fInn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:autoSizeTextType="uniform"
+            android:text="0-0"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_first_team"
+            app:layout_constraintTop_toTopOf="@+id/iv_first_team"
+            tools:targetApi="o" />
+
+        <!--        <TextView
+                    android:id="@+id/tv_sInn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:text="176/6"
+                    android:visibility="gone"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_first_team"
+                    app:layout_constraintStart_toEndOf="@+id/iv_first_team"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_fInn" />-->
+
+        <TextView
+            android:id="@+id/tv_over"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:autoSizeTextType="uniform"
+            android:text="0.0 Over"
+            android:textColor="@color/gray"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_fInn"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fInn"
+            tools:targetApi="o" />
+
+        <TextView
+            android:id="@+id/tv_first_team"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/roboto"
+            android:text="@string/team_first"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/iv_first_team"
+            app:layout_constraintTop_toBottomOf="@+id/iv_first_team"
+            tools:targetApi="o" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_second_team"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_match_status" />
+
+        <TextView
+            android:id="@+id/tv_second_fInn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:autoSizeTextType="uniform"
+            android:text="0-0"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/iv_second_team"
+            app:layout_constraintTop_toTopOf="@+id/iv_second_team"
+            tools:targetApi="o" />
+
+        <!--        <TextView
+                    android:id="@+id/tv_second_sInn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:text="176/6"
+                    android:textColor="@color/black"
+                    android:visibility="gone"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_second_team"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_second_team" /> -->
+
+        <TextView
+            android:id="@+id/tv_second_over"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:autoSizeTextType="uniform"
+            android:text="0.0 Over"
+            android:textColor="@color/gray"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@+id/iv_second_team"
+            app:layout_constraintHorizontal_bias="0.821"
+            app:layout_constraintStart_toStartOf="@+id/tv_second_fInn"
+            app:layout_constraintTop_toBottomOf="@+id/tv_second_fInn"
+            tools:targetApi="o" />
+
+        <TextView
+            android:id="@+id/tv_second_team"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/roboto"
+            android:text="@string/team_second"
+            android:textAlignment="textEnd"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_second_team"
+            app:layout_constraintTop_toBottomOf="@+id/iv_second_team"
+            tools:targetApi="o" />
+
+        <TextView
+            android:id="@+id/tv_day_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:autoSizeTextType="uniform"
+            tools:targetApi="o"
+            android:fontFamily="@font/roboto"
+            android:text="@string/day_4_stumps"
+            android:textColor="@color/dark_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fStrike"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

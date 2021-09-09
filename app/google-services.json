@@ -1,0 +1,407 @@
+{
+  "project_info": {
+    "project_number": "589176630693",
+    "firebase_url": "https://cricket-hisabkitab.firebaseio.com",
+    "project_id": "cricket-hisabkitab",
+    "storage_bucket": "cricket-hisabkitab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589176630693:android:8ed139f0193ed77d620c4c",
+        "android_client_info": {
+          "package_name": "com.teameverest.cricketfan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2t5CkZc34TS8Sat8KjJU063URCAGxTwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "589176630693-ji9or9p78i8sc22dp5biv6lni5ms7ubc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "Com.WeDoApps.ControlPanel"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589176630693:android:b6c84ad0be8a3c1d620c4c",
+        "android_client_info": {
+          "package_name": "com.wedoapp.cricketallinone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2t5CkZc34TS8Sat8KjJU063URCAGxTwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "589176630693-ji9or9p78i8sc22dp5biv6lni5ms7ubc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "Com.WeDoApps.ControlPanel"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589176630693:android:31d07ecab170183d620c4c",
+        "android_client_info": {
+          "package_name": "com.wedoapps.CricketLiveLine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2t5CkZc34TS8Sat8KjJU063URCAGxTwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "589176630693-ji9or9p78i8sc22dp5biv6lni5ms7ubc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "Com.WeDoApps.ControlPanel"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589176630693:android:a530a9e61ac1213d",
+        "android_client_info": {
+          "package_name": "com.wedoapps.crickethisabkitab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2t5CkZc34TS8Sat8KjJU063URCAGxTwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "589176630693-ji9or9p78i8sc22dp5biv6lni5ms7ubc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "Com.WeDoApps.ControlPanel"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589176630693:android:ebfa2490ec5fdfc5620c4c",
+        "android_client_info": {
+          "package_name": "com.wedoapps.cricketliveline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2t5CkZc34TS8Sat8KjJU063URCAGxTwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "589176630693-ji9or9p78i8sc22dp5biv6lni5ms7ubc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "Com.WeDoApps.ControlPanel"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589176630693:android:6bf8f776b3a19782620c4c",
+        "android_client_info": {
+          "package_name": "com.wedoapps.cricketlivescore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2t5CkZc34TS8Sat8KjJU063URCAGxTwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "589176630693-ji9or9p78i8sc22dp5biv6lni5ms7ubc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "Com.WeDoApps.ControlPanel"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589176630693:android:54cb66b7b74e7431620c4c",
+        "android_client_info": {
+          "package_name": "com.wedoapps.cricketmatchline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2t5CkZc34TS8Sat8KjJU063URCAGxTwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "589176630693-ji9or9p78i8sc22dp5biv6lni5ms7ubc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "Com.WeDoApps.ControlPanel"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589176630693:android:efdce384bb0c2040620c4c",
+        "android_client_info": {
+          "package_name": "com.wedoapps.cricketsessionline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2t5CkZc34TS8Sat8KjJU063URCAGxTwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "589176630693-ji9or9p78i8sc22dp5biv6lni5ms7ubc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "Com.WeDoApps.ControlPanel"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589176630693:android:d72e7abcd23c335f620c4c",
+        "android_client_info": {
+          "package_name": "com.wedoapps.khai_lagai_calculator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2t5CkZc34TS8Sat8KjJU063URCAGxTwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "589176630693-ji9or9p78i8sc22dp5biv6lni5ms7ubc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "Com.WeDoApps.ControlPanel"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589176630693:android:54c37984b6560b01620c4c",
+        "android_client_info": {
+          "package_name": "com.wedoapps.khailagailine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2t5CkZc34TS8Sat8KjJU063URCAGxTwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "589176630693-ji9or9p78i8sc22dp5biv6lni5ms7ubc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "Com.WeDoApps.ControlPanel"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589176630693:android:2e2c508a20b1be44620c4c",
+        "android_client_info": {
+          "package_name": "com.wedoapps.sdCricketLine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2t5CkZc34TS8Sat8KjJU063URCAGxTwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589176630693-pgt2nr40hkmf2gb00pht2qi3o0t81ei2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "589176630693-ji9or9p78i8sc22dp5biv6lni5ms7ubc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "Com.WeDoApps.ControlPanel"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

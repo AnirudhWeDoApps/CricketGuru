@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:layout_weight="6"
+    android:background="@drawable/trans_round_rect_border"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+    <LinearLayout
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_batsman_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoSizeMaxTextSize="17sp"
+            android:autoSizeMinTextSize="15sp"
+            android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/roboto"
+            android:maxLines="1"
+            android:text="@string/test_name"
+            android:textColor="@color/black"
+            tools:targetApi="o" />
+
+        <TextView
+            android:id="@+id/tv_batsman_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoSizeMaxTextSize="12sp"
+            android:autoSizeMinTextSize="10sp"
+            android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/roboto"
+            android:maxLines="1"
+            android:text="@string/test_name"
+            android:textColor="@color/black"
+            tools:targetApi="o" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_first_run"
+        android:layout_width="10dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5"
+        android:autoSizeMaxTextSize="17sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/roboto"
+        android:text="@string/_3"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        tools:targetApi="o" />
+
+    <TextView
+        android:id="@+id/tv_first_balls"
+        android:layout_width="10dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5"
+        android:autoSizeMaxTextSize="17sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/roboto"
+        android:text="@string/_3"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        tools:targetApi="o" />
+
+    <TextView
+        android:id="@+id/tv_first_4s"
+        android:layout_width="10dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5"
+        android:autoSizeMaxTextSize="17sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/roboto"
+        android:text="@string/_3"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        tools:targetApi="o" />
+
+    <TextView
+        android:id="@+id/tv_first_6s"
+        android:layout_width="10dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5"
+        android:autoSizeMaxTextSize="17sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/roboto"
+        android:text="@string/_3"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        tools:targetApi="o" />
+
+    <TextView
+        android:id="@+id/tv_first_strike_rate"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:autoSizeMaxTextSize="17sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/roboto"
+        android:text="@string/_3"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        tools:targetApi="o" />
+
+</LinearLayout>
