@@ -16,12 +16,12 @@ class BowlerListAdapter : RecyclerView.Adapter<BowlerListAdapter.BowlerListViewH
 
         fun bind(bowler: Bowlers) {
             binding.apply {
-                tvBowlerName.text = bowler.name
-                tvOver.text = bowler.over
-                tvMaiden.text = bowler.maiden
-                tvRuns.text = bowler.run
-                tvWicket.text = bowler.wicket
-                tvEr.text = bowler.er
+                tvBowlerName.text = bowler.Name
+                tvOver.text = bowler.Over
+                tvMaiden.text = bowler.Maiden
+                tvRuns.text = bowler.Run
+                tvWicket.text = bowler.Wicket
+                tvEr.text = bowler.ER
             }
         }
 

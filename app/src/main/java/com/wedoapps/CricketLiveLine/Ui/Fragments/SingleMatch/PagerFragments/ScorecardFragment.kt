@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.wedoapps.CricketLiveLine.Adapter.BowlerListAdapter
 import com.wedoapps.CricketLiveLine.Adapter.ScoreCardBattingAdapter
 import com.wedoapps.CricketLiveLine.Adapter.WicketListAdapter
+import com.wedoapps.CricketLiveLine.Model.TeamScore
 import com.wedoapps.CricketLiveLine.R
 import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
 import com.wedoapps.CricketLiveLine.Ui.MainActivity
@@ -25,6 +26,7 @@ class ScorecardFragment(val id: String) : Fragment(R.layout.fragment_scorecard) 
     private lateinit var bowlerListAdapter2: BowlerListAdapter
     private lateinit var wicketListAdapter: WicketListAdapter
     private lateinit var wicketListAdapter2: WicketListAdapter
+
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -139,14 +141,25 @@ class ScorecardFragment(val id: String) : Fragment(R.layout.fragment_scorecard) 
             })
 
             getScoreDetails1(id).observe(viewLifecycleOwner, {
-                Log.d(TAG, "onViewCreated ScoreCardTeam1: ${it.playerScore}")
-                scoreCardBattingAdapter.differ.submitList(it.playerScore)
+                Log.d(TAG, "onViewCreated ScoreCardTeam1:$id $it")
 
             })
 
             getScoreDetails2(id).observe(viewLifecycleOwner, {
-                Log.d(TAG, "onViewCreated ScoreCardTeam2: ${it.playerScore}")
-                scoreCardBattingAdapter2.differ.submitList(it.playerScore2)
+                Log.d(TAG, "onViewCreated ScoreCardTeam2:$id $it")
+
+                if (it.playerScore?.isNotEmpty() == true && it.playerScore2?.isNotEmpty() == true) {
+                    binding.tvNoData.visibility = View.GONE
+                    binding.linearLayout1.visibility = View.VISIBLE
+                    binding.linearLayout2.visibility = View.VISIBLE
+                    scoreCardBattingAdapter.differ.submitList(it.playerScore)
+                    scoreCardBattingAdapter2.differ.submitList(it.playerScore2)
+                } else {
+                    binding.linearLayout1.visibility = View.GONE
+                    binding.linearLayout2.visibility = View.GONE
+                    binding.tvNoData.visibility = View.VISIBLE
+                }
+
             })
 
             getBowlerList2(id).observe(viewLifecycleOwner, {
@@ -169,7 +182,6 @@ class ScorecardFragment(val id: String) : Fragment(R.layout.fragment_scorecard) 
                 wicketListAdapter2.differ.submitList(it.wicketList2)
             })
         }
-
 
         binding.rv1Team1.apply {
             setHasFixedSize(true)

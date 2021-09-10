@@ -23,24 +23,44 @@ class InfoFragment(val id: String) : Fragment(R.layout.fragment_info) {
 
         viewModel = (activity as MainActivity).viewModel
 
-
-
         viewModel.getInfo(id).observe(viewLifecycleOwner, {
             Log.d(TAG, "onViewCreated GetINFO: $it ")
 
-            val filterTeam1: List<String> =
-                it.TeamSquade!!.Team1!!.split(",").map { playerName ->
-                    playerName.trim()
+            if (it.TeamSquade?.Team1.isNullOrBlank() && it.TeamSquade?.Team2.isNullOrBlank()) {
+                binding.apply {
+                    tvNoSquade.visibility = View.VISIBLE
+                    infoTeam1.visibility = View.INVISIBLE
+                    infoTeam2.visibility = View.INVISIBLE
+                }
+            } else {
+                binding.apply {
+                    tvNoSquade.visibility = View.GONE
+                    infoTeam1.visibility = View.VISIBLE
+                    infoTeam2.visibility = View.VISIBLE
+                }
+                val filterTeam1: List<String> =
+                    it.TeamSquade!!.Team1!!.split(",").map { playerName ->
+                        playerName.trim()
+                    }
+
+                val filterTeam2: List<String> =
+                    it.TeamSquade!!.Team2!!.split(",").map { playerName ->
+                        playerName.trim()
+                    }
+
+                val playerAdapter = PlayerListAdapter(filterTeam1)
+                val playerAdapter2 = PlayerListAdapter(filterTeam2)
+
+                binding.rvPlayerList1.apply {
+                    setHasFixedSize(true)
+                    adapter = playerAdapter
                 }
 
-            val filterTeam2: List<String> =
-                it.TeamSquade!!.Team2!!.split(",").map { playerName ->
-                    playerName.trim()
+                binding.rvPlayerList2.apply {
+                    setHasFixedSize(true)
+                    adapter = playerAdapter2
                 }
-
-            val playerAdapter = PlayerListAdapter(filterTeam1)
-            val playerAdapter2 = PlayerListAdapter(filterTeam2)
-
+            }
 
             binding.apply {
 
@@ -79,6 +99,8 @@ class InfoFragment(val id: String) : Fragment(R.layout.fragment_info) {
                 tvToss.text = it.TossInfo
                 tvFirstInning.text = it.Avg1stInnings
                 tvSecondInning.text = it.Avg2ndInnings
+                tvHighestTotal.text = it.HighestTotal
+                tvLowestTotal.text = it.LowestTotal
                 tvHighestChased.text = it.HighestChased
                 tvLowestDefending.text = it.LowestDefended
                 tvHead.text = it.Head2Head
@@ -92,15 +114,7 @@ class InfoFragment(val id: String) : Fragment(R.layout.fragment_info) {
                 tvMom.text = it.MOM
             }
 
-            binding.rvPlayerList1.apply {
-                setHasFixedSize(true)
-                adapter = playerAdapter
-            }
 
-            binding.rvPlayerList2.apply {
-                setHasFixedSize(true)
-                adapter = playerAdapter2
-            }
         })
 
 

@@ -7,6 +7,7 @@
     tools:context=".Ui.Fragments.SingleMatch.PagerFragments.ScorecardFragment">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -83,9 +84,9 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:nestedScrollingEnabled="false"
+                android:orientation="vertical"
                 android:overScrollMode="never"
                 android:visibility="gone"
-                android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -110,12 +111,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/rv1_team1"
                 tools:targetApi="o" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/iv_bowling_img"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_seasion_ball"
+                android:layout_marginBottom="10dp"
+                android:contentDescription="@string/bowling"
                 android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/textView9"
                 app:layout_constraintTop_toBottomOf="@+id/tv1_extras" />
@@ -125,13 +128,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginBottom="10dp"
                 android:autoSizeTextType="uniform"
                 android:fontFamily="@font/roboto"
                 android:gravity="center"
                 android:text="@string/bowling"
                 android:textColor="@color/black"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_bowling_img"
@@ -163,12 +165,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/team1_bowler_header" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/iv_wicket_img"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:src="@drawable/ic_wicket"
+                android:contentDescription="@string/fow"
                 android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/textView11"
                 app:layout_constraintTop_toBottomOf="@+id/rv_bowling_team1" />
@@ -178,13 +182,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginBottom="10dp"
                 android:autoSizeTextType="uniform"
                 android:fontFamily="@font/roboto"
                 android:gravity="center"
                 android:text="@string/fow"
                 android:textColor="@color/black"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_wicket_img"
@@ -307,13 +310,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/rv1_team2"
                 tools:targetApi="o" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/iv_ball2_img"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:src="@drawable/ic_seasion_ball"
                 android:visibility="gone"
+                android:contentDescription="@string/bowling"
                 app:layout_constraintEnd_toStartOf="@+id/textView10"
                 app:layout_constraintTop_toBottomOf="@+id/tv2_extras" />
 
@@ -328,7 +333,7 @@
                 android:gravity="center"
                 android:text="@string/bowling"
                 android:textColor="@color/black"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_ball2_img"
@@ -360,28 +365,29 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/team2_bowler_header" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/iv_wicket_img2"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:src="@drawable/ic_wicket"
                 android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/textView12"
-                app:layout_constraintTop_toBottomOf="@+id/rv_bowling_team2" />
+                app:layout_constraintTop_toBottomOf="@+id/rv_bowling_team2"
+                android:contentDescription="@string/fow" />
 
             <TextView
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginBottom="10dp"
                 android:autoSizeTextType="uniform"
                 android:fontFamily="@font/roboto"
                 android:gravity="center"
                 android:text="@string/fow"
                 android:textColor="@color/black"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_wicket_img2"
@@ -415,4 +421,16 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/tv_noData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/there_is_no_scorecard"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:visibility="gone" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

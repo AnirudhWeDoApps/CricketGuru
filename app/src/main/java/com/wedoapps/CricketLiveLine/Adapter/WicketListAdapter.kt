@@ -16,9 +16,9 @@ class WicketListAdapter : RecyclerView.Adapter<WicketListAdapter.WicketListViewH
 
         fun bind(wicket: WicketFall) {
             binding.apply {
-                tvOutName.text = wicket.name
-                tvOver.text = wicket.over
-                tvScore.text = wicket.score
+                tvOutName.text = wicket.Name
+                tvOver.text = wicket.Over
+                tvScore.text = wicket.Score
             }
         }
 

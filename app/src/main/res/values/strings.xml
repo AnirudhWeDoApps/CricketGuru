@@ -43,4 +43,6 @@
     <string name="fow">Fall of Wickets</string>
     <string name="score">Score</string>
     <string name="over">Over</string>
+    <string name="there_is_no_scorecard">There is no ScoreCard</string>
+    <string name="there_are_no_squads">There are no Squads</string>
 </resources>

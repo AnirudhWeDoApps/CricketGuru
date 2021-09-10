@@ -15,13 +15,13 @@ class ScoreCardBattingAdapter : RecyclerView.Adapter<ScoreCardBattingAdapter.Bat
 
         fun bind(score: PlayerScore) {
             binding.apply {
-                tvBatsmanName.text = score.name
-                tvBatsmanOut.text = score.otherInfo
-                tvFirstRun.text = score.run
-                tvFirstBalls.text = score.ball
+                tvBatsmanName.text = score.Name
+                tvBatsmanOut.text = score.OtherInfo
+                tvFirstRun.text = score.Run
+                tvFirstBalls.text = score.Ball
                 tvFirst4s.text = score.fours
                 tvFirst6s.text = score.sixes
-                tvFirstStrikeRate.text = score.sr
+                tvFirstStrikeRate.text = score.SR
             }
         }
     }

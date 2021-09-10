@@ -8,6 +8,7 @@ import com.wedoapps.CricketLiveLine.Model.Info.Info
 import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 class CricketGuruRepository {
@@ -25,20 +26,17 @@ class CricketGuruRepository {
     private var _bowlerlist2: MutableLiveData<BowlerList> = MutableLiveData<BowlerList>()
     private var _wicketList1: MutableLiveData<AllWicketList> = MutableLiveData<AllWicketList>()
     private var _wicketList2: MutableLiveData<AllWicketList> = MutableLiveData<AllWicketList>()
-    private var _info: MutableLiveData<Info> = MutableLiveData<Info>()
     private val firestoreRef = firestore.collection("MatchList")
-    private val scoreDataModelArrayList1 = ArrayList<PlayerScore>()
+    private var scoreDataModelArrayList1 = ArrayList<PlayerScore>()
     private val scoreDataModelArrayList2 = ArrayList<PlayerScore>()
     private val bowlerDataModelArrayList1 = ArrayList<Bowlers>()
     private val bowlerDataModelArrayList2 = ArrayList<Bowlers>()
     private val wicketDataModelArrayList1 = ArrayList<WicketFall>()
     private val wicketDataModelArrayList2 = ArrayList<WicketFall>()
-    private val infoDataModelArrayList = ArrayList<Info>()
     private val teamScore = TeamScore()
     private val bowlerList = BowlerList()
     private var homeMatch = HomeMatch()
     private var wicketList = AllWicketList()
-    private var infoList = Info()
 
     fun team1(id: String): MutableLiveData<Score> {
         firestoreRef.document(id).collection("LiveMatch").document("ScoreTeam1")
@@ -99,7 +97,7 @@ class CricketGuruRepository {
                     match.forEach {
                         homeMatch = it.toObject(HomeMatch::class.java)!!
                         homeMatch.id = it.id
-                        getInfo(it.id)
+//                        getScore(it.id)
                         allMatch.add(homeMatch)
                     }
                     mutableLangName.value = allMatch
@@ -151,6 +149,7 @@ class CricketGuruRepository {
     }
 
     fun getScore1(id: String): MutableLiveData<TeamScore> {
+        scoreDataModelArrayList1.clear()
         firestoreRef.document(id).collection("ScoreCard").document("ScoreTeam1")
             .addSnapshotListener { value, error ->
                 if (error != null) {
@@ -172,18 +171,18 @@ class CricketGuruRepository {
                                     for (i in dataModelArrayList1.indices) {
                                         val team1HashMap = dataModelArrayList1[i]
                                         val scoreDataModel = PlayerScore()
-                                        scoreDataModel.name = team1HashMap["Name"]
-                                        scoreDataModel.otherInfo = team1HashMap["OtherInfo"]
-                                        scoreDataModel.ball = team1HashMap["Ball"]
-                                        scoreDataModel.run = team1HashMap["Run"]
+                                        scoreDataModel.Name = team1HashMap["Name"]
+                                        scoreDataModel.OtherInfo = team1HashMap["OtherInfo"]
+                                        scoreDataModel.Ball = team1HashMap["Ball"]
+                                        scoreDataModel.Run = team1HashMap["Run"]
                                         scoreDataModel.fours = team1HashMap["4s"]
                                         scoreDataModel.sixes = team1HashMap["6s"]
-                                        scoreDataModel.sr = team1HashMap["SR"]
+                                        scoreDataModel.SR = team1HashMap["SR"]
                                         scoreDataModelArrayList1.add(scoreDataModel)
                                     }
                                 }
                                 teamScore.playerScore = scoreDataModelArrayList1
-                                Log.d(TAG, "getDetails: $teamScore")
+                                Log.d(TAG, "getDetails1: $teamScore")
                                 _teamScore.value = teamScore
 
                             }
@@ -199,6 +198,7 @@ class CricketGuruRepository {
     }
 
     fun getScore2(id: String): MutableLiveData<TeamScore> {
+        scoreDataModelArrayList2.clear()
         firestoreRef.document(id).collection("ScoreCard").document("ScoreTeam2")
             .addSnapshotListener { value, error ->
                 if (error != null) {
@@ -220,20 +220,17 @@ class CricketGuruRepository {
                                     for (i in dataModelArrayList1.indices) {
                                         val team1HashMap = dataModelArrayList1[i]
                                         val scoreDataModel2 = PlayerScore()
-                                        scoreDataModel2.name = team1HashMap["Name"]
-                                        scoreDataModel2.otherInfo = team1HashMap["OtherInfo"]
-                                        scoreDataModel2.ball = team1HashMap["Ball"]
-                                        scoreDataModel2.run = team1HashMap["Run"]
+                                        scoreDataModel2.Name = team1HashMap["Name"]
+                                        scoreDataModel2.OtherInfo = team1HashMap["OtherInfo"]
+                                        scoreDataModel2.Ball = team1HashMap["Ball"]
+                                        scoreDataModel2.Run = team1HashMap["Run"]
                                         scoreDataModel2.fours = team1HashMap["4s"]
                                         scoreDataModel2.sixes = team1HashMap["6s"]
-                                        scoreDataModel2.sr = team1HashMap["SR"]
+                                        scoreDataModel2.SR = team1HashMap["SR"]
                                         scoreDataModelArrayList2.add(scoreDataModel2)
                                     }
                                     teamScore.playerScore2 = scoreDataModelArrayList2
-                                    Log.d(TAG, "getDetails: $teamScore")
-                                    _teamScore2.value = teamScore
-                                } else {
-                                    teamScore.playerScore2 = null
+                                    Log.d(TAG, "getDetails2: $teamScore")
                                     _teamScore2.value = teamScore
                                 }
                             }
@@ -268,6 +265,7 @@ class CricketGuruRepository {
     }
 
     fun getBowlerList1(id: String): MutableLiveData<BowlerList> {
+        bowlerDataModelArrayList1.clear()
         firestoreRef.document(id).collection("ScoreCard").document("BowlerList1")
             .addSnapshotListener { value, error ->
                 if (error != null) {
@@ -289,12 +287,12 @@ class CricketGuruRepository {
                                     for (i in dataModelArrayList1.indices) {
                                         val bowler1HashMap = dataModelArrayList1[i]
                                         val bowler = Bowlers()
-                                        bowler.name = bowler1HashMap["Name"]
-                                        bowler.over = bowler1HashMap["Over"]
-                                        bowler.wicket = bowler1HashMap["Wicket"]
-                                        bowler.maiden = bowler1HashMap["Maiden"]
-                                        bowler.run = bowler1HashMap["Run"]
-                                        bowler.er = bowler1HashMap["ER"]
+                                        bowler.Name = bowler1HashMap["Name"]
+                                        bowler.Over = bowler1HashMap["Over"]
+                                        bowler.Wicket = bowler1HashMap["Wicket"]
+                                        bowler.Maiden = bowler1HashMap["Maiden"]
+                                        bowler.Run = bowler1HashMap["Run"]
+                                        bowler.ER = bowler1HashMap["ER"]
                                         bowlerDataModelArrayList1.add(bowler)
                                     }
                                 }
@@ -315,6 +313,7 @@ class CricketGuruRepository {
     }
 
     fun getBowlerList2(id: String): MutableLiveData<BowlerList> {
+        bowlerDataModelArrayList2.clear()
         firestoreRef.document(id).collection("ScoreCard").document("BowlerList2")
             .addSnapshotListener { value, error ->
                 if (error != null) {
@@ -337,12 +336,12 @@ class CricketGuruRepository {
                                     for (i in dataModelArrayList1.indices) {
                                         val bowler1HashMap = dataModelArrayList1[i]
                                         val bowler = Bowlers()
-                                        bowler.name = bowler1HashMap["Name"]
-                                        bowler.over = bowler1HashMap["Over"]
-                                        bowler.wicket = bowler1HashMap["Wicket"]
-                                        bowler.maiden = bowler1HashMap["Maiden"]
-                                        bowler.run = bowler1HashMap["Run"]
-                                        bowler.er = bowler1HashMap["ER"]
+                                        bowler.Name = bowler1HashMap["Name"]
+                                        bowler.Over = bowler1HashMap["Over"]
+                                        bowler.Wicket = bowler1HashMap["Wicket"]
+                                        bowler.Maiden = bowler1HashMap["Maiden"]
+                                        bowler.Run = bowler1HashMap["Run"]
+                                        bowler.ER = bowler1HashMap["ER"]
                                         bowlerDataModelArrayList2.add(bowler)
                                     }
                                 }
@@ -363,6 +362,7 @@ class CricketGuruRepository {
     }
 
     fun getWicketList1(id: String): MutableLiveData<AllWicketList> {
+        wicketDataModelArrayList1.clear()
         firestoreRef.document(id).collection("ScoreCard").document("WicketList1")
             .addSnapshotListener { value, error ->
                 if (error != null) {
@@ -385,9 +385,9 @@ class CricketGuruRepository {
                                     for (i in dataModelArrayList1.indices) {
                                         val wicket1HashMap = dataModelArrayList1[i]
                                         val wicketFall = WicketFall()
-                                        wicketFall.name = wicket1HashMap["Name"]
-                                        wicketFall.over = wicket1HashMap["Over"]
-                                        wicketFall.score = wicket1HashMap["Score"]
+                                        wicketFall.Name = wicket1HashMap["Name"]
+                                        wicketFall.Over = wicket1HashMap["Over"]
+                                        wicketFall.Score = wicket1HashMap["Score"]
                                         wicketDataModelArrayList1.add(wicketFall)
                                     }
                                 }
@@ -410,6 +410,7 @@ class CricketGuruRepository {
 
 
     fun getWicketList2(id: String): MutableLiveData<AllWicketList> {
+        wicketDataModelArrayList2.clear()
         firestoreRef.document(id).collection("ScoreCard").document("WicketList2")
             .addSnapshotListener { value, error ->
                 if (error != null) {
@@ -432,9 +433,9 @@ class CricketGuruRepository {
                                     for (i in dataModelArrayList1.indices) {
                                         val wicket1HashMap = dataModelArrayList1[i]
                                         val wicketFall = WicketFall()
-                                        wicketFall.name = wicket1HashMap["Name"]
-                                        wicketFall.over = wicket1HashMap["Over"]
-                                        wicketFall.score = wicket1HashMap["Score"]
+                                        wicketFall.Name = wicket1HashMap["Name"]
+                                        wicketFall.Over = wicket1HashMap["Over"]
+                                        wicketFall.Score = wicket1HashMap["Score"]
                                         wicketDataModelArrayList2.add(wicketFall)
                                     }
                                 }
@@ -471,5 +472,4 @@ class CricketGuruRepository {
         }
         return _matchInfo
     }
-
 }

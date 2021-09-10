@@ -101,6 +101,18 @@
                 app:tint="@color/white" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/tv_noSquade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/there_are_no_squads"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toTopOf="@+id/textView13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_playerList2"
             android:layout_width="match_parent"
@@ -131,6 +143,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:backgroundTint="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView13">
@@ -354,6 +367,74 @@
             </LinearLayout>
         </LinearLayout>
 
+
+        <LinearLayout
+            android:id="@+id/linearLayout123"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:weightSum="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Highest Total"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_highest_total"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autoSizeMaxTextSize="15sp"
+                    android:autoSizeMinTextSize="12sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
+                    android:text="146"
+                    android:textColor="@color/black"
+                    tools:targetApi="o" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lowest Total"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_lowest_total"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autoSizeMaxTextSize="15sp"
+                    android:autoSizeMinTextSize="12sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
+                    android:text="146"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/black"
+                    tools:targetApi="o" />
+            </LinearLayout>
+        </LinearLayout>
+
         <LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
@@ -363,7 +444,7 @@
             android:weightSum="2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout123">
 
             <LinearLayout
                 android:layout_width="wrap_content"
