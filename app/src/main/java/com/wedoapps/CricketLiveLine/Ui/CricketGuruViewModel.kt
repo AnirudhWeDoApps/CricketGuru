@@ -23,11 +23,11 @@ class CricketGuruViewModel(
         return allMatch
     }
 
-    fun getAllTeam1(id: String): LiveData<Score> {
+    fun getAllTeam1(id: String): LiveData<Score?> {
         return repository.team1(id)
     }
 
-    fun getAllTeam2(id: String): LiveData<Score> {
+    fun getAllTeam2(id: String): LiveData<Score?> {
         return repository.team2(id)
     }
 
@@ -70,4 +70,57 @@ class CricketGuruViewModel(
     fun getInfo(id: String): LiveData<Info> {
         return repository.getInfo(id)
     }
+
+    fun getRunRate(id: String): LiveData<String> {
+        return repository.getRunRate(id)
+    }
+
+    fun getBatsman1(id: String): LiveData<String> {
+        return repository.getDisplayBatsman1Info(id)
+    }
+
+    fun getBatsman2(id: String): LiveData<String> {
+        return repository.getDisplayBatsman2Info(id)
+    }
+
+    fun getBowlerInfo(id: String): LiveData<String> {
+        return repository.getBowlerInfo(id)
+    }
+
+    fun getPartnership(id: String): LiveData<String> {
+        return repository.getPartnershipInfo(id)
+    }
+
+    fun getBallXRun(id: String): LiveData<String> {
+        return repository.getBallXRunInfo(id)
+    }
+
+    fun getSessionLambi(id: String): LiveData<String> {
+        return repository.getSessionLambi(id)
+    }
+
+    fun getLambiBallXRun(id: String): LiveData<String> {
+        return repository.getLambiBallXRun(id)
+    }
+
+    fun getLiveMatch(id: String): LiveData<String> {
+        return repository.getLiveMatch(id)
+    }
+
+    fun getSession(id: String): LiveData<String> {
+        return repository.getSession(id)
+    }
+
+    fun getLastBall(id: String): LiveData<String> {
+        return repository.getLastBall(id)
+    }
+
+    fun getBallByBall(id: String): LiveData<String> {
+        return repository.getBallByBall(id)
+    }
+
+    fun getOtherMessage(id: String): LiveData<String> {
+        return repository.getOtherMessage(id)
+    }
+
 }

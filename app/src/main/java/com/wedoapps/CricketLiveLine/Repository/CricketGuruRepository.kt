@@ -10,15 +10,27 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
-
 class CricketGuruRepository {
     private var firestore = FirebaseFirestore.getInstance()
     private var mutableLangName = MutableLiveData<MutableList<HomeMatch>>()
     private var mutableData = MutableLiveData<HomeMatch>()
-    private var _team1: MutableLiveData<Score> = MutableLiveData<Score>()
-    private var _team2: MutableLiveData<Score> = MutableLiveData<Score>()
+    private var _team1: MutableLiveData<Score?> = MutableLiveData<Score?>()
+    private var _team2: MutableLiveData<Score?> = MutableLiveData<Score?>()
     private var _teamExtras: MutableLiveData<String> = MutableLiveData<String>()
     private var _teamExtras2: MutableLiveData<String> = MutableLiveData<String>()
+    private var _runRate: MutableLiveData<String> = MutableLiveData<String>()
+    private var _batman1Info: MutableLiveData<String> = MutableLiveData<String>()
+    private var _batman2Info: MutableLiveData<String> = MutableLiveData<String>()
+    private var _bowlerInfo: MutableLiveData<String> = MutableLiveData<String>()
+    private var _partnershipInfo: MutableLiveData<String> = MutableLiveData<String>()
+    private var _ballXrun: MutableLiveData<String> = MutableLiveData<String>()
+    private var _sessionLambi: MutableLiveData<String> = MutableLiveData<String>()
+    private var _lambiBallXrun: MutableLiveData<String> = MutableLiveData<String>()
+    private var _liveMatch: MutableLiveData<String> = MutableLiveData<String>()
+    private var _session: MutableLiveData<String> = MutableLiveData<String>()
+    private var _lastball: MutableLiveData<String> = MutableLiveData<String>()
+    private var _ballByBall: MutableLiveData<String> = MutableLiveData<String>()
+    private var _otherMessage: MutableLiveData<String> = MutableLiveData<String>()
     private var _matchInfo: MutableLiveData<Info> = MutableLiveData<Info>()
     private var _teamScore: MutableLiveData<TeamScore> = MutableLiveData<TeamScore>()
     private var _teamScore2: MutableLiveData<TeamScore> = MutableLiveData<TeamScore>()
@@ -38,7 +50,7 @@ class CricketGuruRepository {
     private var homeMatch = HomeMatch()
     private var wicketList = AllWicketList()
 
-    fun team1(id: String): MutableLiveData<Score> {
+    fun team1(id: String): MutableLiveData<Score?> {
         firestoreRef.document(id).collection("LiveMatch").document("ScoreTeam1")
             .addSnapshotListener { value, error ->
                 if (error != null) {
@@ -48,10 +60,12 @@ class CricketGuruRepository {
 
                 if (value != null) {
                     //                    val allTeam1 = ArrayList<Score>()
-                    val allTeam1 = value.toObject(Score::class.java)!!
-                    //                    allTeam1?.add(allTeam1)
-                    _team1.value = allTeam1
-                    Log.d(TAG, "team1: $allTeam1")
+                    val allTeam1 = value.toObject(Score::class.java)
+                    if (allTeam1 != null) {
+                        //                    allTeam1?.add(allTeam1)
+                        _team1.value = allTeam1
+                        Log.d(TAG, "team1: $allTeam1")
+                    }
                 } else {
                     Log.d(TAG, "No Data")
                 }
@@ -59,7 +73,7 @@ class CricketGuruRepository {
         return _team1
     }
 
-    fun team2(id: String): MutableLiveData<Score> {
+    fun team2(id: String): MutableLiveData<Score?> {
         firestoreRef.document(id).collection("LiveMatch").document("ScoreTeam2")
             .addSnapshotListener { value, error ->
                 if (error != null) {
@@ -68,9 +82,11 @@ class CricketGuruRepository {
                 }
 
                 if (value != null) {
-                    val allTeam2 = value.toObject(Score::class.java)!!
-                    _team2.value = allTeam2
-                    Log.d(TAG, "team2: $allTeam2")
+                    val allTeam2 = value.toObject(Score::class.java)
+                    if (allTeam2 != null) {
+                        _team2.value = allTeam2
+                        Log.d(TAG, "team2: $allTeam2")
+                    }
                 } else {
                     Log.d(TAG, "No Data")
                 }
@@ -184,7 +200,6 @@ class CricketGuruRepository {
                                 teamScore.playerScore = scoreDataModelArrayList1
                                 Log.d(TAG, "getDetails1: $teamScore")
                                 _teamScore.value = teamScore
-
                             }
                         } catch (index: IndexOutOfBoundsException) {
                             index.printStackTrace()
@@ -255,6 +270,7 @@ class CricketGuruRepository {
                 }
 
                 if (value != null) {
+                    Log.d(TAG, "getSpecificMatchData: ${value.data}")
                     val allMatch: HomeMatch = value.toObject(HomeMatch::class.java)!!
                     mutableData.value = allMatch
                 } else {
@@ -471,5 +487,303 @@ class CricketGuruRepository {
             }
         }
         return _matchInfo
+    }
+
+    fun getRunRate(id: String): MutableLiveData<String> {
+        firestoreRef.document(id).collection("LiveMatch").document("RunRateInfo")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Log.w(TAG, "Listen Failed", error)
+                    return@addSnapshotListener
+                }
+
+                if (value != null) {
+                    val data = value.data
+                    if (data != null) {
+                        _runRate.value = data.toString()
+                        Log.d(TAG, "getRunRate: $data")
+                    }
+                } else {
+                    Log.d(TAG, "No Data")
+                }
+            }
+        return _runRate
+    }
+
+    fun getDisplayBatsman1Info(id: String): MutableLiveData<String> {
+        firestoreRef.document(id).collection("LiveMatch").document("ScoreBatsman1")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Log.w(TAG, "Listen Failed", error)
+                    return@addSnapshotListener
+                }
+
+                if (value != null) {
+                    val data = value.data
+                    if (data != null) {
+                        _batman1Info.value = data.toString()
+                        Log.d(TAG, "getBatsman1Info: ${data.values}")
+                    }
+                } else {
+                    Log.d(TAG, "No Data")
+                }
+            }
+        return _batman1Info
+    }
+
+    fun getDisplayBatsman2Info(id: String): MutableLiveData<String> {
+        firestoreRef.document(id).collection("LiveMatch").document("ScoreBatsman2")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Log.w(TAG, "Listen Failed", error)
+                    return@addSnapshotListener
+                }
+
+                if (value != null) {
+                    val data = value.data
+                    if (data != null) {
+                        _batman2Info.value = data.toString()
+                        Log.d(TAG, "getBatsman2Info: ${data}")
+                    }
+                } else {
+                    Log.d(TAG, "No Data")
+                }
+            }
+        return _batman2Info
+    }
+
+    fun getBowlerInfo(id: String): MutableLiveData<String> {
+        firestoreRef.document(id).collection("LiveMatch").document("BowlerInfo")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Log.w(TAG, "Listen Failed", error)
+                    return@addSnapshotListener
+                }
+
+                if (value != null) {
+                    val data = value.data
+                    if (data != null) {
+                        _bowlerInfo.value = data.toString()
+                        Log.d(TAG, "BowlerInfo: $data")
+                    }
+                } else {
+                    Log.d(TAG, "No Data")
+                }
+            }
+        return _bowlerInfo
+    }
+
+    /* fun getLiveInfo(id: String): MutableLiveData<String> {
+         firestoreRef.document(id).collection("LiveMatch")
+             .addSnapshotListener { value, error ->
+                 if (error != null) {
+                     Log.w(TAG, "Listen Failed", error)
+                     return@addSnapshotListener
+                 }
+
+                  if (value != null) {
+                     val docs = value.documents
+                     for (item in docs) {
+                         val data = item.data
+                         if (data != null) {
+                             _batman1Info.value = data.toString()
+                             Log.d(TAG, "LiveData: $data")
+                         }
+                     }
+                 } else {
+                     Log.d(TAG, "No Data")
+                 }
+             }
+         return _batman2Info
+     }
+ */
+
+    fun getPartnershipInfo(id: String): MutableLiveData<String> {
+        firestoreRef.document(id).collection("LiveMatch").document("PartnershipInfo")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Log.w(TAG, "Listen Failed", error)
+                    return@addSnapshotListener
+                }
+
+                if (value != null) {
+                    val data = value.data
+                    if (data != null) {
+                        _partnershipInfo.value = data.toString()
+                        Log.d(TAG, "PartnerShipInfo: $data")
+                    }
+                } else {
+                    Log.d(TAG, "No Data")
+                }
+            }
+        return _partnershipInfo
+    }
+
+    fun getBallXRunInfo(id: String): MutableLiveData<String> {
+        firestoreRef.document(id).collection("LiveMatch").document("BallXRun")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Log.w(TAG, "Listen Failed", error)
+                    return@addSnapshotListener
+                }
+
+                if (value != null) {
+                    val data = value.data
+                    if (data != null) {
+                        _ballXrun.value = data.toString()
+                        Log.d(TAG, "BallXRun: $data")
+                    }
+                } else {
+                    Log.d(TAG, "No Data")
+                }
+            }
+        return _ballXrun
+    }
+
+    fun getSessionLambi(id: String): MutableLiveData<String> {
+        firestoreRef.document(id).collection("LiveMatch").document("Lambi")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Log.w(TAG, "Listen Failed", error)
+                    return@addSnapshotListener
+                }
+
+                if (value != null) {
+                    val data = value.data
+                    if (data != null) {
+                        _sessionLambi.value = data.toString()
+                        Log.d(TAG, "Lambi: $data")
+                    }
+                } else {
+                    Log.d(TAG, "No Data")
+                }
+            }
+        return _sessionLambi
+    }
+
+    fun getLambiBallXRun(id: String): MutableLiveData<String> {
+        firestoreRef.document(id).collection("LiveMatch").document("BallXRunLambi")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Log.w(TAG, "Listen Failed", error)
+                    return@addSnapshotListener
+                }
+
+                if (value != null) {
+                    val data = value.data
+                    if (data != null) {
+                        _lambiBallXrun.value = data.toString()
+                        Log.d(TAG, "Lambi BallXRun: $data")
+                    }
+                } else {
+                    Log.d(TAG, "No Data")
+                }
+            }
+        return _lambiBallXrun
+    }
+
+    fun getLiveMatch(id: String): MutableLiveData<String> {
+        firestoreRef.document(id).collection("LiveMatch").document("LM")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Log.w(TAG, "Listen Failed", error)
+                    return@addSnapshotListener
+                }
+
+                if (value != null) {
+                    val data = value.data
+                    if (data != null) {
+                        _liveMatch.value = data.toString()
+                        Log.d(TAG, "LM: $data")
+                    }
+                } else {
+                    Log.d(TAG, "No Data")
+                }
+            }
+        return _liveMatch
+    }
+
+    fun getSession(id: String): MutableLiveData<String> {
+        firestoreRef.document(id).collection("SessionRate").document("Session")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Log.w(TAG, "Listen Failed", error)
+                    return@addSnapshotListener
+                }
+
+                if (value != null) {
+                    val data = value.data
+                    if (data != null) {
+                        _session.value = data.toString()
+                        Log.d(TAG, "Session: $data")
+                    }
+                } else {
+                    Log.d(TAG, "No Data")
+                }
+            }
+        return _session
+    }
+
+    fun getLastBall(id: String): MutableLiveData<String> {
+        firestoreRef.document(id).collection("LastBallInfo").document("LB")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Log.w(TAG, "Listen Failed", error)
+                    return@addSnapshotListener
+                }
+
+                if (value != null) {
+                    val data = value.data
+                    if (data != null) {
+                        _lastball.value = data.toString()
+                        Log.d(TAG, "LB: $data")
+                    }
+                } else {
+                    Log.d(TAG, "No Data")
+                }
+            }
+        return _lastball
+    }
+
+    fun getBallByBall(id: String): MutableLiveData<String> {
+        firestoreRef.document(id).collection("LastBallInfo").document("LBD")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Log.w(TAG, "Listen Failed", error)
+                    return@addSnapshotListener
+                }
+
+                if (value != null) {
+                    val data = value.data
+                    if (data != null) {
+                        _ballByBall.value = data.toString()
+                        Log.d(TAG, "LBD: $data")
+                    }
+                } else {
+                    Log.d(TAG, "No Data")
+                }
+            }
+        return _ballByBall
+    }
+
+    fun getOtherMessage(id: String): MutableLiveData<String> {
+        firestoreRef.document(id).collection("LiveMatch").document("OtherMessage")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Log.w(TAG, "Listen Failed", error)
+                    return@addSnapshotListener
+                }
+
+                if (value != null) {
+                    val data = value.data
+                    if (data != null) {
+                        _otherMessage.value = data.toString()
+                        Log.d(TAG, "oT: $data")
+                    }
+                } else {
+                    Log.d(TAG, "No Data")
+                }
+            }
+        return _otherMessage
     }
 }

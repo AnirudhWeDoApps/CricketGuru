@@ -7,5 +7,6 @@ object Constants {
     const val BOWLER = "BOWLER"
     const val WICKET = "WICKET"
     const val PLAYER = "Players/"
+    const val BALLS = "Balls/"
 
 }

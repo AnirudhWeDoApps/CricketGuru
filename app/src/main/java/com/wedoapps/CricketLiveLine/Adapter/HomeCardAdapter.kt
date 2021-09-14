@@ -63,7 +63,7 @@ class HomeCardAdapter(private val listener: SetOnClick) :
                     .into(ivSecondTeam)
             }
 
-            firestoreRef.document(match.id).collection("LiveMatch").document("ScoreTeam1")
+            firestoreRef.document(match.id!!).collection("LiveMatch").document("ScoreTeam1")
                 .addSnapshotListener { value, error ->
                     if (error != null) {
                         Log.w(TAG, "Listen Failed", error)
@@ -71,7 +71,7 @@ class HomeCardAdapter(private val listener: SetOnClick) :
                     }
 
                     if (value != null) {
-                        val allTeam1 = value.toObject(Score::class.java)!!
+                        val allTeam1 = value.toObject(Score::class.java)
                         binding.apply {
                             tvFInn.text = value.get("Score").toString()
                             tvOver.text = value.get("Over").toString() + "Over"
@@ -84,7 +84,7 @@ class HomeCardAdapter(private val listener: SetOnClick) :
                     }
                 }
 
-            firestoreRef.document(match.id).collection("LiveMatch").document("ScoreTeam2")
+            firestoreRef.document(match.id!!).collection("LiveMatch").document("ScoreTeam2")
                 .addSnapshotListener { value, error ->
                     if (error != null) {
                         Log.w(TAG, "Listen Failed", error)
@@ -92,7 +92,7 @@ class HomeCardAdapter(private val listener: SetOnClick) :
                     }
 
                     if (value != null) {
-                        val allTeam2 = value.toObject(Score::class.java)!!
+                        val allTeam2 = value.toObject(Score::class.java)
                         binding.apply {
                             tvSecondFInn.text = value.get("Score").toString()
                             tvSecondOver.text = value.get("Over").toString() + " Over"

@@ -6,30 +6,21 @@
     app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/singleMatchFragment"
-        android:name="com.wedoapps.CricketLiveLine.Ui.Fragments.SingleMatch.SingleMatchFragment"
-        android:label="SingleMatchFragment">
-        <argument
-            android:name="data"
-            app:argType="com.wedoapps.CricketLiveLine.Model.HomeMatch" />
-        <action
-            android:id="@+id/action_singleMatchFragment_to_liveLineFragment"
-            app:destination="@id/liveLineFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/homeFragment"
         android:name="com.wedoapps.CricketLiveLine.Ui.Fragments.Home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_singleMatchFragment"
-            app:destination="@id/singleMatchFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_liveLineFragment"
-            app:destination="@id/liveLineFragment" />
+            android:id="@+id/action_homeFragment_to_viewPagerActivity"
+            app:destination="@id/viewPagerActivity" />
     </fragment>
-    <fragment
-        android:id="@+id/liveLineFragment"
-        android:name="com.wedoapps.CricketLiveLine.Ui.Fragments.SingleMatch.PagerFragments.LiveLineFragment"
-        android:label="LiveLineFragment" />
+    <activity
+        android:id="@+id/viewPagerActivity"
+        android:name="com.wedoapps.CricketLiveLine.Ui.Fragments.SingleMatch.ViewPagerActivity"
+        android:label="activity_view_pager"
+        tools:layout="@layout/activity_view_pager" >
+        <argument
+            android:name="data"
+            app:argType="com.wedoapps.CricketLiveLine.Model.HomeMatch" />
+    </activity>
 </navigation>

@@ -8,10 +8,9 @@ import androidx.fragment.app.Fragment
 import com.wedoapps.CricketLiveLine.Adapter.BowlerListAdapter
 import com.wedoapps.CricketLiveLine.Adapter.ScoreCardBattingAdapter
 import com.wedoapps.CricketLiveLine.Adapter.WicketListAdapter
-import com.wedoapps.CricketLiveLine.Model.TeamScore
 import com.wedoapps.CricketLiveLine.R
 import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
-import com.wedoapps.CricketLiveLine.Ui.MainActivity
+import com.wedoapps.CricketLiveLine.Ui.Fragments.SingleMatch.ViewPagerActivity
 import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
 import com.wedoapps.CricketLiveLine.databinding.FragmentScorecardBinding
 
@@ -33,7 +32,7 @@ class ScorecardFragment(val id: String) : Fragment(R.layout.fragment_scorecard) 
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentScorecardBinding.bind(view)
 
-        viewModel = (activity as MainActivity).viewModel
+        viewModel = (activity as ViewPagerActivity).viewModel
 
         scoreCardBattingAdapter = ScoreCardBattingAdapter()
         scoreCardBattingAdapter2 = ScoreCardBattingAdapter()
@@ -116,69 +115,69 @@ class ScorecardFragment(val id: String) : Fragment(R.layout.fragment_scorecard) 
         }
 
         viewModel.apply {
-            getAllTeam1(id).observe(viewLifecycleOwner, {
-                binding.tvScoreTeam1Score.text = it.Score + " ( ${it.Over} )"
+            getAllTeam1(id).observe(requireActivity(), {
+                binding.tvScoreTeam1Score.text = it?.Score + " ( ${it?.Over} )"
             })
 
-            getAllTeam2(id).observe(viewLifecycleOwner, {
-                binding.tvScoreTeam2Score.text = it.Score + " ( ${it.Over} )"
+            getAllTeam2(id).observe(requireActivity(), {
+                binding.tvScoreTeam2Score.text = it?.Score + " ( ${it?.Over} )"
             })
 
-            getSpecificIdDetail(id).observe(viewLifecycleOwner, {
+            getSpecificIdDetail(id).observe(requireActivity(), {
+                Log.d(TAG, "onViewCreated Specific Data: $it")
                 binding.tvScoreTeam1Name.text = it.Team1
                 binding.tvScoreTeam2Name.text = it.Team2
 
             })
 
-            getTeam1Extras(id).observe(viewLifecycleOwner, {
+            getTeam1Extras(id).observe(requireActivity(), {
                 Log.d(TAG, "extras 1: $it")
                 binding.tv1Extras.text = getString(R.string.extras) + it
             })
 
-            getTeam2Extras(id).observe(viewLifecycleOwner, {
+            getTeam2Extras(id).observe(requireActivity(), {
                 Log.d(TAG, "extras 2: $it")
                 binding.tv2Extras.text = getString(R.string.extras) + it
             })
 
-            getScoreDetails1(id).observe(viewLifecycleOwner, {
+            getScoreDetails1(id).observe(requireActivity(), {
                 Log.d(TAG, "onViewCreated ScoreCardTeam1:$id $it")
 
             })
 
-            getScoreDetails2(id).observe(viewLifecycleOwner, {
+            getScoreDetails2(id).observe(requireActivity(), {
                 Log.d(TAG, "onViewCreated ScoreCardTeam2:$id $it")
 
-                if (it.playerScore?.isNotEmpty() == true && it.playerScore2?.isNotEmpty() == true) {
+                if (it.playerScore?.isEmpty() == true && it.playerScore2?.isEmpty() == true) {
+                    binding.linearLayout1.visibility = View.GONE
+                    binding.linearLayout2.visibility = View.GONE
+                    binding.tvNoData.visibility = View.VISIBLE
+                } else {
                     binding.tvNoData.visibility = View.GONE
                     binding.linearLayout1.visibility = View.VISIBLE
                     binding.linearLayout2.visibility = View.VISIBLE
                     scoreCardBattingAdapter.differ.submitList(it.playerScore)
                     scoreCardBattingAdapter2.differ.submitList(it.playerScore2)
-                } else {
-                    binding.linearLayout1.visibility = View.GONE
-                    binding.linearLayout2.visibility = View.GONE
-                    binding.tvNoData.visibility = View.VISIBLE
                 }
-
             })
 
-            getBowlerList2(id).observe(viewLifecycleOwner, {
+            getBowlerList2(id).observe(requireActivity(), {
                 Log.d(TAG, "onViewCreated Bowler List 2: ${it.team2List}")
                 bowlerListAdapter2.differ.submitList(it.team2List)
             })
 
-            getBowlerList1(id).observe(viewLifecycleOwner, {
+            getBowlerList1(id).observe(requireActivity(), {
                 Log.d(TAG, "onViewCreated Bowler List 1: ${it.team1List}")
                 bowlerListAdapter.differ.submitList(it.team1List)
             })
 
-            getWicketList1(id).observe(viewLifecycleOwner, {
+            getWicketList1(id).observe(requireActivity(), {
                 Log.d(TAG, "onViewCreated WIcket List 1: ${it.wicketList1}")
                 wicketListAdapter.differ.submitList(it.wicketList1)
             })
 
-            getWicketList2(id).observe(viewLifecycleOwner, {
-                Log.d(TAG, "onViewCreated WIcket List 2: ${it.wicketList2}")
+            getWicketList2(id).observe(requireActivity(), {
+                Log.d(TAG, "onViewCreated Wicket List 2: ${it.wicketList2}")
                 wicketListAdapter2.differ.submitList(it.wicketList2)
             })
         }

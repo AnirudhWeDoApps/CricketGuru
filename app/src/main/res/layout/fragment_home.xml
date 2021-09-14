@@ -12,7 +12,7 @@
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="@color/purple_500"
+        android:background="@drawable/gradient_bg"
         android:orientation="vertical" />
 
     <LinearLayout
@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:spi_dotSelectedColor="@color/purple_500" />
+            app:spi_dotSelectedColor="@color/black" />
 
     </LinearLayout>
 

@@ -1,28 +1,33 @@
 package com.wedoapps.CricketLiveLine.Ui.Fragments.SingleMatch
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.navArgs
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.wedoapps.CricketLiveLine.Adapter.ViewPagerAdapter
 import com.wedoapps.CricketLiveLine.R
+import com.wedoapps.CricketLiveLine.Repository.CricketGuruRepository
+import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
 import com.wedoapps.CricketLiveLine.Ui.Fragments.SingleMatch.PagerFragments.*
-import com.wedoapps.CricketLiveLine.databinding.FragmentSingleMatchBinding
+import com.wedoapps.CricketLiveLine.Utils.ViewModelProviderFactory
+import com.wedoapps.CricketLiveLine.databinding.ActivityViewPagerBinding
 
-class SingleMatchFragment : Fragment(R.layout.fragment_single_match) {
+class ViewPagerActivity : AppCompatActivity() {
 
-    private lateinit var binding: FragmentSingleMatchBinding
-    private val args by navArgs<SingleMatchFragmentArgs>()
+    private lateinit var binding: ActivityViewPagerBinding
+    private val args by navArgs<ViewPagerActivityArgs>()
+    lateinit var viewModel: CricketGuruViewModel
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding = FragmentSingleMatchBinding.bind(view)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityViewPagerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val id = args.data.id
 
         val fragmentList = arrayListOf(
-            LiveLineFragment(),
+            LiveLineFragment(id!!),
             InfoFragment(id),
             ChatFragment(),
             CommentaryFragment(),
@@ -31,7 +36,7 @@ class SingleMatchFragment : Fragment(R.layout.fragment_single_match) {
 
         val adapter = ViewPagerAdapter(
             fragmentList,
-            requireActivity().supportFragmentManager,
+            supportFragmentManager,
             lifecycle
         )
 
@@ -46,5 +51,10 @@ class SingleMatchFragment : Fragment(R.layout.fragment_single_match) {
                 4 -> tab.text = getString(R.string.scorecard)
             }
         }.attach()
+
+        val repository = CricketGuruRepository()
+        val viewModelProvider = ViewModelProviderFactory(application, repository)
+        viewModel = ViewModelProvider(this, viewModelProvider)[CricketGuruViewModel::class.java]
+
     }
 }

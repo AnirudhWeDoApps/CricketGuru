@@ -100,10 +100,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
+                        android:autoSizeTextType="uniform"
+                        android:autoSizeMaxTextSize="15sp"
+                        android:autoSizeMinTextSize="12sp"
                         android:fontFamily="@font/roboto"
                         android:text="@string/test_score"
                         android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:targetApi="o" />
 
                     <TextView
                         android:id="@+id/tv_opp_score"
@@ -111,10 +115,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto"
+                        android:autoSizeTextType="uniform"
+                        android:autoSizeMaxTextSize="15sp"
+                        android:autoSizeMinTextSize="12sp"
                         android:text="@string/test_score"
                         android:textAlignment="textEnd"
                         android:textColor="@color/gray"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:targetApi="o" />
 
                 </LinearLayout>
 

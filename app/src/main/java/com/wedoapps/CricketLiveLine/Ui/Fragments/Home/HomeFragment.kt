@@ -42,7 +42,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeCardAdapter.SetOnClic
     }
 
     override fun onClick(match: HomeMatch) {
-        val action = HomeFragmentDirections.actionHomeFragmentToSingleMatchFragment(match)
+        val action = HomeFragmentDirections.actionHomeFragmentToViewPagerActivity(match)
         findNavController().navigate(action)
     }
 }

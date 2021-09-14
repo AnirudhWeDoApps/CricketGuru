@@ -537,6 +537,7 @@
 
 
             <TextView
+                android:id="@+id/tv_teamForm_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Team Form"
@@ -544,6 +545,7 @@
                 android:textSize="17sp" />
 
             <LinearLayout
+                android:id="@+id/teamForm1"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
@@ -553,7 +555,7 @@
 
                 <TextView
                     android:id="@+id/tv_team_first_name_short"
-                    android:layout_width="wrap_content"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="TKR"
@@ -562,16 +564,64 @@
 
 
                 <TextView
-                    android:id="@+id/formTeam1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/form1Team1"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/box_gradient_bg"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/form1Team2"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/box_gradient_bg"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/form1Team3"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/box_gradient_bg"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/form1Team4"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/box_gradient_bg"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/form1Team5"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/box_gradient_bg"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/teamForm2"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
@@ -580,7 +630,7 @@
 
                 <TextView
                     android:id="@+id/tv_team_two_name_short"
-                    android:layout_width="wrap_content"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="TKR"
@@ -588,13 +638,61 @@
                     android:textSize="15sp" />
 
                 <TextView
-                    android:id="@+id/formTeam2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/form2Team1"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
+                    android:gravity="center"
+                    tools:text="W"
+                    android:background="@drawable/box_gradient_bg"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/form2Team2"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/box_gradient_bg"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/form2Team3"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/box_gradient_bg"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/form2Team4"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/box_gradient_bg"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/form2Team5"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/box_gradient_bg"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
             </LinearLayout>
 
             <LinearLayout

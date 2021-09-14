@@ -3,13 +3,17 @@ package com.wedoapps.CricketLiveLine.Ui.Fragments.SingleMatch.PagerFragments
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import com.wedoapps.CricketLiveLine.Adapter.PlayerListAdapter
 import com.wedoapps.CricketLiveLine.R
 import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
+import com.wedoapps.CricketLiveLine.Ui.Fragments.SingleMatch.ViewPagerActivity
 import com.wedoapps.CricketLiveLine.Ui.MainActivity
 import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
 import com.wedoapps.CricketLiveLine.databinding.FragmentInfoBinding
+import kotlin.collections.ArrayList
 
 class InfoFragment(val id: String) : Fragment(R.layout.fragment_info) {
 
@@ -21,9 +25,9 @@ class InfoFragment(val id: String) : Fragment(R.layout.fragment_info) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentInfoBinding.bind(view)
 
-        viewModel = (activity as MainActivity).viewModel
+        viewModel = (activity as ViewPagerActivity).viewModel
 
-        viewModel.getInfo(id).observe(viewLifecycleOwner, {
+        viewModel.getInfo(id).observe(requireActivity(), {
             Log.d(TAG, "onViewCreated GetINFO: $it ")
 
             if (it.TeamSquade?.Team1.isNullOrBlank() && it.TeamSquade?.Team2.isNullOrBlank()) {
@@ -106,18 +110,45 @@ class InfoFragment(val id: String) : Fragment(R.layout.fragment_info) {
                 tvHead.text = it.Head2Head
                 tvTeamFirstNameShort.text = it.TeamForm!!.NameTeam1
                 tvTeamTwoNameShort.text = it.TeamForm!!.NameTeam2
-                formTeam1.text = it.TeamForm!!.FormTeam1
-                formTeam2.text = it.TeamForm!!.FormTeam2
                 tvUmpire.text = it.Umpire
                 tvThirdUmpire.text = it.ThirdUmpire
                 tvRefree.text = it.Referee
                 tvMom.text = it.MOM
+
+                val one = binding.form1Team1
+                val two = binding.form1Team2
+                val three = binding.form1Team3
+                val four = binding.form1Team4
+                val five = binding.form1Team5
+                val one2 = binding.form2Team1
+                val two2 = binding.form2Team2
+                val three2 = binding.form2Team3
+                val four2 = binding.form2Team4
+                val five2 = binding.form2Team5
+
+                val textViews = ArrayList<TextView>(listOf(one, two, three, four, five))
+                val textViews2 = ArrayList<TextView>(listOf(one2, two2, three2, four2, five2))
+
+                if (it.TeamForm!!.FormTeam1.isNullOrEmpty() && it.TeamForm!!.FormTeam2.isNullOrEmpty()) {
+                    binding.apply {
+                        tvTeamFormTitle.visibility = View.GONE
+                        teamForm1.visibility = View.GONE
+                        teamForm2.visibility = View.GONE
+                    }
+                } else {
+                    tvTeamFormTitle.visibility = View.VISIBLE
+                    teamForm1.visibility = View.VISIBLE
+                    teamForm2.visibility = View.VISIBLE
+                    val form1 = it.TeamForm!!.FormTeam1?.split(",")!!
+                    for (i in form1.indices) {
+                        textViews[i].text = form1[i]
+                    }
+                    val form2 = it.TeamForm!!.FormTeam2?.split(",")!!
+                    for (i in form2.indices) {
+                        textViews2[i].text = form2[i]
+                    }
+                }
             }
-
-
         })
-
-
     }
-
 }

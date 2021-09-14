@@ -3,22 +3,20 @@ package com.wedoapps.CricketLiveLine.Adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.wedoapps.CricketLiveLine.Model.LastBall
 import com.wedoapps.CricketLiveLine.R
 import com.wedoapps.CricketLiveLine.databinding.LastBallsItemLayoutBinding
 
-class LastBallsAdapter : RecyclerView.Adapter<LastBallsAdapter.LastBallViewHolder>() {
+class LastBallsAdapter(private val data: MutableList<String>) :
+    RecyclerView.Adapter<LastBallsAdapter.LastBallViewHolder>() {
 
     inner class LastBallViewHolder(private val binding: LastBallsItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(ball: LastBall) {
+        fun bind(ball: String) {
             binding.tvBall.apply {
-                text = ball.number
-                background = when (ball.number) {
+                text = ball
+                background = when (ball) {
                     "0" -> ContextCompat.getDrawable(context, R.drawable.circle_bg)
                     "N" -> ContextCompat.getDrawable(context, R.drawable.no_circle_bg)
                     "4" -> ContextCompat.getDrawable(context, R.drawable.four_circle_bg)
@@ -37,25 +35,18 @@ class LastBallsAdapter : RecyclerView.Adapter<LastBallsAdapter.LastBallViewHolde
     }
 
     override fun onBindViewHolder(holder: LastBallViewHolder, position: Int) {
-        val currentItem = differ.currentList[position]
+        val currentItem = data[position]
 
-        if (currentItem != null) {
+        if (currentItem.isNotEmpty()) {
             holder.bind(currentItem)
+        } else {
+            holder.bind("")
         }
     }
 
     override fun getItemCount(): Int {
-        return 24
+        return data.size
     }
 
-    private val differCallback = object : DiffUtil.ItemCallback<LastBall>() {
-        override fun areItemsTheSame(oldItem: LastBall, newItem: LastBall) =
-            oldItem.id == newItem.id
-
-        override fun areContentsTheSame(oldItem: LastBall, newItem: LastBall) =
-            oldItem == newItem
-    }
-
-    val differ = AsyncListDiffer(this, differCallback)
 
 }
