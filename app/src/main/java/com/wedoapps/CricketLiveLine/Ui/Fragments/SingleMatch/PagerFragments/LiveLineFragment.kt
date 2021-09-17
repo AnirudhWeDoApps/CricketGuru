@@ -2,22 +2,35 @@ package com.wedoapps.CricketLiveLine.Ui.Fragments.SingleMatch.PagerFragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.speech.tts.TextToSpeech
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import androidx.core.content.ContextCompat
+import android.widget.Toast
+import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.wedoapps.CricketLiveLine.Adapter.LastBallsAdapter
 import com.wedoapps.CricketLiveLine.R
 import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
 import com.wedoapps.CricketLiveLine.Ui.Fragments.SingleMatch.ViewPagerActivity
 import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
 import com.wedoapps.CricketLiveLine.databinding.FragmentLiveLineBinding
+import java.util.*
 
 class LiveLineFragment(val id: String) : Fragment(R.layout.fragment_live_line) {
 
     private lateinit var binding: FragmentLiveLineBinding
     private lateinit var viewModel: CricketGuruViewModel
+    private var textToSpeech: TextToSpeech? = null
+    private var isVolumeOn: Boolean = true
+    private var isFirstInning: Boolean = true
+    private var isMatchLive: Boolean = true
+    private var scoreTeam1: String? = ""
+    private var overTeam1: String? = ""
+    private var scoreTeam2: String? = ""
+    private var overTeam2: String? = ""
+    private var ballByBallSpeech: String? = ""
 
     @SuppressLint("SetTextI18n", "NewApi")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,15 +40,38 @@ class LiveLineFragment(val id: String) : Fragment(R.layout.fragment_live_line) {
         viewModel = (activity as ViewPagerActivity).viewModel
 
         val card1 = binding.card1
+        val card2 = binding.card2
         val card3 = binding.card3
         val card4 = binding.card4
+        val card6 = binding.card6
+        val card7 = binding.card7
+
+        setTextToSpeechListener()
         viewModel.apply {
 
+            getSpecificIdDetail(id).observe(requireActivity(), {
+                val status = it.MatchStatus
+                binding.tvStatus.text = status
+
+                if (status.equals("LIVE")) {
+                    isMatchLive = true
+                } else if (status.equals("UPCOMING")) {
+                    isMatchLive = false
+                }
+
+            })
+
             getAllTeam1(id).observe(requireActivity(), {
+                Log.d(TAG, "Team1: $it ")
+                scoreTeam1 = it?.Score
+                overTeam1 = it?.Over
                 binding.tvPlayScore.text = it?.Score + " ( ${it?.Over} )"
             })
 
             getAllTeam2(id).observe(requireActivity(), {
+                Log.d(TAG, "Team2: $it ")
+                scoreTeam2 = it?.Score
+                overTeam2 = it?.Over
                 binding.tvOppScore.text = it?.Score + " ( ${it?.Over} )"
             })
 
@@ -111,7 +147,7 @@ class LiveLineFragment(val id: String) : Fragment(R.layout.fragment_live_line) {
                     map[entry[0].trim()] = entry[1].trim()
                 }
                 val text =
-                    map["BowlerName"] + " " + map["Wicket"] + "-" + map["Run"] + " " + "( ${map["Over"]} Over)"
+                    map["BowlerName"] + " " + map["Wicket"]/* + "-" + map["Run"] + " " + "( ${map["Over"]} Over)"*/
                 card3.tvBowlerInfo.text = text
             })
 
@@ -130,14 +166,60 @@ class LiveLineFragment(val id: String) : Fragment(R.layout.fragment_live_line) {
 
             getBallXRun(id).observe(requireActivity(), {
                 Log.d(TAG, " BallXRun: $it")
+
+                val value = it.substring(1, it.length - 1)
+                val keyValuePair = value.split(",")
+                val map = hashMapOf<String, String>()
+
+                keyValuePair.forEach { text ->
+                    val entry = text.split("=")
+                    map[entry[0].trim()] = entry[1].trim()
+                }
+
+                card2.apply {
+                    tvSecondBall.text = map["Ball"]
+                    tvSecondRun.text = map["Run"]
+                }
             })
 
             getSessionLambi(id).observe(requireActivity(), {
                 Log.d(TAG, " SessionLambi: $it")
+
+                val value = it.substring(1, it.length - 1)
+                val keyValuePair = value.split(",")
+                val map = hashMapOf<String, String>()
+
+                keyValuePair.forEach { text ->
+                    val entry = text.split("=")
+                    map[entry[0].trim()] = entry[1].trim()
+                }
+
+                card6.apply {
+                    tvSessionOver.text = map["LambiName"] + " Over"
+                    tvFirstNo.text = map["Lambi1"]
+                    tvFirstYes.text = map["Lambi2"]
+                    tvOpn.text = map["OpenLambi"]
+                    tvMin.text = map["MinLambi"]
+                    tvMax.text = map["MaxLambi"]
+                }
             })
 
             getLambiBallXRun(id).observe(requireActivity(), {
                 Log.d(TAG, " LambiBallXRun: $it")
+
+                val value = it.substring(1, it.length - 1)
+                val keyValuePair = value.split(",")
+                val map = hashMapOf<String, String>()
+
+                keyValuePair.forEach { text ->
+                    val entry = text.split("=")
+                    map[entry[0].trim()] = entry[1].trim()
+                }
+
+                card6.apply {
+                    tvSecondBall.text = map["Ball"]
+                    tvSecondRun.text = map["Run"]
+                }
             })
 
             getLiveMatch(id).observe(requireActivity(), {
@@ -146,6 +228,25 @@ class LiveLineFragment(val id: String) : Fragment(R.layout.fragment_live_line) {
 
             getSession(id).observe(requireActivity(), {
                 Log.d(TAG, " Session: $it")
+
+                val value = it.substring(1, it.length - 1)
+                val keyValuePair = value.split(",")
+                val map = hashMapOf<String, String>()
+
+                keyValuePair.forEach { text ->
+                    val entry = text.split("=")
+                    map[entry[0].trim()] = entry[1].trim()
+                }
+
+                card2.apply {
+                    tvSessionOver.text = map["SessionName"] + " Over"
+                    tvFirstNo.text = map["Rate1"]
+                    tvFirstYes.text = map["Rate2"]
+                    tvOpn.text = map["OpenSession"]
+                    tvMin.text = map["MinSession"]
+                    tvMax.text = map["MaxSession"]
+                }
+
             })
 
             getLastBall(id).observe(requireActivity(), {
@@ -180,6 +281,101 @@ class LiveLineFragment(val id: String) : Fragment(R.layout.fragment_live_line) {
                     map[entry[0].trim()] = entry[1].trim()
                 }
                 binding.tvDay.text = map["BallByBall"]
+                ballByBallSpeech = binding.tvDay.text.toString()
+
+                when {
+                    ballByBallSpeech!!.contentEquals("BALL") -> {
+                        ballByBallSpeech = "Ball Start Ball"
+                    }
+                    ballByBallSpeech!!.contentEquals("0 Run") -> {
+                        binding.tvDay.text = "0"
+                        ballByBallSpeech = "dot ball"
+                    }
+                    ballByBallSpeech!!.contentEquals("1 Run") -> {
+                        binding.tvDay.text = "1"
+                        ballByBallSpeech = "One Run One"
+                    }
+                    ballByBallSpeech!!.contentEquals("2 Run") -> {
+                        binding.tvDay.text = "2"
+                        ballByBallSpeech = "Two Run Two"
+                    }
+                    ballByBallSpeech!!.contentEquals("3 Run") -> {
+                        binding.tvDay.text = "3"
+                        ballByBallSpeech = "Three Run"
+                    }
+                    ballByBallSpeech!!.contentEquals("It's 6") -> {
+//                        binding.tvDay.text = "6-6-6"
+                        binding.tvDay.text = "6"
+                        ballByBallSpeech = " Six Six Six"
+                    }
+                    ballByBallSpeech!!.contentEquals("It's 4") -> {
+//                        binding.tvDay.text = "4-4-4"
+                        binding.tvDay.text = "4"
+                        ballByBallSpeech = " Four Four Four"
+                    }
+                    ballByBallSpeech!!.contentEquals("WD + 1") -> {
+                        binding.tvDay.text = "WD1"
+                        ballByBallSpeech = "Wide Plus one"
+                    }
+                    ballByBallSpeech!!.contentEquals("WD + 2") -> {
+                        binding.tvDay.text = "WD2"
+                        ballByBallSpeech = "Wide Plus Two"
+                    }
+                    ballByBallSpeech!!.contentEquals("WD + 4") -> {
+                        ballByBallSpeech = "Wide Plus Four"
+                    }
+                    ballByBallSpeech!!.contentEquals("No + 1") -> {
+                        ballByBallSpeech = "No Ball Plus One"
+                    }
+                    ballByBallSpeech!!.contentEquals("No + 2") -> {
+                        ballByBallSpeech = "No Ball Plus Two"
+                    }
+                    ballByBallSpeech!!.contentEquals("No + 4") -> {
+                        ballByBallSpeech = "No Ball Plus Four"
+                    }
+                    ballByBallSpeech!!.contentEquals("No + 6") -> {
+                        ballByBallSpeech = "No Ball Plus Six"
+                    }
+                    ballByBallSpeech!!.contentEquals("It's Wicket!!!") -> {
+                        ballByBallSpeech = "It's Wicket"
+                    }
+                    ballByBallSpeech!!.contentEquals("1 + Wicket") -> {
+                        ballByBallSpeech = "One Plus Wicket"
+                    }
+
+                    ballByBallSpeech!!.trim().contentEquals("Over Complete") -> {
+                        getRunAndScoreVoice()
+                    }
+
+                    ballByBallSpeech!!.trim().contentEquals("Over") -> {
+                        getRunAndScoreVoice()
+                    }
+
+                }
+
+                if (isVolumeOn) {
+                    val speechStatus = textToSpeech!!.speak(
+                        ballByBallSpeech!!,
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        null
+                    )
+                    if (speechStatus == TextToSpeech.ERROR) {
+                        Log.d(
+                            "TTS",
+                            "Error in converting Text to Speech!"
+                        )
+                    }
+
+                }
+
+                TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+                    binding.tvDay,
+                    20,
+                    35,
+                    20,
+                    1
+                )
             })
 
             getOtherMessage(id).observe(requireActivity(), {
@@ -194,6 +390,146 @@ class LiveLineFragment(val id: String) : Fragment(R.layout.fragment_live_line) {
                 }
                 card3.tvLastWicket.text = map["Message"]
             })
+
+            getMatchRate(id).observe(requireActivity(), {
+                Log.d(TAG, "match rate: $it")
+                val value = it.substring(1, it.length - 1)
+                val keyValuePair = value.split(",")
+                val map = hashMapOf<String, String>()
+
+                keyValuePair.forEach { text ->
+                    val entry = text.split("=")
+                    map[entry[0].trim()] = entry[1].trim()
+                }
+                card7.apply {
+                    tvFavTeam.text = map["FavTeam"]
+                    tvRate1.text = map["Rate1"]
+                    tvRate2.text = map["Rate2"]
+                }
+            })
+
+            getFirstInnings(id).observe(requireActivity(), {
+                Log.d(TAG, "First Innings $it")
+                val value = it.substring(1, it.length - 1)
+                val keyValuePair = value.split(",")
+                val map = hashMapOf<String, String>()
+
+                keyValuePair.forEach { text ->
+                    val entry = text.split("=")
+                    map[entry[0].trim()] = entry[1].trim()
+                }
+
+                isFirstInning = map["IsFirstInning"].toBoolean()
+
+            })
+        }
+
+        binding.ivVolume.setOnClickListener {
+            if (isVolumeOn) {
+                binding.ivVolume.visibility = View.GONE
+                binding.ivMute.visibility = View.VISIBLE
+                isVolumeOn = false
+            } else {
+                binding.ivVolume.visibility = View.VISIBLE
+                binding.ivMute.visibility = View.GONE
+                isVolumeOn = true
+            }
+        }
+
+        binding.ivMute.setOnClickListener {
+            if (isVolumeOn) {
+                binding.ivVolume.visibility = View.GONE
+                binding.ivMute.visibility = View.VISIBLE
+
+
+                if (isFirstInning) {
+                    Toast.makeText(requireContext(), "True Hai", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "False Hai", Toast.LENGTH_SHORT).show()
+                }
+                isVolumeOn = false
+            } else {
+                binding.ivVolume.visibility = View.VISIBLE
+                binding.ivMute.visibility = View.GONE
+                isVolumeOn = true
+            }
+        }
+
+
+    }
+
+    private fun setTextToSpeechListener() {
+        if (isAdded && textToSpeech == null) {
+            textToSpeech = TextToSpeech(requireContext()) { status ->
+                if (status == TextToSpeech.SUCCESS) {
+                    val ttsLang = textToSpeech!!.setLanguage(Locale.US)
+                    if (ttsLang == TextToSpeech.LANG_MISSING_DATA
+                        || ttsLang == TextToSpeech.LANG_NOT_SUPPORTED
+                    ) {
+                        Log.d("TTS", "The Language is not supported!")
+                    } else {
+                        Log.d("TTS", "Language Supported.")
+                    }
+                    Log.d("TTS", "Initialization success.")
+                } else {
+                    Log.d("TTS", "Initialization Failed!.")
+                }
+            }
+        }
+    }
+
+    private fun getRunAndScoreVoice() {
+        val handler = Handler(Looper.getMainLooper())
+        handler.postDelayed({
+            var ballBy = ""
+            if (isMatchLive) {
+                if (isFirstInning) {
+                    if (!TextUtils.isEmpty(scoreTeam1) && !TextUtils.isEmpty(overTeam1)) {
+                        val score = scoreTeam1!!.split("-".toRegex()).toTypedArray()
+                        val over = overTeam1!!.split("\\.".toRegex()).toTypedArray()
+                        ballBy =
+                            score[0] + " runs for " + score[1] + " Wickets in " + over[0] + " Overs"
+                    }
+                } else {
+                    if (!TextUtils.isEmpty(scoreTeam2) && !TextUtils.isEmpty(overTeam2)) {
+                        val score = scoreTeam2!!.split("-".toRegex()).toTypedArray()
+                        val over = overTeam2!!.split("\\.".toRegex()).toTypedArray()
+                        ballBy =
+                            score[0] + " runs for " + score[1] + " Wickets in " + over[0] + " Overs"
+                    }
+                }
+            }
+            if (isVolumeOn) {
+                setTextToSpeechListener()
+                val speechStatus = textToSpeech!!.speak(
+                    ballBy,
+                    TextToSpeech.QUEUE_FLUSH,
+                    null,
+                    null
+                )
+                if (speechStatus == TextToSpeech.ERROR) {
+                    Log.d("TTS", "Error in converting Text to Speech!")
+                }
+
+            }
+        }, 500)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (isVolumeOn) {
+            if (textToSpeech != null) {
+                textToSpeech!!.stop()
+                textToSpeech!!.shutdown()
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (textToSpeech != null) {
+            textToSpeech!!.stop()
+            textToSpeech!!.shutdown()
         }
     }
 }

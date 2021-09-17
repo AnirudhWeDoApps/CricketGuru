@@ -44,6 +44,23 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="TouchTargetSizeCheck" />
 
+                <ImageView
+                    android:id="@+id/iv_mute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:contentDescription="@string/mute"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    app:tint="@color/white"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_mute"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="TouchTargetSizeCheck" />
+
                 <View
                     android:id="@+id/view_status"
                     android:layout_width="10dp"
@@ -139,14 +156,34 @@
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
             <include
-                android:id="@+id/card2"
-                layout="@layout/card2"
+                android:id="@+id/card7"
+                layout="@layout/card7"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/card1" />
+
+            <include
+                android:id="@+id/card2"
+                layout="@layout/card6"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_margin="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card7" />
+
+            <include
+                android:id="@+id/card6"
+                layout="@layout/card6"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_margin="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card2" />
 
             <include
                 android:id="@+id/card3"
@@ -156,7 +193,7 @@
                 android:layout_margin="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/card2" />
+                app:layout_constraintTop_toBottomOf="@+id/card6" />
 
             <include
                 android:id="@+id/card4"
@@ -172,8 +209,9 @@
                 android:id="@+id/card5"
                 layout="@layout/card5"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/card4" />

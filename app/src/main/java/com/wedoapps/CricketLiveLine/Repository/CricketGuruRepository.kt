@@ -31,6 +31,8 @@ class CricketGuruRepository {
     private var _lastball: MutableLiveData<String> = MutableLiveData<String>()
     private var _ballByBall: MutableLiveData<String> = MutableLiveData<String>()
     private var _otherMessage: MutableLiveData<String> = MutableLiveData<String>()
+    private var _matchRate: MutableLiveData<String> = MutableLiveData<String>()
+    private var _firstInnings: MutableLiveData<String> = MutableLiveData<String>()
     private var _matchInfo: MutableLiveData<Info> = MutableLiveData<Info>()
     private var _teamScore: MutableLiveData<TeamScore> = MutableLiveData<TeamScore>()
     private var _teamScore2: MutableLiveData<TeamScore> = MutableLiveData<TeamScore>()
@@ -64,7 +66,7 @@ class CricketGuruRepository {
                     if (allTeam1 != null) {
                         //                    allTeam1?.add(allTeam1)
                         _team1.value = allTeam1
-                        Log.d(TAG, "team1: $allTeam1")
+                        Log.d(TAG, "team1: ${value.data}")
                     }
                 } else {
                     Log.d(TAG, "No Data")
@@ -85,7 +87,7 @@ class CricketGuruRepository {
                     val allTeam2 = value.toObject(Score::class.java)
                     if (allTeam2 != null) {
                         _team2.value = allTeam2
-                        Log.d(TAG, "team2: $allTeam2")
+                        Log.d(TAG, "team2: ${value.data}")
                     }
                 } else {
                     Log.d(TAG, "No Data")
@@ -137,6 +139,7 @@ class CricketGuruRepository {
                     if (data != null) {
                         _teamExtras.value = data["Extra1"].toString()
                     }
+                    Log.d(TAG, "extrasTeam1: $data")
                 } else {
                     Log.d(TAG, "No Data")
                 }
@@ -157,6 +160,7 @@ class CricketGuruRepository {
                     if (data != null) {
                         _teamExtras2.value = data["Extra2"].toString()
                     }
+                    Log.d(TAG, "extrasTeam1: $data")
                 } else {
                     Log.d(TAG, "No Data")
                 }
@@ -198,7 +202,7 @@ class CricketGuruRepository {
                                     }
                                 }
                                 teamScore.playerScore = scoreDataModelArrayList1
-                                Log.d(TAG, "getDetails1: $teamScore")
+                                Log.d(TAG, "getDetails1: ${value.data}")
                                 _teamScore.value = teamScore
                             }
                         } catch (index: IndexOutOfBoundsException) {
@@ -245,7 +249,7 @@ class CricketGuruRepository {
                                         scoreDataModelArrayList2.add(scoreDataModel2)
                                     }
                                     teamScore.playerScore2 = scoreDataModelArrayList2
-                                    Log.d(TAG, "getDetails2: $teamScore")
+                                    Log.d(TAG, "getDetails2: ${value.data}")
                                     _teamScore2.value = teamScore
                                 }
                             }
@@ -313,7 +317,7 @@ class CricketGuruRepository {
                                     }
                                 }
                                 bowlerList.team1List = bowlerDataModelArrayList1
-                                Log.d(TAG, "getBowler List1: $bowlerList")
+                                Log.d(TAG, "getBowler List1: ${value.data}")
                                 _bowlerlist1.value = bowlerList
 
                             }
@@ -362,7 +366,7 @@ class CricketGuruRepository {
                                     }
                                 }
                                 bowlerList.team2List = bowlerDataModelArrayList2
-                                Log.d(TAG, "getBowler List2: $bowlerList")
+                                Log.d(TAG, "getBowler List2: ${value.data}")
                                 _bowlerlist2.value = bowlerList
 
                             }
@@ -408,7 +412,7 @@ class CricketGuruRepository {
                                     }
                                 }
                                 wicketList.wicketList1 = wicketDataModelArrayList1
-                                Log.d(TAG, "WicketList1 List1: $wicketList")
+                                Log.d(TAG, "WicketList1 List1: ${value.data}")
                                 _wicketList1.value = wicketList
 
                             }
@@ -456,7 +460,7 @@ class CricketGuruRepository {
                                     }
                                 }
                                 wicketList.wicketList2 = wicketDataModelArrayList2
-                                Log.d(TAG, "WicketList1 List1: $wicketList")
+                                Log.d(TAG, "WicketList1 List1: ${value.data}")
                                 _wicketList2.value = wicketList
 
                             }
@@ -522,7 +526,7 @@ class CricketGuruRepository {
                     val data = value.data
                     if (data != null) {
                         _batman1Info.value = data.toString()
-                        Log.d(TAG, "getBatsman1Info: ${data.values}")
+                        Log.d(TAG, "getBatsman1Info: $data")
                     }
                 } else {
                     Log.d(TAG, "No Data")
@@ -543,7 +547,7 @@ class CricketGuruRepository {
                     val data = value.data
                     if (data != null) {
                         _batman2Info.value = data.toString()
-                        Log.d(TAG, "getBatsman2Info: ${data}")
+                        Log.d(TAG, "getBatsman2Info: $data")
                     }
                 } else {
                     Log.d(TAG, "No Data")
@@ -641,7 +645,7 @@ class CricketGuruRepository {
     }
 
     fun getSessionLambi(id: String): MutableLiveData<String> {
-        firestoreRef.document(id).collection("LiveMatch").document("Lambi")
+        firestoreRef.document(id).collection("SessionRate").document("Lambi")
             .addSnapshotListener { value, error ->
                 if (error != null) {
                     Log.w(TAG, "Listen Failed", error)
@@ -785,5 +789,47 @@ class CricketGuruRepository {
                 }
             }
         return _otherMessage
+    }
+
+    fun getMatchRate(id: String): MutableLiveData<String> {
+        firestoreRef.document(id).collection("MatchRate").document("Match")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Log.w(TAG, "Listen Failed", error)
+                    return@addSnapshotListener
+                }
+
+                if (value != null) {
+                    val data = value.data
+                    if (data != null) {
+                        _matchRate.value = data.toString()
+                        Log.d(TAG, "mr: $data")
+                    }
+                } else {
+                    Log.d(TAG, "No Data")
+                }
+            }
+        return _matchRate
+    }
+
+    fun getFirstInnings(id: String): MutableLiveData<String> {
+        firestoreRef.document(id).collection("LiveMatch").document("IsFirstInnings")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Log.w(TAG, "Listen Failed", error)
+                    return@addSnapshotListener
+                }
+
+                if (value != null) {
+                    val data = value.data
+                    if (data != null) {
+                        _firstInnings.value = data.toString()
+                        Log.d(TAG, "fi: $data")
+                    }
+                } else {
+                    Log.d(TAG, "No Data")
+                }
+            }
+        return _firstInnings
     }
 }

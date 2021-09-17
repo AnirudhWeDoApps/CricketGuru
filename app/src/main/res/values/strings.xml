@@ -45,4 +45,6 @@
     <string name="over">Over</string>
     <string name="there_is_no_scorecard">There is no ScoreCard</string>
     <string name="there_are_no_squads">There are no Squads</string>
+    <string name="favourite">Favourite</string>
+    <string name="mute">Mute</string>
 </resources>

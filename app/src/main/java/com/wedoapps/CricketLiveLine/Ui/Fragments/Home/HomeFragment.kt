@@ -26,7 +26,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeCardAdapter.SetOnClic
 
         cardAdapter = HomeCardAdapter(this)
 
-        viewModel.getAllMatch()?.observe(viewLifecycleOwner, {
+        viewModel.getAllMatch()?.observe(requireActivity(), {
             cardAdapter.differ.submitList(it)
         })
 

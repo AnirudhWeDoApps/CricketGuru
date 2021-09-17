@@ -123,4 +123,11 @@ class CricketGuruViewModel(
         return repository.getOtherMessage(id)
     }
 
+    fun getMatchRate(id: String) : LiveData<String> {
+        return repository.getMatchRate(id)
+    }
+
+    fun getFirstInnings(id: String) : LiveData<String> {
+        return repository.getFirstInnings(id)
+    }
 }
