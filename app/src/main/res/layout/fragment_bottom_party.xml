@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/iv_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:contentDescription="@string/cancel"
+        android:focusable="true"
+        android:src="@drawable/ic_cancel"
+        app:layout_constraintStart_toStartOf="@+id/textView16"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/party_detail"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--<LinearLayout
+        android:id="@+id/l1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:weightSum="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView16">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/party_name"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_teamName"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/trans_round_rect_border"
+            android:hint="@string/party_name"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences"
+            android:padding="7dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/l2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:weightSum="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/l1">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.5"
+            android:text="@string/odi_t_20_commission"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/et_odi_com"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/trans_round_rect_border"
+            android:gravity="center"
+            android:hint="@string/_0_0"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences"
+            android:padding="7dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/trans_round_rect_border"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_odi_take"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/select_bg"
+                android:padding="10dp"
+                android:text="@string/take"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_odi_give"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:text="@string/give"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/l3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:weightSum="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/l2">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.5"
+            android:text="@string/test_commission"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/et_test_com"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/trans_round_rect_border"
+            android:gravity="center"
+            android:hint="@string/_0_0"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences"
+            android:padding="7dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/trans_round_rect_border"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_test_take"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/select_bg"
+                android:padding="10dp"
+                android:text="@string/take"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_test_give"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:text="@string/give"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/l4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:weightSum="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/l3">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.5"
+            android:text="@string/Session_commission"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/et_session_com"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/trans_round_rect_border"
+            android:gravity="center"
+            android:hint="@string/_0_0"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences"
+            android:padding="7dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/trans_round_rect_border"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv__session_take"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/select_bg"
+                android:padding="10dp"
+                android:text="@string/take"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv__session_give"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:text="@string/give"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>-->
+
+    <!-- <androidx.appcompat.widget.AppCompatButton
+         android:id="@+id/btn_add"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginHorizontal="15dp"
+         android:layout_marginBottom="10dp"
+         android:background="@drawable/round_rect"
+         android:backgroundTint="@color/purple_500"
+         android:clickable="true"
+         android:focusable="true"
+         android:fontFamily="@font/roboto"
+         android:text="@string/add"
+         android:textAllCaps="false"
+         android:textColor="@color/white"
+         android:textSize="15sp"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/l4" />
+ -->
+</androidx.constraintlayout.widget.ConstraintLayout>

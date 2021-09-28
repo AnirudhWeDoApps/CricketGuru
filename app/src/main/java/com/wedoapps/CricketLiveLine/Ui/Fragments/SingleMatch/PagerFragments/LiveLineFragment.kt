@@ -14,11 +14,12 @@ import androidx.fragment.app.Fragment
 import com.wedoapps.CricketLiveLine.R
 import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
 import com.wedoapps.CricketLiveLine.Ui.Fragments.SingleMatch.ViewPagerActivity
+import com.wedoapps.CricketLiveLine.Utils.Constants.ID
 import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
 import com.wedoapps.CricketLiveLine.databinding.FragmentLiveLineBinding
 import java.util.*
 
-class LiveLineFragment(val id: String) : Fragment(R.layout.fragment_live_line) {
+class LiveLineFragment() : Fragment(R.layout.fragment_live_line) {
 
     private lateinit var binding: FragmentLiveLineBinding
     private lateinit var viewModel: CricketGuruViewModel
@@ -31,11 +32,14 @@ class LiveLineFragment(val id: String) : Fragment(R.layout.fragment_live_line) {
     private var scoreTeam2: String? = ""
     private var overTeam2: String? = ""
     private var ballByBallSpeech: String? = ""
+    private lateinit var id: String
 
     @SuppressLint("SetTextI18n", "NewApi")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentLiveLineBinding.bind(view)
+
+        id = arguments?.getString(ID).toString()
 
         viewModel = (activity as ViewPagerActivity).viewModel
 
@@ -48,6 +52,15 @@ class LiveLineFragment(val id: String) : Fragment(R.layout.fragment_live_line) {
 
         setTextToSpeechListener()
         viewModel.apply {
+
+            var team1 = ""
+            var team2 = ""
+
+            getInfo(id).observe(requireActivity(), {
+                team1 = "${it.TeamForm?.NameTeam1} "
+                team2 = "${it.TeamForm?.NameTeam2} "
+
+            })
 
             getSpecificIdDetail(id).observe(requireActivity(), {
                 val status = it.MatchStatus
@@ -65,14 +78,16 @@ class LiveLineFragment(val id: String) : Fragment(R.layout.fragment_live_line) {
                 Log.d(TAG, "Team1: $it ")
                 scoreTeam1 = it?.Score
                 overTeam1 = it?.Over
-                binding.tvPlayScore.text = it?.Score + " ( ${it?.Over} )"
+                team1 += it?.Score + " ( ${it?.Over} )"
+                binding.tvPlayScore.text = team1
             })
 
             getAllTeam2(id).observe(requireActivity(), {
                 Log.d(TAG, "Team2: $it ")
                 scoreTeam2 = it?.Score
                 overTeam2 = it?.Over
-                binding.tvOppScore.text = it?.Score + " ( ${it?.Over} )"
+                team2 += it?.Score + " ( ${it?.Over} )"
+                binding.tvOppScore.text = team2
             })
 
             getRunRate(id).observe(requireActivity(), {
@@ -227,7 +242,7 @@ class LiveLineFragment(val id: String) : Fragment(R.layout.fragment_live_line) {
             })
 
             getSession(id).observe(requireActivity(), {
-                Log.d(TAG, " Session: $it")
+                Log.d(TAG, " SessionFragment: $it")
 
                 val value = it.substring(1, it.length - 1)
                 val keyValuePair = value.split(",")
@@ -532,4 +547,13 @@ class LiveLineFragment(val id: String) : Fragment(R.layout.fragment_live_line) {
             textToSpeech!!.shutdown()
         }
     }
+
+    fun newInstance(myString: String?): LiveLineFragment {
+        val myFragment = LiveLineFragment()
+        val args = Bundle()
+        args.putString(ID, myString)
+        myFragment.arguments = args
+        return myFragment
+    }
+
 }

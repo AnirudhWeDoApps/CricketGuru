@@ -5,25 +5,26 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.viewpager.widget.ViewPager
 import com.wedoapps.CricketLiveLine.Adapter.PlayerListAdapter
 import com.wedoapps.CricketLiveLine.R
 import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
 import com.wedoapps.CricketLiveLine.Ui.Fragments.SingleMatch.ViewPagerActivity
-import com.wedoapps.CricketLiveLine.Ui.MainActivity
+import com.wedoapps.CricketLiveLine.Utils.Constants.ID
 import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
 import com.wedoapps.CricketLiveLine.databinding.FragmentInfoBinding
-import kotlin.collections.ArrayList
 
-class InfoFragment(val id: String) : Fragment(R.layout.fragment_info) {
+class InfoFragment() : Fragment(R.layout.fragment_info) {
 
     private lateinit var binding: FragmentInfoBinding
     private lateinit var viewModel: CricketGuruViewModel
     private var isExpanded = false
+    private lateinit var id: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentInfoBinding.bind(view)
+
+        id = arguments?.getString(ID).toString()
 
         viewModel = (activity as ViewPagerActivity).viewModel
 
@@ -150,5 +151,13 @@ class InfoFragment(val id: String) : Fragment(R.layout.fragment_info) {
                 }
             }
         })
+    }
+
+    fun newInstance(myString: String?): InfoFragment {
+        val myFragment = InfoFragment()
+        val args = Bundle()
+        args.putString(ID, myString)
+        myFragment.arguments = args
+        return myFragment
     }
 }

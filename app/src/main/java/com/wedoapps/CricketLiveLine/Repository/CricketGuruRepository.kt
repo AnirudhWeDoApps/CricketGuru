@@ -3,14 +3,16 @@ package com.wedoapps.CricketLiveLine.Repository
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.*
+import com.wedoapps.CricketLiveLine.Db.CricketGuruDatabase
 import com.wedoapps.CricketLiveLine.Model.*
 import com.wedoapps.CricketLiveLine.Model.Info.Info
+import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchBet
+import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionBet
 import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
-class CricketGuruRepository {
+class CricketGuruRepository(val db: CricketGuruDatabase) {
     private var firestore = FirebaseFirestore.getInstance()
     private var mutableLangName = MutableLiveData<MutableList<HomeMatch>>()
     private var mutableData = MutableLiveData<HomeMatch>()
@@ -34,8 +36,8 @@ class CricketGuruRepository {
     private var _matchRate: MutableLiveData<String> = MutableLiveData<String>()
     private var _firstInnings: MutableLiveData<String> = MutableLiveData<String>()
     private var _matchInfo: MutableLiveData<Info> = MutableLiveData<Info>()
-    private var _teamScore: MutableLiveData<TeamScore> = MutableLiveData<TeamScore>()
-    private var _teamScore2: MutableLiveData<TeamScore> = MutableLiveData<TeamScore>()
+    private var _teamScore = MutableLiveData<MutableList<PlayerScore>>()
+    private var _teamScore2 = MutableLiveData<MutableList<PlayerScore>>()
     private var _bowlerlist1: MutableLiveData<BowlerList> = MutableLiveData<BowlerList>()
     private var _bowlerlist2: MutableLiveData<BowlerList> = MutableLiveData<BowlerList>()
     private var _wicketList1: MutableLiveData<AllWicketList> = MutableLiveData<AllWicketList>()
@@ -47,7 +49,8 @@ class CricketGuruRepository {
     private val bowlerDataModelArrayList2 = ArrayList<Bowlers>()
     private val wicketDataModelArrayList1 = ArrayList<WicketFall>()
     private val wicketDataModelArrayList2 = ArrayList<WicketFall>()
-    private val teamScore = TeamScore()
+    private var playerScore1 = ArrayList<PlayerScore>()
+    private var playerScore2 = ArrayList<PlayerScore>()
     private val bowlerList = BowlerList()
     private var homeMatch = HomeMatch()
     private var wicketList = AllWicketList()
@@ -168,7 +171,7 @@ class CricketGuruRepository {
         return _teamExtras2
     }
 
-    fun getScore1(id: String): MutableLiveData<TeamScore> {
+    fun getScore1(id: String): MutableLiveData<MutableList<PlayerScore>> {
         scoreDataModelArrayList1.clear()
         firestoreRef.document(id).collection("ScoreCard").document("ScoreTeam1")
             .addSnapshotListener { value, error ->
@@ -201,9 +204,9 @@ class CricketGuruRepository {
                                         scoreDataModelArrayList1.add(scoreDataModel)
                                     }
                                 }
-                                teamScore.playerScore = scoreDataModelArrayList1
+                                playerScore1 = scoreDataModelArrayList1
                                 Log.d(TAG, "getDetails1: ${value.data}")
-                                _teamScore.value = teamScore
+                                _teamScore.value = playerScore1
                             }
                         } catch (index: IndexOutOfBoundsException) {
                             index.printStackTrace()
@@ -216,7 +219,7 @@ class CricketGuruRepository {
         return _teamScore
     }
 
-    fun getScore2(id: String): MutableLiveData<TeamScore> {
+    fun getScore2(id: String): MutableLiveData<MutableList<PlayerScore>> {
         scoreDataModelArrayList2.clear()
         firestoreRef.document(id).collection("ScoreCard").document("ScoreTeam2")
             .addSnapshotListener { value, error ->
@@ -248,9 +251,9 @@ class CricketGuruRepository {
                                         scoreDataModel2.SR = team1HashMap["SR"]
                                         scoreDataModelArrayList2.add(scoreDataModel2)
                                     }
-                                    teamScore.playerScore2 = scoreDataModelArrayList2
+                                    playerScore2 = scoreDataModelArrayList2
                                     Log.d(TAG, "getDetails2: ${value.data}")
-                                    _teamScore2.value = teamScore
+                                    _teamScore2.value = playerScore2
                                 }
                             }
                         } catch (index: IndexOutOfBoundsException) {
@@ -708,7 +711,7 @@ class CricketGuruRepository {
     }
 
     fun getSession(id: String): MutableLiveData<String> {
-        firestoreRef.document(id).collection("SessionRate").document("Session")
+        firestoreRef.document(id).collection("SessionRate").document("SessionFragment")
             .addSnapshotListener { value, error ->
                 if (error != null) {
                     Log.w(TAG, "Listen Failed", error)
@@ -719,7 +722,7 @@ class CricketGuruRepository {
                     val data = value.data
                     if (data != null) {
                         _session.value = data.toString()
-                        Log.d(TAG, "Session: $data")
+                        Log.d(TAG, "SessionFragment: $data")
                     }
                 } else {
                     Log.d(TAG, "No Data")
@@ -832,4 +835,23 @@ class CricketGuruRepository {
             }
         return _firstInnings
     }
+
+    suspend fun insertMatch(matchBet: MatchBet) = db.getCricketGuruDao().insertMatch(matchBet)
+
+    suspend fun updateMatch(matchBet: MatchBet) = db.getCricketGuruDao().updateMatch(matchBet)
+
+    suspend fun deleteMatch(matchBet: MatchBet) = db.getCricketGuruDao().deleteMatch(matchBet)
+
+    suspend fun insertSession(sessionBet: SessionBet) =
+        db.getCricketGuruDao().insertSession(sessionBet)
+
+    suspend fun updateSession(sessionBet: SessionBet) =
+        db.getCricketGuruDao().updateSession(sessionBet)
+
+    suspend fun deleteSession(sessionBet: SessionBet) =
+        db.getCricketGuruDao().deleteSession(sessionBet)
+
+    fun getAllMatchBet() = db.getCricketGuruDao().getAllMatches()
+
+    fun getAllSessionBet() = db.getCricketGuruDao().getAllSessions()
 }

@@ -4,7 +4,8 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class HomeMatch(
+data class
+HomeMatch(
     var id: String? = "",
     val MatchDetail: String? = "",
     val CurrentDate: String? = "",
@@ -14,5 +15,7 @@ data class HomeMatch(
     val MatchResult: String? = "",
     val IsShowFlag: Boolean? = false,
     val IsToss: Boolean? = false,
+    val SessionHistoryInfo1: List<Session>? = null,
+    val SessionHistoryInfo2: List<Session>? = null
 ) : Parcelable
 

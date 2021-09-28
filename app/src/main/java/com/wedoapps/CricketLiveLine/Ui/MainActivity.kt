@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
+import com.wedoapps.CricketLiveLine.Db.CricketGuruDatabase
 import com.wedoapps.CricketLiveLine.R
 import com.wedoapps.CricketLiveLine.Repository.CricketGuruRepository
 import com.wedoapps.CricketLiveLine.Utils.ViewModelProviderFactory
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val repository = CricketGuruRepository()
+        val repository = CricketGuruRepository(CricketGuruDatabase(this))
         val viewModelProvider = ViewModelProviderFactory(application, repository)
         viewModel = ViewModelProvider(this, viewModelProvider)[CricketGuruViewModel::class.java]
         val navHostFragment =

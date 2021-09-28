@@ -3,25 +3,50 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/drawable-mdpi/reverse_select_bg.xml" value="0.23703703703703705" />
         <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/drawable/box_gradient_bg.xml" value="0.26296296296296295" />
         <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/drawable/gradient_bg.xml" value="0.26296296296296295" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/drawable/ic_add.xml" value="0.16666666666666666" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/drawable/select_bg.xml" value="0.23703703703703705" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout-v26/card1.xml" value="0.3489583333333333" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/activity_bet.xml" value="0.3489583333333333" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/activity_betting.xml" value="0.33" />
         <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/activity_main.xml" value="0.17239583333333333" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/activity_party_info.xml" value="0.22" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/activity_session.xml" value="0.3489583333333333" />
         <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/activity_view_pager.xml" value="0.3489583333333333" />
         <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/bowler_header.xml" value="0.3489583333333333" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/bowling_item_layout.xml" value="0.3489583333333333" />
         <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/card1.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/card2.xml" value="0.3489583333333333" />
         <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/card3.xml" value="0.19" />
         <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/card4.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/card5.xml" value="0.3489583333333333" />
-        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/card6.xml" value="0.33" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/card6.xml" value="0.67" />
         <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/card7.xml" value="0.22" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/fragment_active_match.xml" value="0.22" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/fragment_bet.xml" value="0.2" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/fragment_bottom_current_session.xml" value="0.22" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/fragment_bottom_match.xml" value="0.22" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/fragment_bottom_party.xml" value="0.22" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/fragment_current_session.xml" value="0.22" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/fragment_history.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/fragment_home.xml" value="0.33489583333333334" />
         <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/fragment_info.xml" value="0.33" />
         <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/fragment_live_line.xml" value="0.33" />
-        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/fragment_scorecard.xml" value="0.3489583333333333" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/fragment_party_info.xml" value="0.3489583333333333" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/fragment_scorecard.xml" value="0.25" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/fragment_session.xml" value="0.22" />
         <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/fragment_single_match.xml" value="0.3489583333333333" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/header_session.xml" value="0.25" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/home_card_item_layout.xml" value="0.3489583333333333" />
         <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/last_balls_item_layout.xml" value="0.20520833333333333" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/layout_match_bet.xml" value="0.25" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/layout_session_item.xml" value="0.33" />
         <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/rv_player_item_layout.xml" value="0.3489583333333333" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/scorecard_batsmen_item_layout.xml" value="0.3489583333333333" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/session_item_layout.xml" value="0.25" />
+        <entry key="..\:/AndroidProjects/CricketGuru/app/src/main/res/layout/team_header.xml" value="0.3489583333333333" />
       </map>
     </option>
   </component>

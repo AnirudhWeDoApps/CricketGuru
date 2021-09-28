@@ -1,11 +1,12 @@
 package com.wedoapps.CricketLiveLine.Ui.Fragments.SingleMatch
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.wedoapps.CricketLiveLine.Adapter.ViewPagerAdapter
+import com.wedoapps.CricketLiveLine.Db.CricketGuruDatabase
 import com.wedoapps.CricketLiveLine.R
 import com.wedoapps.CricketLiveLine.Repository.CricketGuruRepository
 import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
@@ -27,11 +28,13 @@ class ViewPagerActivity : AppCompatActivity() {
         val id = args.data.id
 
         val fragmentList = arrayListOf(
-            LiveLineFragment(id!!),
-            InfoFragment(id),
-            ChatFragment(),
-            CommentaryFragment(),
-            ScorecardFragment(id)
+            LiveLineFragment().newInstance(id),
+            InfoFragment().newInstance(id),
+            ChatFragment().newInstance(id),
+            CommentaryFragment().newInstance(id),
+            ScorecardFragment().newInstance(id),
+            SessionFragment().newInstance(id),
+            BetFragment().newInstance(id)
         )
 
         val adapter = ViewPagerAdapter(
@@ -49,10 +52,12 @@ class ViewPagerActivity : AppCompatActivity() {
                 2 -> tab.text = getString(R.string.chat)
                 3 -> tab.text = getString(R.string.commentary)
                 4 -> tab.text = getString(R.string.scorecard)
+                5 -> tab.text = getString(R.string.session)
+                6 -> tab.text = getString(R.string.bet)
             }
         }.attach()
 
-        val repository = CricketGuruRepository()
+        val repository = CricketGuruRepository(CricketGuruDatabase(this))
         val viewModelProvider = ViewModelProviderFactory(application, repository)
         viewModel = ViewModelProvider(this, viewModelProvider)[CricketGuruViewModel::class.java]
 

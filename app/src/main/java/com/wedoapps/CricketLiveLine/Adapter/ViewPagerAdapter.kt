@@ -9,7 +9,7 @@ import java.util.*
 class ViewPagerAdapter(list: ArrayList<Fragment>, fm: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fm, lifecycle) {
 
-    val fragmentList = list
+    private val fragmentList = list
 
     override fun getItemCount(): Int {
         return fragmentList.size

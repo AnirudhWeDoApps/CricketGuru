@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CricketGuru">
         <activity
+            android:name=".Ui.Fragments.Bet.BettingActivity"
+            android:exported="true" />
+        <activity
             android:name=".Ui.Fragments.SingleMatch.ViewPagerActivity"
             android:exported="true" />
         <activity

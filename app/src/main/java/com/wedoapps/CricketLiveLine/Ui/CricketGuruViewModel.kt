@@ -1,19 +1,22 @@
 package com.wedoapps.CricketLiveLine.Ui
 
 import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.wedoapps.CricketLiveLine.Model.*
 import com.wedoapps.CricketLiveLine.Model.Info.Info
+import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchBet
+import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionBet
 import com.wedoapps.CricketLiveLine.Repository.CricketGuruRepository
+import kotlinx.coroutines.launch
 
 class CricketGuruViewModel(
     val app: Application,
     private val repository: CricketGuruRepository
-) : ViewModel() {
+) : AndroidViewModel(app) {
 
     private var allMatch: LiveData<MutableList<HomeMatch>>? = null
-
 
     init {
         allMatch = repository.getMatch()
@@ -39,11 +42,11 @@ class CricketGuruViewModel(
         return repository.extrasTeam2(id)
     }
 
-    fun getScoreDetails1(id: String): LiveData<TeamScore> {
+    fun getScoreDetails1(id: String): LiveData<MutableList<PlayerScore>> {
         return repository.getScore1(id)
     }
 
-    fun getScoreDetails2(id: String): LiveData<TeamScore> {
+    fun getScoreDetails2(id: String): LiveData<MutableList<PlayerScore>> {
         return repository.getScore2(id)
     }
 
@@ -123,11 +126,126 @@ class CricketGuruViewModel(
         return repository.getOtherMessage(id)
     }
 
-    fun getMatchRate(id: String) : LiveData<String> {
+    fun getMatchRate(id: String): LiveData<String> {
         return repository.getMatchRate(id)
     }
 
-    fun getFirstInnings(id: String) : LiveData<String> {
+    fun getFirstInnings(id: String): LiveData<String> {
         return repository.getFirstInnings(id)
     }
+
+    fun saveMatchBet(
+        matchId: String,
+        rate: Int,
+        amount: Int,
+        type: String,
+        team: String,
+        default: Boolean,
+        playerName: String,
+        team1Value: Int,
+        team2Value: Int,
+    ) = viewModelScope.launch {
+        val matchBet = MatchBet(
+            null,
+            matchId,
+            rate,
+            amount,
+            type,
+            team,
+            default,
+            playerName,
+            team1Value,
+            team2Value
+        )
+        repository.insertMatch(matchBet)
+    }
+
+    fun deleteMatchBet(matchBet: MatchBet) = viewModelScope.launch {
+        repository.deleteMatch(matchBet)
+    }
+
+    fun updateMatchBet(
+        id: Int,
+        matchId: String,
+        rate: Int,
+        amount: Int,
+        type: String,
+        team: String,
+        default: Boolean,
+        playerName: String,
+        team1Value: Int,
+        team2Value: Int,
+    ) = viewModelScope.launch {
+        val matchBet = MatchBet(
+            id,
+            matchId,
+            rate,
+            amount,
+            type,
+            team,
+            default,
+            playerName,
+            team1Value,
+            team2Value
+        )
+        repository.updateMatch(matchBet)
+    }
+
+    fun getAllMatchBet() = repository.getAllMatchBet()
+
+    fun saveSession(
+        matchId: String,
+        amount: Int,
+        innings: Int,
+        over: String,
+        fandp: Int,
+        yorn: String,
+        actualScore: Int,
+        playerName: String
+    ) = viewModelScope.launch {
+        val sessionBet = SessionBet(
+            null,
+            matchId,
+            amount,
+            innings,
+            over,
+            fandp,
+            yorn,
+            actualScore,
+            playerName
+        )
+        repository.insertSession(sessionBet)
+    }
+
+    fun deleteSession(sessionBet: SessionBet) = viewModelScope.launch {
+        repository.deleteSession(sessionBet)
+    }
+
+    fun updateSession(
+        id: Int,
+        matchId: String,
+        amount: Int,
+        innings: Int,
+        over: String,
+        fandp: Int,
+        yorn: String,
+        actualScore: Int,
+        playerName: String
+    ) = viewModelScope.launch {
+        val sessionBet = SessionBet(
+            id,
+            matchId,
+            amount,
+            innings,
+            over,
+            fandp,
+            yorn,
+            actualScore,
+            playerName
+        )
+        repository.updateSession(sessionBet)
+    }
+
+    fun getAllSessions() = repository.getAllSessionBet()
+
 }

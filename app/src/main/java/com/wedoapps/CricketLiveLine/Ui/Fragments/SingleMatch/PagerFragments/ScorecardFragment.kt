@@ -11,10 +11,12 @@ import com.wedoapps.CricketLiveLine.Adapter.WicketListAdapter
 import com.wedoapps.CricketLiveLine.R
 import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
 import com.wedoapps.CricketLiveLine.Ui.Fragments.SingleMatch.ViewPagerActivity
+import com.wedoapps.CricketLiveLine.Utils.Constants
+import com.wedoapps.CricketLiveLine.Utils.Constants.ID
 import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
 import com.wedoapps.CricketLiveLine.databinding.FragmentScorecardBinding
 
-class ScorecardFragment(val id: String) : Fragment(R.layout.fragment_scorecard) {
+class ScorecardFragment() : Fragment(R.layout.fragment_scorecard) {
 
     private lateinit var binding: FragmentScorecardBinding
     private var isExpanded = false
@@ -25,12 +27,15 @@ class ScorecardFragment(val id: String) : Fragment(R.layout.fragment_scorecard) 
     private lateinit var bowlerListAdapter2: BowlerListAdapter
     private lateinit var wicketListAdapter: WicketListAdapter
     private lateinit var wicketListAdapter2: WicketListAdapter
+    private lateinit var id: String
 
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentScorecardBinding.bind(view)
+
+        id = arguments?.getString(ID).toString()
 
         viewModel = (activity as ViewPagerActivity).viewModel
 
@@ -132,32 +137,37 @@ class ScorecardFragment(val id: String) : Fragment(R.layout.fragment_scorecard) 
 
             getTeam1Extras(id).observe(requireActivity(), {
                 Log.d(TAG, "extras 1: $it")
-                binding.tv1Extras.text = getString(R.string.extras) + it
+                binding.tv1Extras.text = "Extras: $it"
             })
 
             getTeam2Extras(id).observe(requireActivity(), {
                 Log.d(TAG, "extras 2: $it")
-                binding.tv2Extras.text = getString(R.string.extras) + it
+                binding.tv2Extras.text = "Extras: $it"
             })
 
             getScoreDetails1(id).observe(requireActivity(), {
                 Log.d(TAG, "onViewCreated ScoreCardTeam1:$id $it")
 
+                if (it == null) {
+                    binding.nested.visibility = View.GONE
+                    binding.tvNoData.visibility = View.VISIBLE
+                } else {
+                    binding.tvNoData.visibility = View.GONE
+                    binding.nested.visibility = View.VISIBLE
+                    scoreCardBattingAdapter.differ.submitList(it)
+                }
             })
 
             getScoreDetails2(id).observe(requireActivity(), {
                 Log.d(TAG, "onViewCreated ScoreCardTeam2:$id $it")
 
-                if (it.playerScore?.isEmpty() == true && it.playerScore2?.isEmpty() == true) {
-                    binding.linearLayout1.visibility = View.GONE
-                    binding.linearLayout2.visibility = View.GONE
+                if (it == null) {
+                    binding.nested.visibility = View.GONE
                     binding.tvNoData.visibility = View.VISIBLE
                 } else {
                     binding.tvNoData.visibility = View.GONE
-                    binding.linearLayout1.visibility = View.VISIBLE
-                    binding.linearLayout2.visibility = View.VISIBLE
-                    scoreCardBattingAdapter.differ.submitList(it.playerScore)
-                    scoreCardBattingAdapter2.differ.submitList(it.playerScore2)
+                    binding.nested.visibility = View.VISIBLE
+                    scoreCardBattingAdapter2.differ.submitList(it)
                 }
             })
 
@@ -211,5 +221,14 @@ class ScorecardFragment(val id: String) : Fragment(R.layout.fragment_scorecard) 
             setHasFixedSize(true)
             adapter = wicketListAdapter2
         }
+    }
+
+
+    fun newInstance(myString: String?): ScorecardFragment {
+        val myFragment = ScorecardFragment()
+        val args = Bundle()
+        args.putString(Constants.ID, myString)
+        myFragment.arguments = args
+        return myFragment
     }
 }

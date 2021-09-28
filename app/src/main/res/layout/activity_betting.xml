@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Ui.Fragments.Bet.BettingActivity">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutBetting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_500"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorHeight="2dp"
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextAppearance="@style/TextAppearance.Design.Tab"
+        app:tabTextColor="@android:color/darker_gray" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerBetting"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayoutBetting" />
+
+
+    <!--   <LinearLayout
+           android:id="@+id/lv_match"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginHorizontal="10dp"
+           android:layout_marginTop="10dp"
+           android:background="@drawable/round_rect"
+           android:backgroundTint="@color/purple_500"
+           android:clickable="true"
+           android:focusable="true"
+           android:orientation="horizontal"
+           android:padding="10dp"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent">
+
+           <ImageView
+               android:layout_width="50dp"
+               android:layout_height="50dp"
+               android:contentDescription="@string/match_calculator"
+               android:src="@drawable/ic_match" />
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center"
+               android:layout_marginStart="20dp"
+               android:fontFamily="@font/roboto"
+               android:text="@string/match_calculator"
+               android:textColor="@color/white"
+               android:textSize="18sp" />
+       </LinearLayout>
+
+       <LinearLayout
+           android:id="@+id/lv_session"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginHorizontal="10dp"
+           android:layout_marginTop="10dp"
+           android:background="@drawable/round_rect"
+           android:backgroundTint="@color/purple_500"
+           android:clickable="true"
+           android:focusable="true"
+           android:orientation="horizontal"
+           android:padding="10dp"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/lv_match">
+
+           <ImageView
+               android:layout_width="50dp"
+               android:layout_height="50dp"
+               android:contentDescription="@string/session_calculator"
+               android:src="@drawable/ic_session" />
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center"
+               android:layout_marginStart="20dp"
+               android:fontFamily="@font/roboto"
+               android:text="@string/session_calculator"
+               android:textColor="@color/white"
+               android:textSize="18sp" />
+       </LinearLayout>
+
+       <LinearLayout
+           android:id="@+id/lv_party"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginHorizontal="10dp"
+           android:layout_marginTop="10dp"
+           android:background="@drawable/round_rect"
+           android:backgroundTint="@color/purple_500"
+           android:clickable="true"
+           android:focusable="true"
+           android:orientation="horizontal"
+           android:padding="10dp"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/lv_session">
+
+           <ImageView
+               android:layout_width="50dp"
+               android:layout_height="50dp"
+               android:contentDescription="@string/party_info"
+               android:src="@drawable/ic_party_info" />
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center"
+               android:layout_marginStart="20dp"
+               android:fontFamily="@font/roboto"
+               android:text="@string/party_info"
+               android:textColor="@color/white"
+               android:textSize="18sp" />
+       </LinearLayout>
+   -->
+</androidx.constraintlayout.widget.ConstraintLayout>
