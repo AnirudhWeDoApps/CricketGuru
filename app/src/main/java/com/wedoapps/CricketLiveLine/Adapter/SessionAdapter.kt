@@ -18,9 +18,7 @@ class SessionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class SessionHeaderViewHolder(binding: HeaderSessionBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind() {
-
-        }
+        fun bind() {}
 
     }
 

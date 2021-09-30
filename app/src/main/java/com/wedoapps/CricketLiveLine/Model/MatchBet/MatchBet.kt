@@ -1,8 +1,10 @@
 package com.wedoapps.CricketLiveLine.Model.MatchBet
 
 import android.annotation.SuppressLint
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -10,6 +12,7 @@ import java.util.*
     tableName = "matchBet"
 )
 
+@Parcelize
 data class MatchBet(
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null,
@@ -23,7 +26,7 @@ data class MatchBet(
     var team1Value: Int? = null,
     var team2Value: Int? = null,
     var date: String = getDateAndTime()
-) {
+) : Parcelable {
     companion object {
         @SuppressLint("SimpleDateFormat")
         private fun getDateAndTime(): String {

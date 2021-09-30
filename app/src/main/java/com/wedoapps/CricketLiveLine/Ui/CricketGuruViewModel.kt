@@ -191,7 +191,7 @@ class CricketGuruViewModel(
         repository.updateMatch(matchBet)
     }
 
-    fun getAllMatchBet() = repository.getAllMatchBet()
+    fun getAllMatchBet(matchId: String) = repository.getAllMatchBet(matchId)
 
     fun saveSession(
         matchId: String,
@@ -246,6 +246,6 @@ class CricketGuruViewModel(
         repository.updateSession(sessionBet)
     }
 
-    fun getAllSessions() = repository.getAllSessionBet()
+    fun getAllSessions(matchId: String) = repository.getAllSessionBet(matchId)
 
 }

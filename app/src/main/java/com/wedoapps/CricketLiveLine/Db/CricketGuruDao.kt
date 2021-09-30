@@ -17,8 +17,8 @@ interface CricketGuruDao {
     @Delete
     suspend fun deleteMatch(match: MatchBet)
 
-    @Query("SELECT * from matchBet")
-    fun getAllMatches(): LiveData<List<MatchBet>>
+    @Query("SELECT * from matchBet WHERE matchID = :matchid")
+    fun getAllMatches(matchid: String): LiveData<List<MatchBet>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertSession(sessionBet: SessionBet)
@@ -29,6 +29,6 @@ interface CricketGuruDao {
     @Delete
     suspend fun deleteSession(sessionBet: SessionBet)
 
-    @Query("SELECT * from sessionBet")
-    fun getAllSessions(): LiveData<List<SessionBet>>
+    @Query("SELECT * from sessionBet WHERE matchId =:matchid")
+    fun getAllSessions(matchid: String): LiveData<List<SessionBet>>
 }

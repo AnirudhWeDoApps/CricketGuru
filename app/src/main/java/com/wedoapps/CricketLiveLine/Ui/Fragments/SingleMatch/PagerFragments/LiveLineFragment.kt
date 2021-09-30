@@ -19,7 +19,7 @@ import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
 import com.wedoapps.CricketLiveLine.databinding.FragmentLiveLineBinding
 import java.util.*
 
-class LiveLineFragment() : Fragment(R.layout.fragment_live_line) {
+class LiveLineFragment : Fragment(R.layout.fragment_live_line) {
 
     private lateinit var binding: FragmentLiveLineBinding
     private lateinit var viewModel: CricketGuruViewModel
@@ -53,18 +53,12 @@ class LiveLineFragment() : Fragment(R.layout.fragment_live_line) {
         setTextToSpeechListener()
         viewModel.apply {
 
-            var team1 = ""
-            var team2 = ""
-
-            getInfo(id).observe(requireActivity(), {
-                team1 = "${it.TeamForm?.NameTeam1} "
-                team2 = "${it.TeamForm?.NameTeam2} "
-
-            })
-
             getSpecificIdDetail(id).observe(requireActivity(), {
                 val status = it.MatchStatus
                 binding.tvStatus.text = status
+
+                binding.tvTeamName.text = "${it.Team1} "
+                binding.tvTeamNameOpp.text = "${it.Team2} "
 
                 if (status.equals("LIVE")) {
                     isMatchLive = true
@@ -78,16 +72,14 @@ class LiveLineFragment() : Fragment(R.layout.fragment_live_line) {
                 Log.d(TAG, "Team1: $it ")
                 scoreTeam1 = it?.Score
                 overTeam1 = it?.Over
-                team1 += it?.Score + " ( ${it?.Over} )"
-                binding.tvPlayScore.text = team1
+                binding.tvPlayScore.text = it?.Score + " ( ${it?.Over} )"
             })
 
             getAllTeam2(id).observe(requireActivity(), {
                 Log.d(TAG, "Team2: $it ")
                 scoreTeam2 = it?.Score
                 overTeam2 = it?.Over
-                team2 += it?.Score + " ( ${it?.Over} )"
-                binding.tvOppScore.text = team2
+                binding.tvOppScore.text = it?.Score + " ( ${it?.Over} )"
             })
 
             getRunRate(id).observe(requireActivity(), {
@@ -182,6 +174,7 @@ class LiveLineFragment() : Fragment(R.layout.fragment_live_line) {
             getBallXRun(id).observe(requireActivity(), {
                 Log.d(TAG, " BallXRun: $it")
 
+
                 val value = it.substring(1, it.length - 1)
                 val keyValuePair = value.split(",")
                 val map = hashMapOf<String, String>()
@@ -191,14 +184,22 @@ class LiveLineFragment() : Fragment(R.layout.fragment_live_line) {
                     map[entry[0].trim()] = entry[1].trim()
                 }
 
+
                 card2.apply {
                     tvSecondBall.text = map["Ball"]
                     tvSecondRun.text = map["Run"]
+
+                    if (tvSecondBall.text.isNullOrEmpty()) {
+                        card2.root.visibility = View.GONE
+                    } else {
+                        card2.root.visibility = View.VISIBLE
+                    }
                 }
             })
 
             getSessionLambi(id).observe(requireActivity(), {
                 Log.d(TAG, " SessionLambi: $it")
+
 
                 val value = it.substring(1, it.length - 1)
                 val keyValuePair = value.split(",")
@@ -222,6 +223,7 @@ class LiveLineFragment() : Fragment(R.layout.fragment_live_line) {
             getLambiBallXRun(id).observe(requireActivity(), {
                 Log.d(TAG, " LambiBallXRun: $it")
 
+
                 val value = it.substring(1, it.length - 1)
                 val keyValuePair = value.split(",")
                 val map = hashMapOf<String, String>()
@@ -231,9 +233,18 @@ class LiveLineFragment() : Fragment(R.layout.fragment_live_line) {
                     map[entry[0].trim()] = entry[1].trim()
                 }
 
+
                 card6.apply {
                     tvSecondBall.text = map["Ball"]
                     tvSecondRun.text = map["Run"]
+
+
+                    if (tvSecondBall.text.isNullOrEmpty()) {
+                        card6.root.visibility = View.GONE
+                    } else {
+                        card6.root.visibility = View.VISIBLE
+                    }
+
                 }
             })
 
@@ -243,6 +254,7 @@ class LiveLineFragment() : Fragment(R.layout.fragment_live_line) {
 
             getSession(id).observe(requireActivity(), {
                 Log.d(TAG, " SessionFragment: $it")
+
 
                 val value = it.substring(1, it.length - 1)
                 val keyValuePair = value.split(",")
@@ -319,13 +331,13 @@ class LiveLineFragment() : Fragment(R.layout.fragment_live_line) {
                         ballByBallSpeech = "Three Run"
                     }
                     ballByBallSpeech!!.contentEquals("It's 6") -> {
-//                        binding.tvDay.text = "6-6-6"
-                        binding.tvDay.text = "6"
+                        binding.tvDay.text = "6-6-6"
+//                        binding.tvDay.text = "6"
                         ballByBallSpeech = " Six Six Six"
                     }
                     ballByBallSpeech!!.contentEquals("It's 4") -> {
-//                        binding.tvDay.text = "4-4-4"
-                        binding.tvDay.text = "4"
+                        binding.tvDay.text = "4-4-4"
+//                        binding.tvDay.text = "4"
                         ballByBallSpeech = " Four Four Four"
                     }
                     ballByBallSpeech!!.contentEquals("WD + 1") -> {
@@ -546,6 +558,16 @@ class LiveLineFragment() : Fragment(R.layout.fragment_live_line) {
             textToSpeech!!.stop()
             textToSpeech!!.shutdown()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setTextToSpeechListener()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setTextToSpeechListener()
     }
 
     fun newInstance(myString: String?): LiveLineFragment {

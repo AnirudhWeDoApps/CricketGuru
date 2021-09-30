@@ -93,4 +93,5 @@ dependencies {
     // Indicator
     implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:$indicator_version"
 
+
 }

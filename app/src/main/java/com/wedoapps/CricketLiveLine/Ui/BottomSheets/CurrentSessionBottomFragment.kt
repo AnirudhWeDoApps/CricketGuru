@@ -1,15 +1,22 @@
 package com.wedoapps.CricketLiveLine.Ui.BottomSheets
 
+import android.app.Dialog
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ArrayAdapter
+import android.widget.FrameLayout
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.wedoapps.CricketLiveLine.R
 import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
 import com.wedoapps.CricketLiveLine.Ui.Fragments.Bet.BettingActivity
 import com.wedoapps.CricketLiveLine.Utils.Constants
+import com.wedoapps.CricketLiveLine.Utils.Constants.ID
 import com.wedoapps.CricketLiveLine.databinding.FragmentBottomCurrentSessionBinding
 
 class CurrentSessionBottomFragment : BottomSheetDialogFragment() {
@@ -26,11 +33,28 @@ class CurrentSessionBottomFragment : BottomSheetDialogFragment() {
         return inflater.inflate(R.layout.fragment_bottom_current_session, container, false)
     }
 
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState)
+
+        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        dialog.setOnShowListener {
+            Handler().post {
+                val bottomSheet =
+                    (dialog as? BottomSheetDialog)?.findViewById<View>(R.id.design_bottom_sheet) as? FrameLayout
+                bottomSheet?.let {
+                    BottomSheetBehavior.from(it).state = BottomSheetBehavior.STATE_EXPANDED
+                }
+            }
+        }
+
+        return dialog
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentBottomCurrentSessionBinding.bind(view)
 
-        id = arguments?.getString(Constants.ID).toString()
+        id = arguments?.getString(ID).toString()
 
         viewModel = (activity as BettingActivity).viewModel
 

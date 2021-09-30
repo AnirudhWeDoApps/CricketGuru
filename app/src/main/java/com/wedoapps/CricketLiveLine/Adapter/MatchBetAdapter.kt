@@ -4,13 +4,11 @@ import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchBet
-import com.wedoapps.CricketLiveLine.R
 import com.wedoapps.CricketLiveLine.Utils.Constants
 import com.wedoapps.CricketLiveLine.databinding.LayoutMatchBetBinding
 
@@ -38,35 +36,6 @@ class MatchBetAdapter(val listener: SetOn) :
                             binding.tvTeam1.text = value.get("Team1").toString()
                             binding.tvTeam2.text = value.get("Team2").toString()
 
-                            when (matchBet.team) {
-                                value.get("Team1") -> {
-                                    binding.tvTeam1.background =
-                                        ContextCompat.getDrawable(
-                                            itemView.context,
-                                            R.drawable.trans_round_rect_border
-                                        )
-                                }
-                                value.get("Team2") -> {
-                                    binding.tvTeam2.background =
-                                        ContextCompat.getDrawable(
-                                            itemView.context,
-                                            R.drawable.trans_round_rect_border
-                                        )
-                                }
-                                else -> {
-                                    binding.tvTeam1.background =
-                                        ContextCompat.getDrawable(
-                                            itemView.context,
-                                            R.drawable.trans_round_rect_border
-                                        )
-                                    binding.tvTeam2.background =
-                                        ContextCompat.getDrawable(
-                                            itemView.context,
-                                            R.drawable.trans_round_rect_border
-                                        )
-                                }
-                            }
-
                         } else {
                             Log.d(Constants.TAG, "NO DATA")
                         }
@@ -74,6 +43,7 @@ class MatchBetAdapter(val listener: SetOn) :
 
                 tvTeam1Value.text = matchBet.team1Value.toString()
                 tvTeam2Value.text = matchBet.team2Value.toString()
+                tvTeam.text = matchBet.team
                 tvType.text = matchBet.type
                 tvPlayerName.text = matchBet.playerName
                 tvRateXAmt.text = "${matchBet.amount} * ${matchBet.rate}"
@@ -81,6 +51,10 @@ class MatchBetAdapter(val listener: SetOn) :
 
                 btnDelete.setOnClickListener {
                     listener.onDelete(matchBet)
+                }
+
+                btnEdit.setOnClickListener {
+                    listener.onEdit(matchBet)
                 }
 
 
@@ -121,6 +95,6 @@ class MatchBetAdapter(val listener: SetOn) :
 
     interface SetOn {
         fun onDelete(matchBet: MatchBet)
-//        fun addValues(team1Value: Int, team2Value: Int)
+        fun onEdit(matchBet: MatchBet)
     }
 }

@@ -26,6 +26,9 @@ class BettingActivity : AppCompatActivity() {
         binding = ActivityBettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val toolbar = binding.toolbar.toolbarTop
+        setSupportActionBar(toolbar)
+
         val intent = intent
         val id = intent.getStringExtra(ID)!!
 

@@ -165,111 +165,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
-    <!--  <LinearLayout
-          android:id="@+id/l1"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          android:orientation="horizontal"
-          android:padding="10dp"
-          android:weightSum="2"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/textView16">
-
-
-          <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:text="@string/team_name"
-              android:textColor="@color/black"
-              android:textSize="16sp" />
-
-          <EditText
-              android:id="@+id/et_teamName"
-              android:layout_width="0dp"
-              android:layout_height="40dp"
-              android:padding="7dp"
-              android:layout_weight="1"
-              android:background="@drawable/trans_round_rect_border"
-              android:importantForAutofill="no"
-              android:inputType="textCapSentences" />
-
-      </LinearLayout>
-
-      <LinearLayout
-          android:id="@+id/l2"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          android:orientation="horizontal"
-          android:padding="10dp"
-          android:weightSum="2"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/l1">
-
-
-          <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:text="@string/session_name"
-              android:textColor="@color/black"
-              android:textSize="16sp" />
-
-          <EditText
-              android:id="@+id/et_sessionName"
-              android:layout_width="0dp"
-              android:layout_height="40dp"
-              android:padding="7dp"
-              android:layout_weight=".5"
-              android:background="@drawable/trans_round_rect_border"
-              android:importantForAutofill="no"
-              android:inputType="textCapSentences"
-              />
-
-          <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight=".5"
-              android:fontFamily="@font/roboto"
-              android:gravity="center"
-              android:text="@string/over"
-              android:textColor="@color/black"
-              android:textSize="16sp" />
-
-      </LinearLayout>
-
-      <LinearLayout
-          android:id="@+id/l4"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          android:orientation="horizontal"
-          android:padding="10dp"
-          android:weightSum="2"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/l2">
-
-          <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:text="@string/commission"
-              android:textColor="@color/black"
-              android:textSize="16sp" />
-
-          <androidx.appcompat.widget.SwitchCompat
-              android:id="@+id/sw_commission"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:checked="true" />
-      </LinearLayout>-->
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_add"
         android:layout_width="match_parent"
@@ -285,7 +180,6 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_session_playerName" />

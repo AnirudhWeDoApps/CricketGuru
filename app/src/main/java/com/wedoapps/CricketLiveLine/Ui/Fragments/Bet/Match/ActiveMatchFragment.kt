@@ -11,6 +11,7 @@ import com.wedoapps.CricketLiveLine.Ui.BottomSheets.MatchBottomSheetFragment
 import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
 import com.wedoapps.CricketLiveLine.Ui.Fragments.Bet.BettingActivity
 import com.wedoapps.CricketLiveLine.Utils.Constants.ID
+import com.wedoapps.CricketLiveLine.Utils.Constants.PID
 import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
 import com.wedoapps.CricketLiveLine.databinding.FragmentActiveMatchBinding
 
@@ -39,7 +40,7 @@ class ActiveMatchFragment : Fragment(R.layout.fragment_active_match),
             }
         })
 
-        viewModel.getAllMatchBet().observe(requireActivity(), {
+        viewModel.getAllMatchBet(id).observe(requireActivity(), {
             if (it.isEmpty()) {
                 binding.tvNoActiveMatch.visibility = View.VISIBLE
                 binding.rvActiveMatch.visibility = View.GONE
@@ -75,9 +76,18 @@ class ActiveMatchFragment : Fragment(R.layout.fragment_active_match),
         viewModel.deleteMatchBet(matchBet)
     }
 
+    override fun onEdit(matchBet: MatchBet) {
+        val matchSheet = MatchBottomSheetFragment()
+        val bundle = Bundle()
+        bundle.putParcelable(PID, matchBet)
+        matchSheet.arguments = bundle
+        matchSheet.setTargetFragment(this, 1)
+        matchSheet.show(parentFragmentManager, matchSheet.tag)
+    }
+
     override fun onResume() {
         super.onResume()
-        viewModel.getAllMatchBet().observe(requireActivity(), {
+        viewModel.getAllMatchBet(id).observe(requireActivity(), {
             var temp = 0
             var temp1 = 0
             if (it.isNullOrEmpty()) {
@@ -100,7 +110,7 @@ class ActiveMatchFragment : Fragment(R.layout.fragment_active_match),
     }
 
     override fun onSheetClose() {
-        viewModel.getAllMatchBet().observe(requireActivity(), {
+        viewModel.getAllMatchBet(id).observe(requireActivity(), {
             var temp = 0
             var temp1 = 0
             if (it.isNullOrEmpty()) {

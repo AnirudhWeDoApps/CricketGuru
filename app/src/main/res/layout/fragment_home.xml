@@ -8,19 +8,17 @@
     android:fitsSystemWindows="true"
     tools:context=".Ui.Fragments.Home.HomeFragment">
 
-    <LinearLayout
+   <!-- <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:background="@drawable/gradient_bg"
-        android:orientation="vertical" />
+        android:orientation="vertical" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_anchor="@id/linear"
-        app:layout_anchorGravity="bottom|center">
+        android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_home"
@@ -36,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            app:spi_dotColor="@color/white"
             app:spi_dotSelectedColor="@color/black" />
 
     </LinearLayout>

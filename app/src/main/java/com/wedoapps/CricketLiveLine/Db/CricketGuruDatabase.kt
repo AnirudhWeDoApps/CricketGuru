@@ -9,7 +9,7 @@ import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionBet
 
 @Database(
     entities = [MatchBet::class, SessionBet::class],
-    version = 5
+    version = 2
 )
 
 abstract class CricketGuruDatabase : RoomDatabase() {

@@ -24,8 +24,10 @@
                 android:backgroundTint="@color/purple_500"
                 android:clickable="true"
                 android:focusable="true"
+                android:animateLayoutChanges="true"
                 android:orientation="horizontal"
                 android:padding="10dp"
+                android:visibility="gone"
                 android:weightSum="3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,161 +69,172 @@
                     app:tint="@color/white" />
             </LinearLayout>
 
-            <include
-                android:id="@+id/team1_score_header"
-                layout="@layout/team_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout1" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv1_team1"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/expandable1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:nestedScrollingEnabled="false"
-                android:orientation="vertical"
-                android:overScrollMode="never"
-                android:visibility="gone"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/team1_score_header"
-                tools:listitem="@layout/scorecard_batsmen_item_layout" />
-
-            <TextView
-                android:id="@+id/tv1_extras"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autoSizeTextType="uniform"
-                android:background="@drawable/round_rect"
-                android:backgroundTint="@color/white"
-                android:layout_marginHorizontal="12dp"
-                android:fontFamily="@font/roboto"
-                android:padding="10dp"
-                android:text="@string/extras"
-                android:textColor="@color/black"
-                android:textSize="15sp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv1_team1"
-                tools:targetApi="o" />
+                app:layout_constraintTop_toBottomOf="@id/linearLayout1">
 
-            <ImageView
-                android:id="@+id/iv_bowling_img"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/ic_seasion_ball"
-                android:layout_marginBottom="10dp"
-                android:contentDescription="@string/bowling"
-                android:visibility="gone"
-                app:layout_constraintEnd_toStartOf="@+id/textView9"
-                app:layout_constraintTop_toBottomOf="@+id/tv1_extras" />
+                <include
+                    android:id="@+id/team1_score_header"
+                    layout="@layout/team_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_editor_absoluteX="10dp" />
 
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:autoSizeTextType="uniform"
-                android:layout_marginEnd="12dp"
-                android:fontFamily="@font/roboto"
-                android:gravity="center"
-                android:text="@string/bowling"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_bowling_img"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/iv_bowling_img"
-                tools:targetApi="o" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv1_team1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/team1_score_header"
+                    tools:listitem="@layout/scorecard_batsmen_item_layout" />
 
-            <include
-                android:id="@+id/team1_bowler_header"
-                layout="@layout/bowler_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+                <TextView
+                    android:id="@+id/tv1_extras"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/round_rect"
+                    android:backgroundTint="@color/white"
+                    android:fontFamily="@font/roboto"
+                    android:padding="10dp"
+                    android:text="@string/extras"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv1_team1"
+                    tools:targetApi="o" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_bowling_team1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:nestedScrollingEnabled="false"
-                android:overScrollMode="never"
-                android:visibility="gone"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/team1_bowler_header" />
+                <ImageView
+                    android:id="@+id/iv_bowling_img"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="gone"
+                    android:contentDescription="@string/bowling"
+                    android:src="@drawable/ic_seasion_ball"
+                    app:layout_constraintEnd_toStartOf="@+id/textView9"
+                    app:layout_constraintTop_toBottomOf="@+id/tv1_extras" />
 
-            <ImageView
-                android:id="@+id/iv_wicket_img"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/ic_wicket"
-                android:contentDescription="@string/fow"
-                android:visibility="gone"
-                app:layout_constraintEnd_toStartOf="@+id/textView11"
-                app:layout_constraintTop_toBottomOf="@+id/rv_bowling_team1" />
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="12dp"
+                    android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="@string/bowling"
+                    android:visibility="gone"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_bowling_img"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/iv_bowling_img"
+                    tools:targetApi="o" />
 
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:autoSizeTextType="uniform"
-                android:layout_marginEnd="12dp"
-                android:fontFamily="@font/roboto"
-                android:gravity="center"
-                android:text="@string/fow"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_wicket_img"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/iv_wicket_img"
-                tools:targetApi="o" />
+                <include
+                    android:id="@+id/team1_bowler_header"
+                    layout="@layout/bowler_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-            <include
-                android:id="@+id/team1_fow_header"
-                layout="@layout/fow_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_bowling_team1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/team1_bowler_header" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_wicket_team1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:nestedScrollingEnabled="false"
-                android:overScrollMode="never"
-                android:visibility="gone"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/team1_fow_header" />
+                <ImageView
+                    android:id="@+id/iv_wicket_img"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:contentDescription="@string/fow"
+                    android:src="@drawable/ic_wicket"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toStartOf="@+id/textView11"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_bowling_team1" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="12dp"
+                    android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="@string/fow"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_wicket_img"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/iv_wicket_img"
+                    tools:targetApi="o" />
+
+                <include
+                    android:id="@+id/team1_fow_header"
+                    layout="@layout/fow_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_wicket_team1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/team1_fow_header" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
@@ -233,9 +246,10 @@
                 android:orientation="horizontal"
                 android:padding="10dp"
                 android:weightSum="3"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_wicket_team1">
+                app:layout_constraintTop_toBottomOf="@+id/expandable1">
 
                 <TextView
                     android:id="@+id/tv_score_team2Name"
@@ -273,159 +287,170 @@
                     app:tint="@color/white" />
             </LinearLayout>
 
-            <include
-                android:id="@+id/team2_score_header"
-                layout="@layout/team_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv1_team2"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/expandable2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:nestedScrollingEnabled="false"
-                android:overScrollMode="never"
-                android:visibility="gone"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/team2_score_header"
-                tools:listitem="@layout/scorecard_batsmen_item_layout" />
-
-            <TextView
-                android:id="@+id/tv2_extras"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autoSizeTextType="uniform"
-                android:background="@drawable/round_rect"
-                android:backgroundTint="@color/white"
-                android:layout_marginHorizontal="12dp"
-                android:padding="10dp"
-                android:text="@string/extras"
-                android:textColor="@color/black"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv1_team2"
-                tools:targetApi="o" />
+                app:layout_constraintTop_toBottomOf="@id/linearLayout2">
 
-            <ImageView
-                android:id="@+id/iv_ball2_img"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/ic_seasion_ball"
-                android:visibility="gone"
-                android:contentDescription="@string/bowling"
-                app:layout_constraintEnd_toStartOf="@+id/textView10"
-                app:layout_constraintTop_toBottomOf="@+id/tv2_extras" />
+                <include
+                    android:id="@+id/team2_score_header"
+                    layout="@layout/team_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_editor_absoluteX="10dp" />
 
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="12dp"
-                android:autoSizeTextType="uniform"
-                android:fontFamily="@font/roboto"
-                android:gravity="center"
-                android:text="@string/bowling"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_ball2_img"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/iv_ball2_img"
-                tools:targetApi="o" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv1_team2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@+id/team2_score_header"
+                    tools:listitem="@layout/scorecard_batsmen_item_layout" />
 
-            <include
-                android:id="@+id/team2_bowler_header"
-                layout="@layout/bowler_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                <TextView
+                    android:id="@+id/tv2_extras"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/round_rect"
+                    android:backgroundTint="@color/white"
+                    android:visibility="gone"
+                    android:padding="10dp"
+                    android:text="@string/extras"
+                    android:textColor="@color/black"
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_bowling_team2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:nestedScrollingEnabled="false"
-                android:overScrollMode="never"
-                android:visibility="gone"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/team2_bowler_header" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv1_team2"
+                    tools:targetApi="o" />
 
-            <ImageView
-                android:id="@+id/iv_wicket_img2"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/ic_wicket"
-                android:visibility="gone"
-                app:layout_constraintEnd_toStartOf="@+id/textView12"
-                app:layout_constraintTop_toBottomOf="@+id/rv_bowling_team2"
-                android:contentDescription="@string/fow" />
+                <ImageView
+                    android:id="@+id/iv_ball2_img"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:contentDescription="@string/bowling"
+                    android:src="@drawable/ic_seasion_ball"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toStartOf="@+id/textView10"
+                    app:layout_constraintTop_toBottomOf="@+id/tv2_extras" />
 
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:autoSizeTextType="uniform"
-                android:layout_marginEnd="12dp"
-                android:fontFamily="@font/roboto"
-                android:gravity="center"
-                android:text="@string/fow"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_wicket_img2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/iv_wicket_img2"
-                tools:targetApi="o" />
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="12dp"
+                    android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="@string/bowling"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_ball2_img"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/iv_ball2_img"
+                    tools:targetApi="o" />
 
-            <include
-                android:id="@+id/team2_fow_header"
-                layout="@layout/fow_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+                <include
+                    android:id="@+id/team2_bowler_header"
+                    layout="@layout/bowler_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_wicket_team2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:nestedScrollingEnabled="false"
-                android:overScrollMode="never"
-                android:visibility="gone"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/team2_fow_header" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_bowling_team2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
 
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/team2_bowler_header" />
+
+                <ImageView
+                    android:id="@+id/iv_wicket_img2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:contentDescription="@string/fow"
+                    android:src="@drawable/ic_wicket"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toStartOf="@+id/textView12"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_bowling_team2" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="12dp"
+                    android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="@string/fow"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_wicket_img2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/iv_wicket_img2"
+                    tools:targetApi="o" />
+
+                <include
+                    android:id="@+id/team2_fow_header"
+                    layout="@layout/fow_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_wicket_team2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/team2_fow_header" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -435,9 +460,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
+        android:textSize="20sp"
         android:text="@string/there_is_no_scorecard"
         android:textColor="@color/black"
-        android:textSize="20sp"
         android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

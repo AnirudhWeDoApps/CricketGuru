@@ -25,15 +25,18 @@ class ViewPagerActivity : AppCompatActivity() {
         binding = ActivityViewPagerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val toolbar = binding.toolbar.toolbarTop
+        setSupportActionBar(toolbar)
+
         val id = args.data.id
 
         val fragmentList = arrayListOf(
             LiveLineFragment().newInstance(id),
             InfoFragment().newInstance(id),
-            ChatFragment().newInstance(id),
-            CommentaryFragment().newInstance(id),
             ScorecardFragment().newInstance(id),
             SessionFragment().newInstance(id),
+            ChatFragment().newInstance(id),
+            CommentaryFragment().newInstance(id),
             BetFragment().newInstance(id)
         )
 
@@ -49,10 +52,10 @@ class ViewPagerActivity : AppCompatActivity() {
             when (position) {
                 0 -> tab.text = getString(R.string.live_line)
                 1 -> tab.text = getString(R.string.info)
-                2 -> tab.text = getString(R.string.chat)
-                3 -> tab.text = getString(R.string.commentary)
-                4 -> tab.text = getString(R.string.scorecard)
-                5 -> tab.text = getString(R.string.session)
+                2 -> tab.text = getString(R.string.scorecard)
+                3 -> tab.text = getString(R.string.session)
+                4 -> tab.text = getString(R.string.chat)
+                5 -> tab.text = getString(R.string.commentary)
                 6 -> tab.text = getString(R.string.bet)
             }
         }.attach()

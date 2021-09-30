@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".Ui.Fragments.Bet.BettingActivity">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/custom_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutBetting"
         android:layout_width="match_parent"
@@ -13,7 +20,7 @@
         android:background="@color/purple_500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:tabIndicatorColor="@color/white"
         app:tabIndicatorHeight="2dp"
         app:tabSelectedTextColor="@color/white"

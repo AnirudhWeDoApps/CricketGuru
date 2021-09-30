@@ -31,7 +31,7 @@ class CurrentSessionFragment : Fragment(R.layout.fragment_current_session),
 
         sessionAdapter = SessionBetAdapter(this)
 
-        viewModel.getAllSessions().observe(requireActivity(), {
+        viewModel.getAllSessions(id).observe(requireActivity(), {
             if (it.isEmpty()) {
                 binding.tvNoCurrentSession.visibility = View.VISIBLE
                 binding.rvCurrentSession.visibility = View.GONE
@@ -51,7 +51,7 @@ class CurrentSessionFragment : Fragment(R.layout.fragment_current_session),
         binding.fabAddSession.setOnClickListener {
             val sessionSheet = CurrentSessionBottomFragment()
             val bundle = Bundle()
-            bundle.putString(Constants.ID, id)
+            bundle.putString(ID, id)
             sessionSheet.arguments = bundle
             sessionSheet.setTargetFragment(this, 1)
             sessionSheet.show(parentFragmentManager, sessionSheet.tag)
@@ -66,7 +66,7 @@ class CurrentSessionFragment : Fragment(R.layout.fragment_current_session),
     fun newInstance(myString: String?): CurrentSessionFragment {
         val myFragment = CurrentSessionFragment()
         val args = Bundle()
-        args.putString(Constants.ID, myString)
+        args.putString(ID, myString)
         myFragment.arguments = args
         return myFragment
     }

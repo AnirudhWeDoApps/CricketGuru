@@ -15,7 +15,7 @@
 
         <RelativeLayout
             android:id="@+id/relativeLayout"
-            android:layout_width="100dp"
+            android:layout_width="102dp"
             android:layout_height="75dp"
             android:background="@drawable/trans_round_rect_border"
             android:gravity="center"
@@ -29,6 +29,7 @@
                 android:id="@+id/l21"
                 android:layout_width="51dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
@@ -47,7 +48,7 @@
 
                 <TextView
                     android:id="@+id/tv_innings"
-                    android:layout_width="match_parent"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
@@ -59,7 +60,7 @@
                     android:backgroundTint="@color/purple_500"
                     android:gravity="center"
                     android:padding="2dp"
-                    android:text="@string/inning_hint"
+                    android:text="@string/_256"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     tools:targetApi="o" />
@@ -69,8 +70,8 @@
             <LinearLayout
                 android:layout_width="51dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
                 android:layout_toEndOf="@+id/l21"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
@@ -89,7 +90,7 @@
 
                 <TextView
                     android:id="@+id/tv_over_data"
-                    android:layout_width="match_parent"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
@@ -101,7 +102,7 @@
                     android:backgroundTint="@color/purple_500"
                     android:gravity="center"
                     android:padding="2dp"
-                    android:text="@string/over"
+                    android:text="@string/_3"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     tools:targetApi="o" />
@@ -141,24 +142,28 @@
 
                 <TextView
                     android:id="@+id/tv_pre_score"
-                    android:layout_width="wrap_content"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/round_rect"
                     android:backgroundTint="@color/purple_500"
                     android:padding="4dp"
                     android:text="@string/_256"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:textColor="@color/white"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_comm"
-                    android:layout_width="wrap_content"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:background="@drawable/round_rect"
                     android:backgroundTint="@color/purple_500"
                     android:padding="4dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:text="@string/not"
                     android:textColor="@color/white"
                     android:textSize="13sp"
@@ -245,7 +250,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:cardBackgroundColor="@android:color/holo_green_dark"
-            app:cardCornerRadius="10dp"
+            app:cardCornerRadius="6dp"
             app:layout_constraintEnd_toEndOf="@+id/relativeLayout3"
             app:layout_constraintTop_toBottomOf="@+id/relativeLayout3">
 

@@ -2,24 +2,27 @@ package com.wedoapps.CricketLiveLine.Ui.Fragments.SingleMatch.PagerFragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.transition.AutoTransition
+import android.transition.TransitionManager
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.wedoapps.CricketLiveLine.Adapter.BowlerListAdapter
 import com.wedoapps.CricketLiveLine.Adapter.ScoreCardBattingAdapter
 import com.wedoapps.CricketLiveLine.Adapter.WicketListAdapter
+import com.wedoapps.CricketLiveLine.Model.AllWicketList
+import com.wedoapps.CricketLiveLine.Model.BowlerList
+import com.wedoapps.CricketLiveLine.Model.PlayerScore
 import com.wedoapps.CricketLiveLine.R
 import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
 import com.wedoapps.CricketLiveLine.Ui.Fragments.SingleMatch.ViewPagerActivity
-import com.wedoapps.CricketLiveLine.Utils.Constants
 import com.wedoapps.CricketLiveLine.Utils.Constants.ID
 import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
 import com.wedoapps.CricketLiveLine.databinding.FragmentScorecardBinding
 
-class ScorecardFragment() : Fragment(R.layout.fragment_scorecard) {
+class ScorecardFragment : Fragment(R.layout.fragment_scorecard) {
 
     private lateinit var binding: FragmentScorecardBinding
-    private var isExpanded = false
     private lateinit var viewModel: CricketGuruViewModel
     private lateinit var scoreCardBattingAdapter: ScoreCardBattingAdapter
     private lateinit var scoreCardBattingAdapter2: ScoreCardBattingAdapter
@@ -28,6 +31,12 @@ class ScorecardFragment() : Fragment(R.layout.fragment_scorecard) {
     private lateinit var wicketListAdapter: WicketListAdapter
     private lateinit var wicketListAdapter2: WicketListAdapter
     private lateinit var id: String
+    private val score1 = mutableListOf<PlayerScore>()
+    private val score2 = mutableListOf<PlayerScore>()
+    private val bowler1 = mutableListOf<BowlerList>()
+    private val bowler2 = mutableListOf<BowlerList>()
+    private val wicket1 = mutableListOf<AllWicketList>()
+    private val wicket2 = mutableListOf<AllWicketList>()
 
 
     @SuppressLint("SetTextI18n")
@@ -47,79 +56,31 @@ class ScorecardFragment() : Fragment(R.layout.fragment_scorecard) {
         wicketListAdapter2 = WicketListAdapter()
 
         binding.linearLayout1.setOnClickListener {
-            if (!isExpanded) {
-                binding.apply {
-                    ivScoreTeam1Arrow.rotationX = 180F
-                    team1ScoreHeader.root.visibility = View.VISIBLE
-                    rv1Team1.visibility = View.VISIBLE
-                    tv1Extras.visibility = View.VISIBLE
-                    ivBowlingImg.visibility = View.VISIBLE
-                    textView9.visibility = View.VISIBLE
-                    team1BowlerHeader.root.visibility = View.VISIBLE
-                    rvBowlingTeam1.visibility = View.VISIBLE
-                    ivWicketImg.visibility = View.VISIBLE
-                    textView11.visibility = View.VISIBLE
-                    team1FowHeader.root.visibility = View.VISIBLE
-                    rvWicketTeam1.visibility = View.VISIBLE
-
-                }
-                isExpanded = true
+            if (binding.expandable1.visibility == View.GONE) {
+                TransitionManager.beginDelayedTransition(binding.linearLayout1, AutoTransition())
+                binding.expandable1.visibility = View.VISIBLE
+                binding.ivScoreTeam1Arrow.rotationX = 180F
             } else {
-                binding.apply {
-                    ivScoreTeam1Arrow.rotationX = 0F
-                    team1ScoreHeader.root.visibility = View.GONE
-                    rv1Team1.visibility = View.GONE
-                    tv1Extras.visibility = View.GONE
-                    ivBowlingImg.visibility = View.GONE
-                    textView9.visibility = View.GONE
-                    team1BowlerHeader.root.visibility = View.GONE
-                    rvBowlingTeam1.visibility = View.GONE
-                    ivWicketImg.visibility = View.GONE
-                    textView11.visibility = View.GONE
-                    team1FowHeader.root.visibility = View.GONE
-                    rvWicketTeam1.visibility = View.GONE
-                }
-                isExpanded = false
+                TransitionManager.beginDelayedTransition(binding.linearLayout1, AutoTransition())
+                binding.expandable1.visibility = View.GONE
+                binding.ivScoreTeam1Arrow.rotationX = 0F
             }
         }
 
         binding.linearLayout2.setOnClickListener {
-            if (!isExpanded) {
-                binding.apply {
-                    ivScoreTeam2Arrow.rotationX = 180F
-                    team2ScoreHeader.root.visibility = View.VISIBLE
-                    rv1Team2.visibility = View.VISIBLE
-                    tv2Extras.visibility = View.VISIBLE
-                    ivBall2Img.visibility = View.VISIBLE
-                    textView10.visibility = View.VISIBLE
-                    team2BowlerHeader.root.visibility = View.VISIBLE
-                    rvBowlingTeam2.visibility = View.VISIBLE
-                    ivWicketImg2.visibility = View.VISIBLE
-                    textView12.visibility = View.VISIBLE
-                    team2FowHeader.root.visibility = View.VISIBLE
-                    rvWicketTeam2.visibility = View.VISIBLE
-                }
-                isExpanded = true
+            if (binding.expandable2.visibility == View.GONE) {
+                TransitionManager.beginDelayedTransition(binding.linearLayout2, AutoTransition())
+                binding.expandable2.visibility = View.VISIBLE
+                binding.ivScoreTeam2Arrow.rotationX = 180F
             } else {
-                binding.apply {
-                    ivScoreTeam2Arrow.rotationX = 0F
-                    team2ScoreHeader.root.visibility = View.GONE
-                    rv1Team2.visibility = View.GONE
-                    tv2Extras.visibility = View.GONE
-                    ivBall2Img.visibility = View.GONE
-                    textView10.visibility = View.GONE
-                    team2BowlerHeader.root.visibility = View.GONE
-                    rvBowlingTeam2.visibility = View.GONE
-                    ivWicketImg2.visibility = View.GONE
-                    textView12.visibility = View.GONE
-                    team2FowHeader.root.visibility = View.GONE
-                    rvWicketTeam2.visibility = View.GONE
-                }
-                isExpanded = false
+                TransitionManager.beginDelayedTransition(binding.linearLayout2, AutoTransition())
+                binding.expandable2.visibility = View.GONE
+                binding.ivScoreTeam2Arrow.rotationX = 0F
             }
         }
 
         viewModel.apply {
+
             getAllTeam1(id).observe(requireActivity(), {
                 binding.tvScoreTeam1Score.text = it?.Score + " ( ${it?.Over} )"
             })
@@ -137,58 +98,136 @@ class ScorecardFragment() : Fragment(R.layout.fragment_scorecard) {
 
             getTeam1Extras(id).observe(requireActivity(), {
                 Log.d(TAG, "extras 1: $it")
-                binding.tv1Extras.text = "Extras: $it"
+                if (it == null) {
+                    binding.tv1Extras.visibility = View.GONE
+                } else {
+                    binding.tv1Extras.visibility = View.VISIBLE
+                    binding.tv1Extras.text = "Extras: $it"
+                }
             })
 
             getTeam2Extras(id).observe(requireActivity(), {
                 Log.d(TAG, "extras 2: $it")
-                binding.tv2Extras.text = "Extras: $it"
+                if (it == null) {
+                    binding.tv2Extras.visibility = View.GONE
+                } else {
+                    binding.tv2Extras.visibility = View.VISIBLE
+                    binding.tv2Extras.text = "Extras: $it"
+                }
             })
 
             getScoreDetails1(id).observe(requireActivity(), {
                 Log.d(TAG, "onViewCreated ScoreCardTeam1:$id $it")
 
+                score1.addAll(it)
+
                 if (it == null) {
-                    binding.nested.visibility = View.GONE
-                    binding.tvNoData.visibility = View.VISIBLE
+                    binding.team1ScoreHeader.root.visibility = View.GONE
+                    binding.rv1Team1.visibility = View.GONE
                 } else {
-                    binding.tvNoData.visibility = View.GONE
-                    binding.nested.visibility = View.VISIBLE
+                    binding.rv1Team1.visibility = View.VISIBLE
+                    binding.team1ScoreHeader.root.visibility = View.VISIBLE
+                    binding.tv1Extras.visibility = View.VISIBLE
                     scoreCardBattingAdapter.differ.submitList(it)
                 }
+
+
             })
 
             getScoreDetails2(id).observe(requireActivity(), {
                 Log.d(TAG, "onViewCreated ScoreCardTeam2:$id $it")
 
+                score2.addAll(it)
+
                 if (it == null) {
-                    binding.nested.visibility = View.GONE
-                    binding.tvNoData.visibility = View.VISIBLE
+                    binding.team2ScoreHeader.root.visibility = View.GONE
+                    binding.tv2Extras.visibility = View.GONE
+                    binding.rv1Team2.visibility = View.GONE
                 } else {
-                    binding.tvNoData.visibility = View.GONE
-                    binding.nested.visibility = View.VISIBLE
+                    binding.rv1Team2.visibility = View.VISIBLE
+                    binding.team2ScoreHeader.root.visibility = View.VISIBLE
+                    binding.tv2Extras.visibility = View.VISIBLE
                     scoreCardBattingAdapter2.differ.submitList(it)
                 }
+
+
             })
 
             getBowlerList2(id).observe(requireActivity(), {
                 Log.d(TAG, "onViewCreated Bowler List 2: ${it.team2List}")
-                bowlerListAdapter2.differ.submitList(it.team2List)
+
+                bowler2.add(it)
+
+                if (it == null) {
+                    binding.rvBowlingTeam2.visibility = View.GONE
+                    binding.team2BowlerHeader.root.visibility = View.GONE
+                    binding.textView10.visibility = View.GONE
+                    binding.ivBall2Img.visibility = View.GONE
+                } else {
+                    binding.ivBall2Img.visibility = View.VISIBLE
+                    binding.textView10.visibility = View.VISIBLE
+                    binding.team2BowlerHeader.root.visibility = View.VISIBLE
+                    binding.rvBowlingTeam2.visibility = View.VISIBLE
+                    bowlerListAdapter2.differ.submitList(it.team2List)
+                }
+
             })
 
             getBowlerList1(id).observe(requireActivity(), {
                 Log.d(TAG, "onViewCreated Bowler List 1: ${it.team1List}")
-                bowlerListAdapter.differ.submitList(it.team1List)
+
+                bowler1.add(it)
+
+                if (it == null) {
+                    binding.rvBowlingTeam1.visibility = View.GONE
+                    binding.team1BowlerHeader.root.visibility = View.GONE
+                    binding.ivBowlingImg.visibility = View.GONE
+                    binding.textView9.visibility = View.GONE
+                } else {
+                    binding.textView9.visibility = View.VISIBLE
+                    binding.ivBowlingImg.visibility = View.VISIBLE
+                    binding.rvBowlingTeam1.visibility = View.VISIBLE
+                    binding.team1BowlerHeader.root.visibility = View.VISIBLE
+                    bowlerListAdapter.differ.submitList(it.team2List)
+                }
             })
 
             getWicketList1(id).observe(requireActivity(), {
                 Log.d(TAG, "onViewCreated WIcket List 1: ${it.wicketList1}")
-                wicketListAdapter.differ.submitList(it.wicketList1)
+
+                wicket1.add(it)
+
+                if (it == null) {
+                    binding.rvWicketTeam1.visibility = View.GONE
+                    binding.team1FowHeader.root.visibility = View.GONE
+                    binding.ivWicketImg.visibility = View.GONE
+                    binding.textView11.visibility = View.GONE
+                } else {
+                    binding.textView11.visibility = View.VISIBLE
+                    binding.ivWicketImg.visibility = View.VISIBLE
+                    binding.team1FowHeader.root.visibility = View.VISIBLE
+                    binding.rvWicketTeam1.visibility = View.VISIBLE
+                    wicketListAdapter.differ.submitList(it.wicketList1)
+                }
             })
 
             getWicketList2(id).observe(requireActivity(), {
                 Log.d(TAG, "onViewCreated Wicket List 2: ${it.wicketList2}")
-                wicketListAdapter2.differ.submitList(it.wicketList2)
+
+                wicket2.add(it)
+
+                if (it == null) {
+                    binding.rvWicketTeam2.visibility = View.GONE
+                    binding.team2FowHeader.root.visibility = View.GONE
+                    binding.ivWicketImg2.visibility = View.GONE
+                    binding.textView12.visibility = View.GONE
+                } else {
+                    binding.textView12.visibility = View.VISIBLE
+                    binding.ivWicketImg2.visibility = View.VISIBLE
+                    binding.team2FowHeader.root.visibility = View.VISIBLE
+                    binding.rvWicketTeam2.visibility = View.VISIBLE
+                    wicketListAdapter2.differ.submitList(it.wicketList1)
+                }
             })
         }
 
@@ -221,14 +260,31 @@ class ScorecardFragment() : Fragment(R.layout.fragment_scorecard) {
             setHasFixedSize(true)
             adapter = wicketListAdapter2
         }
-    }
 
+    }
 
     fun newInstance(myString: String?): ScorecardFragment {
         val myFragment = ScorecardFragment()
         val args = Bundle()
-        args.putString(Constants.ID, myString)
+        args.putString(ID, myString)
         myFragment.arguments = args
         return myFragment
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (score1.isNullOrEmpty() && score2.isNullOrEmpty() && bowler1.isNullOrEmpty() && bowler2.isNullOrEmpty() && wicket1.isNullOrEmpty() && wicket2.isNullOrEmpty()) {
+            binding.tvNoData.visibility = View.VISIBLE
+            binding.linearLayout1.visibility = View.GONE
+            binding.linearLayout2.visibility = View.GONE
+        } else {
+            binding.tvNoData.visibility = View.GONE
+            binding.linearLayout1.visibility = View.VISIBLE
+            binding.linearLayout2.visibility = View.VISIBLE
+
+        }
+
+    }
+
 }

@@ -20,6 +20,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val toolbar = binding.toolbar.toolbarTop
+        setSupportActionBar(toolbar)
+
         val repository = CricketGuruRepository(CricketGuruDatabase(this))
         val viewModelProvider = ViewModelProviderFactory(application, repository)
         viewModel = ViewModelProvider(this, viewModelProvider)[CricketGuruViewModel::class.java]

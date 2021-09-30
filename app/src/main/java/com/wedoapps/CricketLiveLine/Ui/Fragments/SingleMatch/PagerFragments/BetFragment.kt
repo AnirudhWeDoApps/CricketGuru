@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -35,6 +36,8 @@ class BetFragment : Fragment(R.layout.fragment_bet) {
                 etTeam2.setText(String.format(it.Team2.toString()))
             }
         })
+
+
 
         binding.apply {
             tvTest.setOnClickListener {

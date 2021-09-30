@@ -16,14 +16,14 @@ class CricketGuruRepository(val db: CricketGuruDatabase) {
     private var firestore = FirebaseFirestore.getInstance()
     private var mutableLangName = MutableLiveData<MutableList<HomeMatch>>()
     private var mutableData = MutableLiveData<HomeMatch>()
-    private var _team1: MutableLiveData<Score?> = MutableLiveData<Score?>()
-    private var _team2: MutableLiveData<Score?> = MutableLiveData<Score?>()
-    private var _teamExtras: MutableLiveData<String> = MutableLiveData<String>()
-    private var _teamExtras2: MutableLiveData<String> = MutableLiveData<String>()
-    private var _runRate: MutableLiveData<String> = MutableLiveData<String>()
-    private var _batman1Info: MutableLiveData<String> = MutableLiveData<String>()
-    private var _batman2Info: MutableLiveData<String> = MutableLiveData<String>()
-    private var _bowlerInfo: MutableLiveData<String> = MutableLiveData<String>()
+    private var _team1 = MutableLiveData<Score?>()
+    private var _team2 = MutableLiveData<Score?>()
+    private var _teamExtras = MutableLiveData<String>()
+    private var _teamExtras2 = MutableLiveData<String>()
+    private var _runRate = MutableLiveData<String>()
+    private var _batman1Info = MutableLiveData<String>()
+    private var _batman2Info = MutableLiveData<String>()
+    private var _bowlerInfo = MutableLiveData<String>()
     private var _partnershipInfo: MutableLiveData<String> = MutableLiveData<String>()
     private var _ballXrun: MutableLiveData<String> = MutableLiveData<String>()
     private var _sessionLambi: MutableLiveData<String> = MutableLiveData<String>()
@@ -41,7 +41,7 @@ class CricketGuruRepository(val db: CricketGuruDatabase) {
     private var _bowlerlist1: MutableLiveData<BowlerList> = MutableLiveData<BowlerList>()
     private var _bowlerlist2: MutableLiveData<BowlerList> = MutableLiveData<BowlerList>()
     private var _wicketList1: MutableLiveData<AllWicketList> = MutableLiveData<AllWicketList>()
-    private var _wicketList2: MutableLiveData<AllWicketList> = MutableLiveData<AllWicketList>()
+    private var _wicketList2 = MutableLiveData<AllWicketList>()
     private val firestoreRef = firestore.collection("MatchList")
     private var scoreDataModelArrayList1 = ArrayList<PlayerScore>()
     private val scoreDataModelArrayList2 = ArrayList<PlayerScore>()
@@ -711,7 +711,7 @@ class CricketGuruRepository(val db: CricketGuruDatabase) {
     }
 
     fun getSession(id: String): MutableLiveData<String> {
-        firestoreRef.document(id).collection("SessionRate").document("SessionFragment")
+        firestoreRef.document(id).collection("SessionRate").document("Session")
             .addSnapshotListener { value, error ->
                 if (error != null) {
                     Log.w(TAG, "Listen Failed", error)
@@ -851,7 +851,7 @@ class CricketGuruRepository(val db: CricketGuruDatabase) {
     suspend fun deleteSession(sessionBet: SessionBet) =
         db.getCricketGuruDao().deleteSession(sessionBet)
 
-    fun getAllMatchBet() = db.getCricketGuruDao().getAllMatches()
+    fun getAllMatchBet(matchid: String) = db.getCricketGuruDao().getAllMatches(matchid)
 
-    fun getAllSessionBet() = db.getCricketGuruDao().getAllSessions()
+    fun getAllSessionBet(matchid: String) = db.getCricketGuruDao().getAllSessions(matchid)
 }

@@ -10,8 +10,9 @@
     <color name="tv_color">#303032</color>
     <color name="gray">#707070</color>
     <color name="dark_blue">#21274C</color>
-    <color name="light_pink">#ED90CF</color>
+    <color name="orange">#CD853F</color>
     <color name="blue">#4FE6F1</color>
+    <color name="lblue">#00bfff</color>
     <color name="purlplish">#A6A6DE</color>
     <color name="dark_pink">#EF566A</color>
 </resources>
