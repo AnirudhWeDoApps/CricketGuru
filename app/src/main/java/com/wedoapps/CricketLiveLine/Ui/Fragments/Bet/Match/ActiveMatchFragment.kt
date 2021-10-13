@@ -58,8 +58,6 @@ class ActiveMatchFragment : Fragment(R.layout.fragment_active_match),
 
         })
 
-
-
         binding.fabAddMatch.setOnClickListener {
             val matchSheet = MatchBottomSheetFragment()
             val bundle = Bundle()
@@ -69,7 +67,6 @@ class ActiveMatchFragment : Fragment(R.layout.fragment_active_match),
             matchSheet.show(parentFragmentManager, matchSheet.tag)
         }
     }
-
 
     override fun onDelete(matchBet: MatchBet) {
         Log.d(TAG, "onDelete: ")

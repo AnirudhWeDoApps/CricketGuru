@@ -3,72 +3,55 @@ package com.wedoapps.CricketLiveLine.Ui.Fragments.Bet.Session
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.wedoapps.CricketLiveLine.Adapter.SessionBetAdapter
-import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionBet
+import com.google.android.material.tabs.TabLayoutMediator
+import com.wedoapps.CricketLiveLine.Adapter.ViewPagerAdapter
 import com.wedoapps.CricketLiveLine.R
-import com.wedoapps.CricketLiveLine.Ui.BottomSheets.CurrentSessionBottomFragment
 import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
-import com.wedoapps.CricketLiveLine.Ui.Fragments.Bet.BettingActivity
 import com.wedoapps.CricketLiveLine.Utils.Constants
-import com.wedoapps.CricketLiveLine.Utils.Constants.ID
 import com.wedoapps.CricketLiveLine.databinding.FragmentCurrentSessionBinding
 
-class CurrentSessionFragment : Fragment(R.layout.fragment_current_session),
-    SessionBetAdapter.OnSet {
+class CurrentSessionFragment : Fragment(R.layout.fragment_current_session) {
 
     private lateinit var binding: FragmentCurrentSessionBinding
-    private lateinit var viewModel: CricketGuruViewModel
-    private lateinit var sessionAdapter: SessionBetAdapter
+    lateinit var viewModel: CricketGuruViewModel
     private lateinit var id: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCurrentSessionBinding.bind(view)
 
-        id = arguments?.getString(ID).toString()
+        id = arguments?.getString(Constants.ID).toString()
 
-        viewModel = (activity as BettingActivity).viewModel
 
-        sessionAdapter = SessionBetAdapter(this)
+        val fragmentList = arrayListOf(
+            SessionEntryFragment().newInstance(id),
+            CheckGraphFragment().newInstance(id)
+        )
 
-        viewModel.getAllSessions(id).observe(requireActivity(), {
-            if (it.isEmpty()) {
-                binding.tvNoCurrentSession.visibility = View.VISIBLE
-                binding.rvCurrentSession.visibility = View.GONE
-            } else {
-                sessionAdapter.differ.submitList(it)
-                binding.tvNoCurrentSession.visibility = View.GONE
-                binding.rvCurrentSession.visibility = View.VISIBLE
+        val adapter = ViewPagerAdapter(
+            fragmentList,
+            parentFragmentManager,
+            lifecycle
+        )
 
+        binding.viewPagerSession.adapter = adapter
+
+        TabLayoutMediator(binding.tabLayoutSession, binding.viewPagerSession) { tab, position ->
+            when (position) {
+                0 -> tab.text = getString(R.string.SessionEntry)
+                1 -> tab.text = getString(R.string.CheckGraph)
             }
-        })
+        }.attach()
 
-        binding.rvCurrentSession.apply {
-            setHasFixedSize(true)
-            adapter = sessionAdapter
-        }
-
-        binding.fabAddSession.setOnClickListener {
-            val sessionSheet = CurrentSessionBottomFragment()
-            val bundle = Bundle()
-            bundle.putString(ID, id)
-            sessionSheet.arguments = bundle
-            sessionSheet.setTargetFragment(this, 1)
-            sessionSheet.show(parentFragmentManager, sessionSheet.tag)
-        }
-
-    }
-
-    override fun onDeleteSession(sessionBet: SessionBet) {
-        viewModel.deleteSession(sessionBet)
     }
 
     fun newInstance(myString: String?): CurrentSessionFragment {
         val myFragment = CurrentSessionFragment()
         val args = Bundle()
-        args.putString(ID, myString)
+        args.putString(Constants.ID, myString)
         myFragment.arguments = args
         return myFragment
     }
 
 }
+

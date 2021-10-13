@@ -9,21 +9,23 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.FrameLayout
+import androidx.fragment.app.DialogFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionBet
 import com.wedoapps.CricketLiveLine.R
 import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
 import com.wedoapps.CricketLiveLine.Ui.Fragments.Bet.BettingActivity
-import com.wedoapps.CricketLiveLine.Utils.Constants
 import com.wedoapps.CricketLiveLine.Utils.Constants.ID
+import com.wedoapps.CricketLiveLine.Utils.Constants.PID
 import com.wedoapps.CricketLiveLine.databinding.FragmentBottomCurrentSessionBinding
 
-class CurrentSessionBottomFragment : BottomSheetDialogFragment() {
+class CurrentSessionBottomFragment : DialogFragment() {
 
     private lateinit var binding: FragmentBottomCurrentSessionBinding
     private lateinit var viewModel: CricketGuruViewModel
     private lateinit var id: String
+    private var jsonObj: SessionBet? = SessionBet()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,35 +57,71 @@ class CurrentSessionBottomFragment : BottomSheetDialogFragment() {
         binding = FragmentBottomCurrentSessionBinding.bind(view)
 
         id = arguments?.getString(ID).toString()
-
+        jsonObj = arguments?.getParcelable(PID)
         viewModel = (activity as BettingActivity).viewModel
+
+        if (jsonObj != null) {
+            val comArray = arrayListOf("Yes", "No")
+            val comAdapter = ArrayAdapter(
+                view.context,
+                android.R.layout.simple_spinner_dropdown_item,
+                comArray
+            )
+            comAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.ynSpinner.adapter = comAdapter
+            val teamPosition = comAdapter.getPosition(jsonObj?.YorN)
+            binding.ynSpinner.setSelection(teamPosition)
+            binding.apply {
+                etSessionAmt.setText(jsonObj?.amount.toString())
+                etSessionInn.setText(jsonObj?.innings.toString())
+                etSessionOver.setText(jsonObj?.over.toString())
+                etSessionFp.setText(jsonObj?.FandP.toString())
+                etSessionAs.setText(jsonObj?.actualScore.toString())
+                etSessionPlayerName.setText(jsonObj?.playerName.toString())
+            }
+        } else {
+            val comArray = arrayListOf("Yes", "No")
+            val comAdapter = ArrayAdapter(
+                view.context,
+                android.R.layout.simple_spinner_dropdown_item,
+                comArray
+            )
+            comAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.ynSpinner.adapter = comAdapter
+        }
+
 
         binding.ivCancel.setOnClickListener {
             dismiss()
         }
-
-        val comArray = arrayListOf("Yes", "No")
-        val comAdapter = ArrayAdapter(
-            view.context,
-            android.R.layout.simple_spinner_dropdown_item,
-            comArray
-        )
-        comAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.ynSpinner.adapter = comAdapter
-
         binding.btnAdd.setOnClickListener {
             if (validated()) {
-                viewModel.saveSession(
-                    id,
-                    binding.etSessionAmt.text.toString().toInt(),
-                    binding.etSessionInn.text.toString().toInt(),
-                    binding.etSessionOver.text.toString(),
-                    binding.etSessionFp.text.toString().toInt(),
-                    binding.ynSpinner.selectedItem.toString(),
-                    binding.etSessionAs.text.toString().toInt(),
-                    binding.etSessionPlayerName.text.toString()
-                )
-                dismiss()
+                if (jsonObj != null) {
+                    viewModel.updateSession(
+                        jsonObj?.id!!,
+                        jsonObj?.matchId!!,
+                        binding.etSessionAmt.text.toString().toInt(),
+                        binding.etSessionInn.text.toString().toInt(),
+                        binding.etSessionOver.text.toString(),
+                        binding.etSessionFp.text.toString().toInt(),
+                        binding.ynSpinner.selectedItem.toString(),
+                        binding.etSessionAs.text.toString().toInt(),
+                        binding.etSessionPlayerName.text.toString()
+                    )
+                    dismiss()
+                } else {
+                    viewModel.saveSession(
+                        id,
+                        binding.etSessionAmt.text.toString().toInt(),
+                        binding.etSessionInn.text.toString().toInt(),
+                        binding.etSessionOver.text.toString(),
+                        binding.etSessionFp.text.toString().toInt(),
+                        binding.ynSpinner.selectedItem.toString(),
+                        binding.etSessionAs.text.toString().toInt(),
+                        binding.etSessionPlayerName.text.toString()
+                    )
+                    dismiss()
+                }
             }
         }
 
@@ -115,6 +153,14 @@ class CurrentSessionBottomFragment : BottomSheetDialogFragment() {
             return false
         }
         return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val params: ViewGroup.LayoutParams = dialog?.window!!.attributes
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        dialog?.window?.attributes = params as WindowManager.LayoutParams
     }
 
 }

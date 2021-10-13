@@ -457,9 +457,9 @@
     <TextView
         android:id="@+id/tv_noData"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="match_parent"
         android:gravity="center"
+        android:padding="10dp"
         android:textSize="20sp"
         android:text="@string/there_is_no_scorecard"
         android:textColor="@color/black"

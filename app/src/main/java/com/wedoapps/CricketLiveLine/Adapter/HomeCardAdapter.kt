@@ -4,17 +4,20 @@ import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import com.wedoapps.CricketLiveLine.Model.HomeMatch
 import com.wedoapps.CricketLiveLine.Model.Score
 import com.wedoapps.CricketLiveLine.R
 import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
 import com.wedoapps.CricketLiveLine.databinding.HomeCardItemLayoutBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HomeCardAdapter(private val listener: SetOnClick) :
     RecyclerView.Adapter<HomeCardAdapter.HomeCardViewHolder>() {
@@ -22,6 +25,7 @@ class HomeCardAdapter(private val listener: SetOnClick) :
     inner class HomeCardViewHolder(private val binding: HomeCardItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        private val storageRef = FirebaseStorage.getInstance().reference
         private var firestore = FirebaseFirestore.getInstance()
         private val firestoreRef = firestore.collection("MatchList")
 
@@ -37,31 +41,71 @@ class HomeCardAdapter(private val listener: SetOnClick) :
             }
         }
 
-        @SuppressLint("SetTextI18n")
+        @SuppressLint("SetTextI18n", "SimpleDateFormat")
         fun bind(match: HomeMatch) {
 
             binding.apply {
                 tvMatch.text = match.MatchDetail
-                tvTime.text = match.CurrentDate
                 tvMatchStatus.text = match.MatchStatus
                 tvFirstTeam.text = match.Team1
                 tvSecondTeam.text = match.Team2
-                tvFStrike.text = "0"
-                tvSStrike.text = "1"
                 tvDayStatus.text = match.MatchResult
+                val sdf =
+                    SimpleDateFormat("dd MMMM, h:mm a", Locale.ENGLISH)
+                val cal = Calendar.getInstance(Locale.ENGLISH)
+                cal.timeInMillis = match.MatchDate!! * 1000L
+                tvTime.text = sdf.format(cal.time)
 
-                Glide.with(itemView)
-                    .load(R.mipmap.ic_launcher_round)
-                    .centerCrop()
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(ivFirstTeam)
 
-                Glide.with(itemView)
-                    .load(R.mipmap.ic_launcher_round)
-                    .centerCrop()
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(ivSecondTeam)
+                storageRef.child("FlagIcon/" + match.Team1?.trim { it <= ' ' } + ".png")
+                    .downloadUrl.addOnSuccessListener { uri ->
+
+                        Glide.with(itemView.context)
+                            .load(uri)
+                            .centerCrop()
+                            .placeholder(R.drawable.imgpsh_fullsize_anim)
+                            .into(ivFirstTeam)
+                    }.addOnFailureListener {
+                        ivFirstTeam.setImageDrawable(
+                            ContextCompat.getDrawable(
+                                itemView.context,
+                                R.drawable.imgpsh_fullsize_anim
+                            )
+                        )
+                    }
+
+                storageRef.child("FlagIcon/" + match.Team2?.trim { it <= ' ' } + ".png")
+                    .downloadUrl.addOnSuccessListener { uri ->
+
+                        Glide.with(itemView.context)
+                            .load(uri)
+                            .centerCrop()
+                            .placeholder(R.drawable.imgpsh_fullsize_anim)
+                            .into(ivSecondTeam)
+                    }.addOnFailureListener {
+                        ivSecondTeam.setImageDrawable(
+                            ContextCompat.getDrawable(
+                                itemView.context,
+                                R.drawable.imgpsh_fullsize_anim
+                            )
+                        )
+                    }
             }
+
+            firestoreRef.document(match.id!!).collection("MatchRate").document("Match")
+                .addSnapshotListener { value, error ->
+                    if (error != null) {
+                        Log.w(TAG, "Listen Failed", error)
+                        return@addSnapshotListener
+                    }
+
+                    if (value != null) {
+                        binding.apply {
+                            tvFStrike.text = value.get("Rate1").toString()
+                            tvSStrike.text = value.get("Rate2").toString()
+                        }
+                    }
+                }
 
             firestoreRef.document(match.id!!).collection("LiveMatch").document("ScoreTeam1")
                 .addSnapshotListener { value, error ->
@@ -74,7 +118,7 @@ class HomeCardAdapter(private val listener: SetOnClick) :
                         val allTeam1 = value.toObject(Score::class.java)
                         binding.apply {
                             tvFInn.text = value.get("Score").toString()
-                            tvOver.text = value.get("Over").toString() + "Over"
+                            tvOver.text = value.get("Over").toString() + " Over"
                         }
 //                    val allTeam1 = ArrayList<Score>()
 //                    allTeam1?.add(allTeam1)

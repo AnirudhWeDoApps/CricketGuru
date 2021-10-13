@@ -15,6 +15,7 @@ HomeMatch(
     val MatchResult: String? = "",
     val IsShowFlag: Boolean? = false,
     val IsToss: Boolean? = false,
+    val MatchDate: Long? = null,
     val SessionHistoryInfo1: List<Session>? = null,
     val SessionHistoryInfo2: List<Session>? = null
 ) : Parcelable

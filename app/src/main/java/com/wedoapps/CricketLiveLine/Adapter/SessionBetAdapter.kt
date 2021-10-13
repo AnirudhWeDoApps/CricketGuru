@@ -22,14 +22,14 @@ class SessionBetAdapter(private val listener: OnSet) :
                 val fandp = sessionBet.FandP
                 val actualScore = sessionBet.actualScore!!
 
-                tvInnings.text = sessionBet.innings.toString()
-                tvOverData.text = sessionBet.over.toString()
-                tvPreScore.text = sessionBet.FandP.toString()
-                tvComm.text = /*sessionBet.YorN.toString()*/ "Yes"
+                tvScore1.text = sessionBet.actualScore.toString()
+                tvFirstYes.text = sessionBet.YorN.toString()
+                tvTotal.text = "${sessionBet.amount} * ${sessionBet.innings} "
+              /*  tvPreScore.text = sessionBet.FandP.toString()
                 tvScore.text = sessionBet.actualScore.toString()
-                tvAmt.text = sessionBet.amount.toString()
+                tvAmt.text = sessionBet.amount.toString()*/
 
-                if (fandp!! > actualScore) {
+               /* if (fandp!! > actualScore) {
                     cardResult.setCardBackgroundColor(
                         ContextCompat.getColor(
                             itemView.context,
@@ -45,12 +45,15 @@ class SessionBetAdapter(private val listener: OnSet) :
                         )
                     )
                     tvResult.text = "Loss: -${sessionBet.amount}"
-                }
+                }*/
 
-                btnDelete.setOnClickListener {
+                ivSDelete.setOnClickListener {
                     listener.onDeleteSession(sessionBet)
                 }
 
+                itemView.setOnClickListener {
+                    listener.onEdit(sessionBet)
+                }
             }
         }
 
@@ -92,6 +95,7 @@ class SessionBetAdapter(private val listener: OnSet) :
 
     interface OnSet {
         fun onDeleteSession(sessionBet: SessionBet)
+        fun onEdit(sessionBet: SessionBet)
     }
 
 }

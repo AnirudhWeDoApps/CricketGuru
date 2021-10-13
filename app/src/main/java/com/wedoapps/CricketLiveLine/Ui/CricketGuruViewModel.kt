@@ -16,14 +16,8 @@ class CricketGuruViewModel(
     private val repository: CricketGuruRepository
 ) : AndroidViewModel(app) {
 
-    private var allMatch: LiveData<MutableList<HomeMatch>>? = null
-
-    init {
-        allMatch = repository.getMatch()
-    }
-
-    fun getAllMatch(): LiveData<MutableList<HomeMatch>>? {
-        return allMatch
+    fun getAllMatch(): LiveData<MutableList<HomeMatch>> {
+        return repository.getMatch()
     }
 
     fun getAllTeam1(id: String): LiveData<Score?> {

@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:padding="10dp">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_match"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -21,13 +21,15 @@
             android:gravity="center"
             android:text="@string/extra_test"
             android:textColor="@color/purple_500"
-            android:textSize="18sp"
+            android:autoSizeMaxTextSize="18sp"
+            android:autoSizeMinTextSize="16sp"
+            android:autoSizeStepGranularity="2sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:targetApi="o" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,13 +37,15 @@
             android:fontFamily="@font/roboto"
             android:text="@string/extra_time"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:autoSizeMaxTextSize="16sp"
+            android:autoSizeMinTextSize="14sp"
+            android:autoSizeStepGranularity="2sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_match"
             tools:targetApi="o" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_match_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,14 +53,16 @@
             android:fontFamily="@font/roboto"
             android:text="@string/status"
             android:textColor="@android:color/holo_red_dark"
-            android:textSize="16sp"
+            android:autoSizeMaxTextSize="16sp"
+            android:autoSizeMinTextSize="14sp"
+            android:autoSizeStepGranularity="2sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_time"
             tools:targetApi="o" />
 
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,126 +78,132 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_match_status"
             tools:targetApi="o" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_fStrike"
-            android:layout_width="wrap_content"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:autoSizeTextType="uniform"
             android:background="@drawable/round_rect"
             android:fontFamily="@font/roboto"
             android:padding="5dp"
-            android:text="@string/_3_5"
+            android:autoSizeMaxTextSize="15sp"
+            android:autoSizeMinTextSize="13sp"
             android:textColor="@color/white"
-            android:textSize="12sp"
+            android:autoSizeStepGranularity="2sp"
+            android:gravity="center"
+            tools:text="@string/_3_5"
             app:layout_constraintEnd_toStartOf="@+id/tv_sStrike"
             app:layout_constraintStart_toStartOf="@+id/textView8"
             app:layout_constraintTop_toBottomOf="@+id/textView8"
             tools:targetApi="o" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_sStrike"
-            android:layout_width="wrap_content"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:autoSizeTextType="uniform"
             android:background="@drawable/round_rect"
             android:fontFamily="@font/roboto"
             android:padding="5dp"
-            android:text="@string/_3_5"
+            android:autoSizeMaxTextSize="15sp"
+            android:autoSizeMinTextSize="13sp"
             android:textColor="@color/white"
-            android:textSize="12sp"
+            android:autoSizeStepGranularity="2sp"
+            android:gravity="center"
+            tools:text="@string/_3_5"
             app:layout_constraintEnd_toEndOf="@+id/textView8"
             app:layout_constraintStart_toEndOf="@+id/tv_fStrike"
             app:layout_constraintTop_toBottomOf="@+id/textView8"
             tools:targetApi="o" />
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_first_team"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:src="@mipmap/ic_launcher"
+        <LinearLayout
+            android:id="@+id/l11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_match_status" />
+            app:layout_constraintTop_toBottomOf="@id/tv_match_status">
 
-        <TextView
-            android:id="@+id/tv_fInn"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_first_team"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="centerCrop" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_first_team"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoSizeMaxTextSize="15sp"
+                android:autoSizeMinTextSize="13sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/roboto"
+                android:gravity="start"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                tools:targetApi="o"
+                tools:text="@string/team_second" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="5dp"
-            android:autoSizeTextType="uniform"
-            android:text="0-0"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            app:layout_constraintStart_toEndOf="@+id/iv_first_team"
-            app:layout_constraintTop_toTopOf="@+id/iv_first_team"
-            tools:targetApi="o" />
+            android:gravity="start"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/l11"
+            app:layout_constraintStart_toEndOf="@+id/l11"
+            app:layout_constraintTop_toTopOf="@+id/l11">
 
-        <!--        <TextView
-                    android:id="@+id/tv_sInn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
-                    android:text="176/6"
-                    android:visibility="gone"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/iv_first_team"
-                    app:layout_constraintStart_toEndOf="@+id/iv_first_team"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_fInn" />-->
 
-        <TextView
-            android:id="@+id/tv_over"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:autoSizeTextType="uniform"
-            android:text="0.0 Over"
-            android:textColor="@color/gray"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/tv_fInn"
-            app:layout_constraintTop_toBottomOf="@+id/tv_fInn"
-            tools:targetApi="o" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_fInn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:autoSizeMaxTextSize="15sp"
+                android:autoSizeMinTextSize="13sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
+                android:text="0-0"
+                android:textColor="@color/black"
+                tools:targetApi="o" />
 
-        <TextView
-            android:id="@+id/tv_first_team"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:autoSizeTextType="uniform"
-            android:fontFamily="@font/roboto"
-            android:text="@string/team_first"
-            android:textAlignment="textStart"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="@+id/iv_first_team"
-            app:layout_constraintTop_toBottomOf="@+id/iv_first_team"
-            tools:targetApi="o" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_second_team"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:src="@mipmap/ic_launcher"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_match_status" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_over"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:autoSizeMaxTextSize="15sp"
+                android:autoSizeMinTextSize="13sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
+                android:text="0.0 Over"
+                android:textColor="@color/gray"
+                tools:targetApi="o" />
 
-        <TextView
-            android:id="@+id/tv_second_fInn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="5dp"
-            android:autoSizeTextType="uniform"
-            android:text="0-0"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toStartOf="@+id/iv_second_team"
-            app:layout_constraintTop_toTopOf="@+id/iv_second_team"
-            tools:targetApi="o" />
+        </LinearLayout>
 
-        <!--        <TextView
+        <!--        <com.google.android.material.textview.MaterialTextView
+                  android:id="@+id/tv_sInn"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginHorizontal="5dp"
+                  android:text="176/6"
+                  android:visibility="gone"
+                  android:textColor="@color/black"
+                  android:textSize="15sp"
+                  app:layout_constraintBottom_toBottomOf="@+id/iv_first_team"
+                  app:layout_constraintStart_toEndOf="@+id/iv_first_team"
+                  app:layout_constraintTop_toBottomOf="@+id/tv_fInn" />-->
+
+        <!--        <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_second_sInn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -203,36 +215,76 @@
                     app:layout_constraintBottom_toBottomOf="@+id/iv_second_team"
                     app:layout_constraintEnd_toStartOf="@+id/iv_second_team" /> -->
 
-        <TextView
-            android:id="@+id/tv_second_over"
+        <LinearLayout
+            android:id="@+id/llso22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:autoSizeTextType="uniform"
-            android:text="0.0 Over"
-            android:textColor="@color/gray"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@+id/iv_second_team"
-            app:layout_constraintHorizontal_bias="0.821"
-            app:layout_constraintStart_toStartOf="@+id/tv_second_fInn"
-            app:layout_constraintTop_toBottomOf="@+id/tv_second_fInn"
-            tools:targetApi="o" />
+            android:gravity="end"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/l22"
+            app:layout_constraintEnd_toStartOf="@+id/l22"
+            app:layout_constraintTop_toTopOf="@+id/l22">
 
-        <TextView
-            android:id="@+id/tv_second_team"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_second_fInn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:autoSizeMaxTextSize="15sp"
+                android:autoSizeMinTextSize="13sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
+                android:text="0-0"
+                android:textColor="@color/black"
+                tools:targetApi="o" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_second_over"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoSizeMaxTextSize="15sp"
+                android:autoSizeMinTextSize="13sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
+                android:text="0.0 Over"
+                android:textColor="@color/gray"
+                tools:targetApi="o" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/l22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:autoSizeTextType="uniform"
-            android:fontFamily="@font/roboto"
-            android:text="@string/team_second"
-            android:textAlignment="textEnd"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="@+id/iv_second_team"
-            app:layout_constraintTop_toBottomOf="@+id/iv_second_team"
-            tools:targetApi="o" />
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_match_status">
 
-        <TextView
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_second_team"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="centerCrop" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_second_team"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoSizeMaxTextSize="15sp"
+                android:autoSizeMinTextSize="13sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/roboto"
+                android:gravity="end"
+                android:textAlignment="textEnd"
+                android:textColor="@color/black"
+                tools:targetApi="o"
+                tools:text="@string/team_second" />
+
+        </LinearLayout>
+
+
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_day_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

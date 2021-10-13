@@ -14,9 +14,9 @@ import android.widget.ArrayAdapter
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchBet
 import com.wedoapps.CricketLiveLine.R
 import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
@@ -25,7 +25,8 @@ import com.wedoapps.CricketLiveLine.Utils.Constants.ID
 import com.wedoapps.CricketLiveLine.Utils.Constants.PID
 import com.wedoapps.CricketLiveLine.databinding.FragmentBottomMatchBinding
 
-class MatchBottomSheetFragment : BottomSheetDialogFragment() {
+
+class MatchBottomSheetFragment : DialogFragment() {
 
     private lateinit var binding: FragmentBottomMatchBinding
     private var isSelected = false
@@ -47,6 +48,7 @@ class MatchBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
+
 
         dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         dialog.setOnShowListener {
@@ -409,6 +411,14 @@ class MatchBottomSheetFragment : BottomSheetDialogFragment() {
             tvLagai.background =
                 ContextCompat.getDrawable(requireContext(), R.drawable.reverse_select_bg)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val params: ViewGroup.LayoutParams = dialog?.window!!.attributes
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        dialog?.window?.attributes = params as WindowManager.LayoutParams
     }
 
 }

@@ -106,4 +106,12 @@
     <string name="actual_score_hint">Actual Score</string>
     <string name="_1">1</string>
     <string name="not">Not</string>
+    <string name="banner_ad">Banner Ad</string>
+    <string name="full_ad">Full Ad</string>
+    <string name="party">Party Name:</string>
+    <string name="party_hint">Party</string>
+    <string name="run">Run =</string>
+    <string name="delete">Delete</string>
+    <string name="SessionEntry">Session Entry</string>
+    <string name="CheckGraph">Check Graph</string>
 </resources>

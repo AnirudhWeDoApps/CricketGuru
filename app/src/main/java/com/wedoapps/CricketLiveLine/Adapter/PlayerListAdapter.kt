@@ -22,14 +22,13 @@ class PlayerListAdapter(private val data: List<String>) :
             binding.apply {
                 tvPlayerName.text = name
 
-                storageRef.child(PLAYER + name.trim() + ".png")
+                storageRef.child(PLAYER + name.trim { it <= ' ' } + ".png")
                     .downloadUrl.addOnSuccessListener { uri ->
 
-                        Glide.with(itemView)
+                        Glide.with(itemView.context)
                             .load(uri)
                             .placeholder(R.drawable.ic_cricketer_place_holder)
                             .into(ivPlayerImage)
-
                     }
             }
         }

@@ -1,14 +1,18 @@
 package com.wedoapps.CricketLiveLine.Ui.Fragments.SingleMatch.PagerFragments
 
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.speech.tts.TextToSpeech
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.widget.Toast
+import android.widget.ImageView
 import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
 import com.wedoapps.CricketLiveLine.R
@@ -16,7 +20,11 @@ import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
 import com.wedoapps.CricketLiveLine.Ui.Fragments.SingleMatch.ViewPagerActivity
 import com.wedoapps.CricketLiveLine.Utils.Constants.ID
 import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
+import com.wedoapps.CricketLiveLine.Utils.PreferenceManager
 import com.wedoapps.CricketLiveLine.databinding.FragmentLiveLineBinding
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
 import java.util.*
 
 class LiveLineFragment : Fragment(R.layout.fragment_live_line) {
@@ -27,12 +35,16 @@ class LiveLineFragment : Fragment(R.layout.fragment_live_line) {
     private var isVolumeOn: Boolean = true
     private var isFirstInning: Boolean = true
     private var isMatchLive: Boolean = true
+    private var team1Name: String? = ""
     private var scoreTeam1: String? = ""
     private var overTeam1: String? = ""
+    private var team2Name: String? = ""
     private var scoreTeam2: String? = ""
     private var overTeam2: String? = ""
     private var ballByBallSpeech: String? = ""
     private lateinit var id: String
+    private lateinit var f: File
+    private lateinit var b: Bitmap
 
     @SuppressLint("SetTextI18n", "NewApi")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,6 +52,17 @@ class LiveLineFragment : Fragment(R.layout.fragment_live_line) {
         binding = FragmentLiveLineBinding.bind(view)
 
         id = arguments?.getString(ID).toString()
+
+        try {
+            val imgPath = Environment.getExternalStorageDirectory()
+                .toString() + "/Android/data/" + requireActivity().applicationContext.packageName + "/Files/FullAd.jpeg"
+            f = File(imgPath)
+            b = BitmapFactory.decodeStream(FileInputStream(f))
+            Log.d(TAG, "setImage: Done")
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+            Log.d(TAG, "setImage: $e")
+        }
 
         viewModel = (activity as ViewPagerActivity).viewModel
 
@@ -57,6 +80,8 @@ class LiveLineFragment : Fragment(R.layout.fragment_live_line) {
                 val status = it.MatchStatus
                 binding.tvStatus.text = status
 
+                team1Name = it.Team1
+                team2Name = it.Team2
                 binding.tvTeamName.text = "${it.Team1} "
                 binding.tvTeamNameOpp.text = "${it.Team2} "
 
@@ -448,6 +473,20 @@ class LiveLineFragment : Fragment(R.layout.fragment_live_line) {
 
                 isFirstInning = map["IsFirstInning"].toBoolean()
 
+                if (isFirstInning) {
+                    binding.tvTeamName.text = team1Name
+                    binding.tvPlayScore.text = "$scoreTeam1 ( $overTeam1 )"
+
+                    binding.tvTeamNameOpp.text = team2Name
+                    binding.tvOppScore.text = "$scoreTeam2 ( $overTeam2 )"
+                } else {
+                    binding.tvTeamName.text = team2Name
+                    binding.tvPlayScore.text = "$scoreTeam2 ( $overTeam2 )"
+
+                    binding.tvTeamNameOpp.text = team1Name
+                    binding.tvOppScore.text = "$scoreTeam1 ( $overTeam1 )"
+
+                }
             })
         }
 
@@ -467,13 +506,6 @@ class LiveLineFragment : Fragment(R.layout.fragment_live_line) {
             if (isVolumeOn) {
                 binding.ivVolume.visibility = View.GONE
                 binding.ivMute.visibility = View.VISIBLE
-
-
-                if (isFirstInning) {
-                    Toast.makeText(requireContext(), "True Hai", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(requireContext(), "False Hai", Toast.LENGTH_SHORT).show()
-                }
                 isVolumeOn = false
             } else {
                 binding.ivVolume.visibility = View.VISIBLE
@@ -481,8 +513,6 @@ class LiveLineFragment : Fragment(R.layout.fragment_live_line) {
                 isVolumeOn = true
             }
         }
-
-
     }
 
     private fun setTextToSpeechListener() {
@@ -542,6 +572,21 @@ class LiveLineFragment : Fragment(R.layout.fragment_live_line) {
         }, 500)
     }
 
+    private fun createAdDialog() {
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.fragment_dialog_ad)
+        dialog.setCancelable(true)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        val adIv = dialog.findViewById<ImageView>(R.id.iv_full_ad)
+        val close = dialog.findViewById<ImageView>(R.id.iv_close_ad)
+        adIv.setImageBitmap(b)
+        close.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
     override fun onPause() {
         super.onPause()
         if (isVolumeOn) {
@@ -563,6 +608,13 @@ class LiveLineFragment : Fragment(R.layout.fragment_live_line) {
     override fun onResume() {
         super.onResume()
         setTextToSpeechListener()
+
+        val preferenceManager = PreferenceManager(requireContext())
+        if (preferenceManager.getFullAdsVisible()) {
+            if (f.exists()) {
+                createAdDialog()
+            }
+        }
     }
 
     override fun onStart() {

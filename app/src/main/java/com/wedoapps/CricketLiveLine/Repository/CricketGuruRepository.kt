@@ -3,6 +3,7 @@ package com.wedoapps.CricketLiveLine.Repository
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.*
+import com.google.firebase.storage.FirebaseStorage
 import com.wedoapps.CricketLiveLine.Db.CricketGuruDatabase
 import com.wedoapps.CricketLiveLine.Model.*
 import com.wedoapps.CricketLiveLine.Model.Info.Info
@@ -14,6 +15,7 @@ import kotlin.collections.ArrayList
 
 class CricketGuruRepository(val db: CricketGuruDatabase) {
     private var firestore = FirebaseFirestore.getInstance()
+    private val storageRef = FirebaseStorage.getInstance().reference
     private var mutableLangName = MutableLiveData<MutableList<HomeMatch>>()
     private var mutableData = MutableLiveData<HomeMatch>()
     private var _team1 = MutableLiveData<Score?>()
@@ -116,6 +118,7 @@ class CricketGuruRepository(val db: CricketGuruDatabase) {
                     val allMatch = ArrayList<HomeMatch>()
                     val match = value.documents
                     match.forEach {
+                        Log.d(TAG, "getMatch: ${it.data}")
                         homeMatch = it.toObject(HomeMatch::class.java)!!
                         homeMatch.id = it.id
 //                        getScore(it.id)

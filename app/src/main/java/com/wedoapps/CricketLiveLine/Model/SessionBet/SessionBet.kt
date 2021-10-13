@@ -1,12 +1,14 @@
 package com.wedoapps.CricketLiveLine.Model.SessionBet
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
 @Entity(
     tableName = "sessionBet"
 )
-
+@Parcelize
 data class SessionBet(
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null,
@@ -18,5 +20,4 @@ data class SessionBet(
     var YorN: String? = "",
     var actualScore: Int? = null,
     var playerName: String? = ""
-
-)
+) : Parcelable

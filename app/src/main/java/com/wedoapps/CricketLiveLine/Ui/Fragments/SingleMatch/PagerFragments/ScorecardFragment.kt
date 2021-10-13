@@ -127,7 +127,6 @@ class ScorecardFragment : Fragment(R.layout.fragment_scorecard) {
                 } else {
                     binding.rv1Team1.visibility = View.VISIBLE
                     binding.team1ScoreHeader.root.visibility = View.VISIBLE
-                    binding.tv1Extras.visibility = View.VISIBLE
                     scoreCardBattingAdapter.differ.submitList(it)
                 }
 
@@ -141,12 +140,10 @@ class ScorecardFragment : Fragment(R.layout.fragment_scorecard) {
 
                 if (it == null) {
                     binding.team2ScoreHeader.root.visibility = View.GONE
-                    binding.tv2Extras.visibility = View.GONE
                     binding.rv1Team2.visibility = View.GONE
                 } else {
                     binding.rv1Team2.visibility = View.VISIBLE
                     binding.team2ScoreHeader.root.visibility = View.VISIBLE
-                    binding.tv2Extras.visibility = View.VISIBLE
                     scoreCardBattingAdapter2.differ.submitList(it)
                 }
 
@@ -188,7 +185,7 @@ class ScorecardFragment : Fragment(R.layout.fragment_scorecard) {
                     binding.ivBowlingImg.visibility = View.VISIBLE
                     binding.rvBowlingTeam1.visibility = View.VISIBLE
                     binding.team1BowlerHeader.root.visibility = View.VISIBLE
-                    bowlerListAdapter.differ.submitList(it.team2List)
+                    bowlerListAdapter.differ.submitList(it.team1List)
                 }
             })
 
@@ -282,9 +279,7 @@ class ScorecardFragment : Fragment(R.layout.fragment_scorecard) {
             binding.tvNoData.visibility = View.GONE
             binding.linearLayout1.visibility = View.VISIBLE
             binding.linearLayout2.visibility = View.VISIBLE
-
         }
-
     }
 
 }

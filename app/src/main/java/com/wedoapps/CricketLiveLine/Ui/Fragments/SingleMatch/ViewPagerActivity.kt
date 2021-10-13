@@ -32,12 +32,12 @@ class ViewPagerActivity : AppCompatActivity() {
 
         val fragmentList = arrayListOf(
             LiveLineFragment().newInstance(id),
-            InfoFragment().newInstance(id),
             ScorecardFragment().newInstance(id),
+            BetFragment().newInstance(id),
             SessionFragment().newInstance(id),
-            ChatFragment().newInstance(id),
-            CommentaryFragment().newInstance(id),
-            BetFragment().newInstance(id)
+            InfoFragment().newInstance(id)
+            /*ChatFragment().newInstance(id),
+            CommentaryFragment().newInstance(id),*/
         )
 
         val adapter = ViewPagerAdapter(
@@ -51,12 +51,12 @@ class ViewPagerActivity : AppCompatActivity() {
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
                 0 -> tab.text = getString(R.string.live_line)
-                1 -> tab.text = getString(R.string.info)
-                2 -> tab.text = getString(R.string.scorecard)
+                1 -> tab.text = getString(R.string.scorecard)
+                2 -> tab.text = getString(R.string.bet)
                 3 -> tab.text = getString(R.string.session)
-                4 -> tab.text = getString(R.string.chat)
-                5 -> tab.text = getString(R.string.commentary)
-                6 -> tab.text = getString(R.string.bet)
+                4 -> tab.text = getString(R.string.info)
+//                5 -> tab.text = getString(R.string.chat)
+//                6 -> tab.text = getString(R.string.commentary)
             }
         }.attach()
 

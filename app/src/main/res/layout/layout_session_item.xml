@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="10dp"
     app:cardCornerRadius="10dp">
 
@@ -13,302 +13,407 @@
         android:layout_gravity="center"
         android:padding="10dp">
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout"
-            android:layout_width="102dp"
-            android:layout_height="75dp"
-            android:background="@drawable/trans_round_rect_border"
-            android:gravity="center"
-            android:padding="6dp"
-            app:layout_constraintBottom_toBottomOf="@+id/relativeLayout2"
-            app:layout_constraintEnd_toStartOf="@+id/relativeLayout2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <!-- <RelativeLayout
+             android:id="@+id/relativeLayout"
+             android:layout_width="102dp"
+             android:layout_height="70dp"
+             android:background="@drawable/trans_round_rect_border"
+             android:gravity="center"
+             android:padding="8dp"
+             app:layout_constraintBottom_toBottomOf="@+id/relativeLayout2"
+             app:layout_constraintEnd_toStartOf="@+id/relativeLayout2"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:id="@+id/l21"
-                android:layout_width="51dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
+             <LinearLayout
+                 android:id="@+id/l21"
+                 android:layout_width="50dp"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView24"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:autoSizeMaxTextSize="13sp"
-                    android:autoSizeMinTextSize="10sp"
-                    android:autoSizeStepGranularity="2sp"
-                    android:autoSizeTextType="uniform"
-                    android:gravity="center"
-                    android:text="@string/inning_hint"
-                    android:textColor="@color/black"
-                    tools:targetApi="o" />
+                 <TextView
+                     android:id="@+id/textView24"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="center"
+                     android:autoSizeMaxTextSize="13sp"
+                     android:autoSizeMinTextSize="10sp"
+                     android:autoSizeStepGranularity="2sp"
+                     android:autoSizeTextType="uniform"
+                     android:gravity="center"
+                     android:text="@string/inning_hint"
+                     android:textColor="@color/black"
+                     tools:targetApi="o" />
 
-                <TextView
-                    android:id="@+id/tv_innings"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:autoSizeMaxTextSize="13sp"
-                    android:autoSizeMinTextSize="10sp"
-                    android:autoSizeStepGranularity="2sp"
-                    android:autoSizeTextType="uniform"
-                    android:background="@drawable/round_rect"
-                    android:backgroundTint="@color/purple_500"
-                    android:gravity="center"
-                    android:padding="2dp"
-                    android:text="@string/_256"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    tools:targetApi="o" />
+                 <TextView
+                     android:id="@+id/tv_innings"
+                     android:layout_width="35dp"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="center"
+                     android:layout_marginTop="10dp"
+                     android:autoSizeMaxTextSize="13sp"
+                     android:autoSizeMinTextSize="10sp"
+                     android:autoSizeStepGranularity="2sp"
+                     android:autoSizeTextType="uniform"
+                     android:background="@drawable/round_rect"
+                     android:backgroundTint="@color/purple_500"
+                     android:gravity="center"
+                     android:padding="3dp"
+                     android:textColor="@color/white"
+                     android:textStyle="bold"
+                     tools:targetApi="o"
+                     tools:text="@string/_256" />
 
-            </LinearLayout>
+             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="51dp"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/l21"
-                android:gravity="center"
-                android:orientation="vertical">
+             <LinearLayout
+                 android:layout_width="50dp"
+                 android:layout_height="wrap_content"
+                 android:layout_toEndOf="@+id/l21"
+                 android:gravity="center"
+                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView25"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:autoSizeMaxTextSize="13sp"
-                    android:autoSizeMinTextSize="10sp"
-                    android:autoSizeStepGranularity="2sp"
-                    android:autoSizeTextType="uniform"
-                    android:gravity="center"
-                    android:text="@string/over"
-                    android:textColor="@color/black"
-                    tools:targetApi="o" />
+                 <TextView
+                     android:id="@+id/textView25"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="center"
+                     android:autoSizeMaxTextSize="13sp"
+                     android:autoSizeMinTextSize="10sp"
+                     android:autoSizeStepGranularity="2sp"
+                     android:autoSizeTextType="uniform"
+                     android:gravity="center"
+                     android:text="@string/over"
+                     android:textColor="@color/black"
+                     tools:targetApi="o" />
 
-                <TextView
-                    android:id="@+id/tv_over_data"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:autoSizeMaxTextSize="13sp"
-                    android:autoSizeMinTextSize="10sp"
-                    android:autoSizeStepGranularity="2sp"
-                    android:autoSizeTextType="uniform"
-                    android:background="@drawable/round_rect"
-                    android:backgroundTint="@color/purple_500"
-                    android:gravity="center"
-                    android:padding="2dp"
-                    android:text="@string/_3"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    tools:targetApi="o" />
+                 <TextView
+                     android:id="@+id/tv_over_data"
+                     android:layout_width="35dp"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="center"
+                     android:layout_marginTop="10dp"
+                     android:autoSizeMaxTextSize="13sp"
+                     android:autoSizeMinTextSize="10sp"
+                     android:autoSizeStepGranularity="2sp"
+                     android:autoSizeTextType="uniform"
+                     android:background="@drawable/round_rect"
+                     android:backgroundTint="@color/purple_500"
+                     android:gravity="center"
+                     android:padding="3dp"
+                     android:textColor="@color/white"
+                     android:textStyle="bold"
+                     tools:targetApi="o"
+                     tools:text="@string/_256" />
 
-            </LinearLayout>
-        </RelativeLayout>
+             </LinearLayout>
+         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout2"
+         <RelativeLayout
+             android:id="@+id/relativeLayout2"
+             android:layout_width="102dp"
+             android:layout_height="70dp"
+             android:layout_marginStart="10dp"
+             android:background="@drawable/trans_round_rect_border"
+             android:gravity="center"
+             android:padding="8dp"
+             app:layout_constraintEnd_toStartOf="@+id/relativeLayout3"
+             app:layout_constraintStart_toEndOf="@+id/relativeLayout"
+             app:layout_constraintTop_toTopOf="parent">
+
+             <TextView
+                 android:id="@+id/textView26"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginStart="-15dp"
+                 android:autoSizeMaxTextSize="13sp"
+                 android:autoSizeMinTextSize="10sp"
+                 android:autoSizeStepGranularity="2sp"
+                 android:layout_centerHorizontal="true"
+                 android:autoSizeTextType="uniform"
+                 android:text="@string/inning_hint"
+                 android:textColor="@color/black"
+                 tools:targetApi="o" />
+
+             <LinearLayout
+                 android:id="@+id/l22"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/textView26"
+                 android:layout_marginTop="10dp"
+                 android:gravity="center"
+                 android:orientation="horizontal">
+
+                 <TextView
+                     android:id="@+id/tv_pre_score"
+                     android:layout_width="35dp"
+                     android:layout_height="wrap_content"
+                     android:background="@drawable/round_rect"
+                     android:backgroundTint="@color/purple_500"
+                     android:autoSizeMaxTextSize="13sp"
+                     android:autoSizeMinTextSize="10sp"
+                     android:layout_gravity="center"
+                     android:gravity="center"
+                     android:textColor="@color/white"
+                     android:autoSizeStepGranularity="2sp"
+                     android:autoSizeTextType="uniform"
+                     android:padding="3dp"
+                     tools:targetApi="o"
+                     tools:text="@string/_256"
+                     android:textStyle="bold" />
+
+                 <TextView
+                     android:id="@+id/tv_comm"
+                     android:layout_width="35dp"
+                     android:layout_height="wrap_content"
+                     android:layout_marginStart="8dp"
+                     android:background="@drawable/round_rect"
+                     android:backgroundTint="@color/purple_500"
+                     android:autoSizeMaxTextSize="13sp"
+                     android:layout_gravity="center"
+                     android:gravity="center"
+                     android:autoSizeMinTextSize="10sp"
+                     android:textColor="@color/white"
+                     android:autoSizeStepGranularity="2sp"
+                     android:autoSizeTextType="uniform"
+                     android:padding="3dp"
+                     tools:targetApi="o"
+                     tools:text="@string/not"
+                     android:textStyle="bold" />
+
+             </LinearLayout>
+         </RelativeLayout>
+
+         <RelativeLayout
+             android:id="@+id/relativeLayout3"
+             android:layout_width="wrap_content"
+             android:layout_height="70dp"
+             android:layout_marginStart="10dp"
+             android:background="@drawable/trans_round_rect_border"
+             android:gravity="center"
+             android:padding="8dp"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toEndOf="@+id/relativeLayout2"
+             app:layout_constraintTop_toTopOf="parent">
+
+             <LinearLayout
+                 android:id="@+id/l23"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:orientation="vertical">
+
+                 <TextView
+                     android:id="@+id/textView27"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="@string/score"
+                     android:layout_gravity="center"
+                     android:autoSizeMaxTextSize="13sp"
+                     android:textColor="@color/black"
+                     android:autoSizeMinTextSize="10sp"
+                     android:autoSizeStepGranularity="2sp"
+                     android:autoSizeTextType="uniform"
+                     android:gravity="center"
+                     tools:targetApi="o" />
+
+                 <TextView
+                     android:id="@+id/tv_score"
+                     android:layout_width="35dp"
+                     android:layout_marginTop="10dp"
+                     android:layout_height="wrap_content"
+                     android:background="@drawable/round_rect"
+                     android:backgroundTint="@color/purple_500"
+                     android:layout_gravity="center"
+                     android:autoSizeMaxTextSize="13sp"
+                     android:autoSizeMinTextSize="10sp"
+                     android:autoSizeStepGranularity="2sp"
+                     android:textColor="@color/white"
+                     android:autoSizeTextType="uniform"
+                     android:gravity="center"
+                     android:padding="3dp"
+                     tools:targetApi="o"
+                     tools:text="@string/_256"
+                     android:textStyle="bold" />
+
+             </LinearLayout>
+
+             <LinearLayout
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginStart="10dp"
+                 android:layout_toEndOf="@+id/l23"
+                 android:orientation="vertical">
+
+                 <TextView
+                     android:id="@+id/textView28"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="@string/amount_hint"
+                     android:layout_gravity="center"
+                     android:autoSizeMaxTextSize="13sp"
+                     android:textColor="@color/black"
+                     android:autoSizeMinTextSize="10sp"
+                     android:autoSizeStepGranularity="2sp"
+                     android:autoSizeTextType="uniform"
+                     android:gravity="center"
+                     tools:targetApi="o" />
+
+                 <TextView
+                     android:id="@+id/tv_amt"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="center"
+                     android:layout_marginTop="10dp"
+                     android:autoSizeMaxTextSize="13sp"
+                     android:autoSizeMinTextSize="8sp"
+                     android:autoSizeStepGranularity="2sp"
+                     android:autoSizeTextType="uniform"
+                     android:background="@drawable/round_rect"
+                     android:backgroundTint="@color/purple_500"
+                     android:gravity="center"
+                     android:padding="3dp"
+                     android:textColor="@color/white"
+                     android:textStyle="bold"
+                     tools:targetApi="o"
+                     tools:text="@string/amount" />
+
+             </LinearLayout>
+         </RelativeLayout>
+
+         <androidx.cardview.widget.CardView
+             android:id="@+id/card_result"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="10dp"
+             app:cardBackgroundColor="@android:color/holo_green_dark"
+             app:cardCornerRadius="6dp"
+             app:layout_constraintEnd_toEndOf="@+id/relativeLayout3"
+             app:layout_constraintTop_toBottomOf="@+id/relativeLayout3">
+
+             <TextView
+                 android:id="@+id/tv_result"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:fontFamily="@font/roboto"
+                 android:layout_gravity="center"
+                 android:autoSizeMaxTextSize="13sp"
+                 android:autoSizeMinTextSize="8sp"
+                 android:autoSizeStepGranularity="2sp"
+                 android:textColor="@color/white"
+                 android:autoSizeTextType="uniform"
+                 android:gravity="center"
+                 android:padding="8dp"
+                 tools:targetApi="o"
+                 tools:text="Win: 5000" />
+
+
+         </androidx.cardview.widget.CardView>
+
+         <View
+             android:id="@+id/view2"
+             android:layout_width="match_parent"
+             android:layout_height="1dp"
+             android:layout_marginHorizontal="15dp"
+             android:layout_marginTop="10dp"
+             android:background="@color/gray"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@+id/card_result" />
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="10dp"
+             android:orientation="horizontal"
+             android:weightSum="2"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@+id/view2">
+
+
+             <androidx.appcompat.widget.AppCompatButton
+                 android:id="@+id/btn_edit"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginHorizontal="10dp"
+                 android:layout_weight="1"
+                 android:background="@drawable/trans_round_rect_border"
+                 android:text="Edit" />
+
+             <androidx.appcompat.widget.AppCompatButton
+                 android:id="@+id/btn_delete"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginHorizontal="10dp"
+                 android:layout_weight="1"
+                 android:background="@drawable/round_rect"
+                 android:text="Delete"
+                 android:textColor="@color/white" />
+
+         </LinearLayout>-->
+
+        <TextView
+            android:id="@+id/tv01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/trans_round_rect_border"
-            android:gravity="center"
-            android:padding="10dp"
-            app:layout_constraintEnd_toStartOf="@+id/relativeLayout3"
-            app:layout_constraintStart_toEndOf="@+id/relativeLayout"
-            app:layout_constraintTop_toTopOf="parent">
+            android:text="@string/run"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView26"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="@string/inning_hint"
-                android:textColor="@color/black"
-                android:textSize="13sp" />
-
-            <LinearLayout
-                android:id="@+id/l22"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView26"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_pre_score"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/round_rect"
-                    android:backgroundTint="@color/purple_500"
-                    android:padding="4dp"
-                    android:text="@string/_256"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_comm"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:background="@drawable/round_rect"
-                    android:backgroundTint="@color/purple_500"
-                    android:padding="4dp"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="@string/not"
-                    android:textColor="@color/white"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/relativeLayout3"
+        <TextView
+            android:id="@+id/tv_score1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/trans_round_rect_border"
-            android:gravity="center"
-            android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/relativeLayout2"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginStart="5dp"
+            android:text="@string/_256"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/tv01"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:id="@+id/l23"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView27"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/score"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:id="@+id/tv_score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/round_rect"
-                    android:backgroundTint="@color/purple_500"
-                    android:padding="4dp"
-                    android:text="@string/score"
-                    android:textColor="@color/white"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_toEndOf="@+id/l23"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView28"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/amount_hint"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:id="@+id/tv_amt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/round_rect"
-                    android:backgroundTint="@color/purple_500"
-                    android:padding="4dp"
-                    android:text="@string/amount"
-                    android:textColor="@color/white"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-        </RelativeLayout>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_result"
+        <TextView
+            android:id="@+id/tv_first_yes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:cardBackgroundColor="@android:color/holo_green_dark"
-            app:cardCornerRadius="6dp"
-            app:layout_constraintEnd_toEndOf="@+id/relativeLayout3"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout3">
+            android:layout_marginStart="5dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/tv_score1"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="YES" />
 
-            <TextView
-                android:id="@+id/tv_result"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
-                android:padding="10dp"
-                android:text="Win: 5000"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
-
-
-        </androidx.cardview.widget.CardView>
-
-        <View
-            android:id="@+id/view2"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/gray"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_result" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextClock
+            android:id="@+id/tv_time1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:weightSum="2"
+            app:layout_constraintStart_toStartOf="@id/tv01"
+            app:layout_constraintTop_toBottomOf="@id/tv01"
+            tools:text="Time" />
+
+
+        <ImageView
+            android:id="@+id/iv_s_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/delete"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_delete"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view2">
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black"
+            tools:ignore="UnusedAttribute" />
 
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/trans_round_rect_border"
-                android:text="Edit" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/round_rect"
-                android:text="Delete"
-                android:textColor="@color/white" />
-
-        </LinearLayout>
-
+        <TextView
+            android:id="@+id/tv_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_s_delete"
+            app:layout_constraintStart_toEndOf="@+id/tv_first_yes"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="69696 * 10.00" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
