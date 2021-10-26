@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:padding="10dp">
 
@@ -34,16 +35,229 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <LinearLayout
+            android:id="@+id/ll_table"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/black"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView16">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/black"
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/tv_t1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="13sp"
+                    android:autoSizeMinTextSize="11sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    tools:targetApi="o"
+                    tools:text="Team1" />
+
+                <TextView
+                    android:id="@+id/tv_t2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="13sp"
+                    android:autoSizeMinTextSize="11sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:text="@string/draw"
+                    android:textColor="@color/white"
+                    tools:targetApi="o" />
+
+                <TextView
+                    android:id="@+id/tv_t3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="13sp"
+                    android:autoSizeMinTextSize="11sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    tools:targetApi="o"
+                    tools:text="Team2" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_titleT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:autoSizeMaxTextSize="13sp"
+                android:autoSizeMinTextSize="11sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:text="@string/total"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                tools:targetApi="o" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/purple_500"
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/tv_score1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="13sp"
+                    android:autoSizeMinTextSize="11sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    tools:targetApi="o"
+                    tools:text="Team1" />
+
+                <TextView
+                    android:id="@+id/tv_score2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="13sp"
+                    android:autoSizeMinTextSize="11sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    tools:targetApi="o"
+                    tools:text="Draw" />
+
+                <TextView
+                    android:id="@+id/tv_score3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="13sp"
+                    android:autoSizeMinTextSize="11sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    tools:targetApi="o"
+                    tools:text="Team2" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_titleC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:autoSizeMaxTextSize="13sp"
+                android:autoSizeMinTextSize="11sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:text="@string/f_c_r"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                tools:targetApi="o" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/purple_500"
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/tv_cr1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="13sp"
+                    android:autoSizeMinTextSize="11sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    tools:targetApi="o"
+                    tools:text="Team1" />
+
+                <TextView
+                    android:id="@+id/tv_cr2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="13sp"
+                    android:autoSizeMinTextSize="11sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    tools:targetApi="o"
+                    tools:text="Draw" />
+
+                <TextView
+                    android:id="@+id/tv_cr3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="13sp"
+                    android:autoSizeMinTextSize="11sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    tools:targetApi="o"
+                    tools:text="Team2" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/textView17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto"
             android:text="@string/rate"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+            app:layout_constraintTop_toBottomOf="@+id/ll_table" />
 
         <EditText
             android:id="@+id/et_rate"
@@ -157,6 +371,70 @@
 
         </LinearLayout>
 
+
+        <TextView
+            android:id="@+id/textViewComm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/commission"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/l2" />
+
+        <EditText
+            android:id="@+id/et_commision"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/amount_hint"
+            android:importantForAutofill="no"
+
+            android:inputType="number"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewComm"
+            app:layout_constraintEnd_toStartOf="@+id/linearLayout7"
+            app:layout_constraintStart_toEndOf="@+id/textViewComm"
+            app:layout_constraintTop_toTopOf="@+id/textViewComm" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_weight=".5"
+            android:background="@drawable/trans_round_rect_border"
+            android:gravity="center"
+            android:weightSum="2"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewComm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewComm">
+
+            <TextView
+                android:id="@+id/tv_Give"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/select_bg"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/give"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_take"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/take"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+
         <TextView
             android:id="@+id/textView20"
             android:layout_width="wrap_content"
@@ -166,7 +444,7 @@
             android:text="@string/player_name"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/l2" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewComm" />
 
         <EditText
             android:id="@+id/et_playerName"

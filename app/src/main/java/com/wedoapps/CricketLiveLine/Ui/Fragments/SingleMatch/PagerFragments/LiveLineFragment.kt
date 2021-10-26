@@ -43,7 +43,7 @@ class LiveLineFragment : Fragment(R.layout.fragment_live_line) {
     private var overTeam2: String? = ""
     private var ballByBallSpeech: String? = ""
     private lateinit var id: String
-    private lateinit var f: File
+    private var f: File? = null
     private lateinit var b: Bitmap
 
     @SuppressLint("SetTextI18n", "NewApi")
@@ -611,7 +611,7 @@ class LiveLineFragment : Fragment(R.layout.fragment_live_line) {
 
         val preferenceManager = PreferenceManager(requireContext())
         if (preferenceManager.getFullAdsVisible()) {
-            if (f.exists()) {
+            if (f!!.exists()) {
                 createAdDialog()
             }
         }

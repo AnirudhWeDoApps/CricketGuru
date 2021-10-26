@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.wedoapps.CricketLiveLine.Model.*
 import com.wedoapps.CricketLiveLine.Model.Info.Info
 import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchBet
+import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchData
 import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionBet
 import com.wedoapps.CricketLiveLine.Repository.CricketGuruRepository
 import kotlinx.coroutines.launch
@@ -130,62 +131,40 @@ class CricketGuruViewModel(
 
     fun saveMatchBet(
         matchId: String,
-        rate: Int,
-        amount: Int,
-        type: String,
-        team: String,
-        default: Boolean,
         playerName: String,
-        team1Value: Int,
-        team2Value: Int,
+        matchBet: MutableList<MatchBet>
     ) = viewModelScope.launch {
-        val matchBet = MatchBet(
+        val matchData = MatchData(
             null,
             matchId,
-            rate,
-            amount,
-            type,
-            team,
-            default,
             playerName,
-            team1Value,
-            team2Value
+            matchBet
         )
-        repository.insertMatch(matchBet)
+        repository.insertMatch(matchData)
     }
 
-    fun deleteMatchBet(matchBet: MatchBet) = viewModelScope.launch {
+    fun deleteMatchBet(matchBet: MatchData) = viewModelScope.launch {
         repository.deleteMatch(matchBet)
     }
 
     fun updateMatchBet(
         id: Int,
         matchId: String,
-        rate: Int,
-        amount: Int,
-        type: String,
-        team: String,
-        default: Boolean,
         playerName: String,
-        team1Value: Int,
-        team2Value: Int,
+        matchBet: MutableList<MatchBet>
     ) = viewModelScope.launch {
-        val matchBet = MatchBet(
+        val matchData = MatchData(
             id,
             matchId,
-            rate,
-            amount,
-            type,
-            team,
-            default,
             playerName,
-            team1Value,
-            team2Value
+            matchBet
         )
-        repository.updateMatch(matchBet)
+        repository.updateMatch(matchData)
     }
 
     fun getAllMatchBet(matchId: String) = repository.getAllMatchBet(matchId)
+
+    fun getMatchByName(playerName: String) = repository.getMatchByName(playerName)
 
     fun saveSession(
         matchId: String,
@@ -241,5 +220,6 @@ class CricketGuruViewModel(
     }
 
     fun getAllSessions(matchId: String) = repository.getAllSessionBet(matchId)
+
 
 }

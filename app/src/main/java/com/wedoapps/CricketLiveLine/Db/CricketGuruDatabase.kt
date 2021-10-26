@@ -4,14 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchBet
+import androidx.room.TypeConverters
+import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchData
 import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionBet
+import com.wedoapps.CricketLiveLine.Utils.Convertors
 
 @Database(
-    entities = [MatchBet::class, SessionBet::class],
+    entities = [MatchData::class, SessionBet::class],
     version = 2
 )
 
+@TypeConverters(Convertors::class)
 abstract class CricketGuruDatabase : RoomDatabase() {
 
     abstract fun getCricketGuruDao(): CricketGuruDao

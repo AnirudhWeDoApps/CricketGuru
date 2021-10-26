@@ -13,10 +13,8 @@ import java.util.*
 )
 
 @Parcelize
-data class MatchBet(
-    @PrimaryKey(autoGenerate = true)
-    var id: Int? = null,
-    var matchID: String? = "",
+data class  MatchBet(
+    var row_type: Int? = 1,
     var rate: Int? = null,
     var amount: Int? = null,
     var type: String? = "",
@@ -25,6 +23,7 @@ data class MatchBet(
     var playerName: String? = "",
     var team1Value: Int? = null,
     var team2Value: Int? = null,
+    var drawValue: Int? = null,
     var date: String = getDateAndTime()
 ) : Parcelable {
     companion object {

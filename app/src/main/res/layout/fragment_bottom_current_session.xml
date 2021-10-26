@@ -128,6 +128,68 @@
             app:layout_constraintTop_toTopOf="@+id/et_session_fp" />
 
         <TextView
+            android:id="@+id/textViewComm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/commission"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_session_fp" />
+
+        <EditText
+            android:id="@+id/et_commision"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/amount_hint"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewComm"
+            app:layout_constraintEnd_toStartOf="@+id/linearLayout7"
+            app:layout_constraintStart_toEndOf="@+id/textViewComm"
+            app:layout_constraintTop_toTopOf="@+id/textViewComm" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_weight=".5"
+            android:background="@drawable/trans_round_rect_border"
+            android:gravity="center"
+            android:weightSum="2"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewComm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewComm">
+
+            <TextView
+                android:id="@+id/tv_Give"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/select_bg"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/give"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_take"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/take"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+
+        <TextView
             android:id="@+id/textView25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -136,7 +198,7 @@
             android:text="@string/actual_score"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_session_fp" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewComm" />
 
         <EditText
             android:id="@+id/et_session_as"

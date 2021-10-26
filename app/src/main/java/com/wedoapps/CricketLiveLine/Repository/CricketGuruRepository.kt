@@ -8,6 +8,7 @@ import com.wedoapps.CricketLiveLine.Db.CricketGuruDatabase
 import com.wedoapps.CricketLiveLine.Model.*
 import com.wedoapps.CricketLiveLine.Model.Info.Info
 import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchBet
+import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchData
 import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionBet
 import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
 import java.util.*
@@ -839,11 +840,11 @@ class CricketGuruRepository(val db: CricketGuruDatabase) {
         return _firstInnings
     }
 
-    suspend fun insertMatch(matchBet: MatchBet) = db.getCricketGuruDao().insertMatch(matchBet)
+    suspend fun insertMatch(matchData: MatchData) = db.getCricketGuruDao().insertMatch(matchData)
 
-    suspend fun updateMatch(matchBet: MatchBet) = db.getCricketGuruDao().updateMatch(matchBet)
+    suspend fun updateMatch(matchData: MatchData) = db.getCricketGuruDao().updateMatch(matchData)
 
-    suspend fun deleteMatch(matchBet: MatchBet) = db.getCricketGuruDao().deleteMatch(matchBet)
+    suspend fun deleteMatch(matchData: MatchData) = db.getCricketGuruDao().deleteMatch(matchData)
 
     suspend fun insertSession(sessionBet: SessionBet) =
         db.getCricketGuruDao().insertSession(sessionBet)
@@ -855,6 +856,8 @@ class CricketGuruRepository(val db: CricketGuruDatabase) {
         db.getCricketGuruDao().deleteSession(sessionBet)
 
     fun getAllMatchBet(matchid: String) = db.getCricketGuruDao().getAllMatches(matchid)
+
+    fun getMatchByName(playerName: String) = db.getCricketGuruDao().getMatchesByName(playerName)
 
     fun getAllSessionBet(matchid: String) = db.getCricketGuruDao().getAllSessions(matchid)
 }

@@ -1,6 +1,7 @@
 package com.wedoapps.CricketLiveLine.Ui.BottomSheets
 
 import android.app.Dialog
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.FrameLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -25,6 +27,7 @@ class CurrentSessionBottomFragment : DialogFragment() {
     private lateinit var binding: FragmentBottomCurrentSessionBinding
     private lateinit var viewModel: CricketGuruViewModel
     private lateinit var id: String
+    private var isComm = false
     private var jsonObj: SessionBet? = SessionBet()
 
     override fun onCreateView(
@@ -89,6 +92,19 @@ class CurrentSessionBottomFragment : DialogFragment() {
             comAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.ynSpinner.adapter = comAdapter
         }
+
+
+        binding.apply {
+                tvGive.setOnClickListener {
+                    isComm = false
+                    giveSelected()
+                }
+
+                tvTake.setOnClickListener {
+                    isComm = true
+                    takeSelected()
+                }
+            }
 
 
         binding.ivCancel.setOnClickListener {
@@ -161,6 +177,26 @@ class CurrentSessionBottomFragment : DialogFragment() {
         params.width = ViewGroup.LayoutParams.MATCH_PARENT
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT
         dialog?.window?.attributes = params as WindowManager.LayoutParams
+    }
+
+    private fun giveSelected() {
+        binding.apply {
+            tvTake.background = null
+            tvTake.setTextColor(Color.BLACK)
+            tvGive.setTextColor(Color.WHITE)
+            tvGive.background =
+                ContextCompat.getDrawable(requireContext(), R.drawable.select_bg)
+        }
+    }
+
+    private fun takeSelected() {
+        binding.apply {
+            tvGive.background = null
+            tvGive.setTextColor(Color.BLACK)
+            tvTake.setTextColor(Color.WHITE)
+            tvTake.background =
+                ContextCompat.getDrawable(requireContext(), R.drawable.reverse_select_bg)
+        }
     }
 
 }

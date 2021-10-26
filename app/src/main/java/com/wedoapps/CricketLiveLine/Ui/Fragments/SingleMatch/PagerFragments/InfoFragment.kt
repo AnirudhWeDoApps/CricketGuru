@@ -13,7 +13,7 @@ import com.wedoapps.CricketLiveLine.Utils.Constants.ID
 import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
 import com.wedoapps.CricketLiveLine.databinding.FragmentInfoBinding
 
-class InfoFragment() : Fragment(R.layout.fragment_info) {
+class InfoFragment : Fragment(R.layout.fragment_info) {
 
     private lateinit var binding: FragmentInfoBinding
     private lateinit var viewModel: CricketGuruViewModel
