@@ -10,6 +10,7 @@ import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchBet
 import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchData
 import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionBet
 import com.wedoapps.CricketLiveLine.Repository.CricketGuruRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class CricketGuruViewModel(
@@ -164,7 +165,22 @@ class CricketGuruViewModel(
 
     fun getAllMatchBet(matchId: String) = repository.getAllMatchBet(matchId)
 
-    fun getMatchByName(playerName: String) = repository.getMatchByName(playerName)
+    fun getMatchByName(id: String, playerName: String, matchBet: MatchBet) =
+        viewModelScope.launch(Dispatchers.Main) {
+            val data = repository.getMatchByName(playerName)
+            if (data == null) {
+                saveMatchBet(id, playerName, mutableListOf(matchBet))
+            } else {
+                data.matchBet?.add(matchBet)
+                updateMatchBet(
+                    data.id!!,
+                    data.matchId.toString(),
+                    data.playerName.toString(),
+                    data.matchBet!!
+                )
+            }
+
+        }
 
     fun saveSession(
         matchId: String,

@@ -857,7 +857,7 @@ class CricketGuruRepository(val db: CricketGuruDatabase) {
 
     fun getAllMatchBet(matchid: String) = db.getCricketGuruDao().getAllMatches(matchid)
 
-    fun getMatchByName(playerName: String) = db.getCricketGuruDao().getMatchesByName(playerName)
+    suspend fun getMatchByName(playerName: String) = db.getCricketGuruDao().getMatchesByName(playerName)
 
     fun getAllSessionBet(matchid: String) = db.getCricketGuruDao().getAllSessions(matchid)
 }

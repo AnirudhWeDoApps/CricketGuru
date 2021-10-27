@@ -2,7 +2,6 @@ package com.wedoapps.CricketLiveLine.Db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchBet
 import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchData
 import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionBet
 
@@ -22,7 +21,7 @@ interface CricketGuruDao {
     fun getAllMatches(matchid: String): LiveData<List<MatchData>>
 
     @Query("SELECT * from matchData WHERE playerName = :playerName")
-    fun getMatchesByName(playerName: String): LiveData<MatchData>
+    suspend fun getMatchesByName(playerName: String): MatchData
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertSession(sessionBet: SessionBet)
