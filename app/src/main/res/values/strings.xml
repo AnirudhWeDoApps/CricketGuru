@@ -74,7 +74,7 @@
     <string name="commission">Commission</string>
     <string name="cancel">Cancel</string>
     <string name="add">Add</string>
-    <string name="add_session">Add Session</string>
+    <string name="add_session">Add New Session</string>
     <string name="team_name">Team Name</string>
     <string name="session_name">Session Name</string>
     <string name="party_name">Party Name</string>
@@ -116,4 +116,6 @@
     <string name="CheckGraph">Check Graph</string>
     <string name="total">Total</string>
     <string name="f_c_r">For Current Record</string>
+    <string name="no_session_entry_availble">No Session Entry Availble</string>
+    <string name="declare">Declare</string>
 </resources>

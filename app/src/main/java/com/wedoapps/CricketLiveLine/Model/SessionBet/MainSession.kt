@@ -1,21 +1,26 @@
-package com.wedoapps.CricketLiveLine.Model.PartyModel
+package com.wedoapps.CricketLiveLine.Model.SessionBet
 
 import android.annotation.SuppressLint
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 import java.text.SimpleDateFormat
 import java.util.*
 
 @Entity(
-    tableName = "PartyModel"
+    tableName = "mainSession"
 )
 
-data class PartyModel(
+@Parcelize
+data class MainSession(
     @PrimaryKey(autoGenerate = true)
-    val partyID: Int? = null,
-    val partyName: String? = "",
-    var partyDate: String = getDateAndTime()
-) {
+    var id: Int? = null,
+    var matchID: String? = "",
+    var sessionName: String? = "",
+    var selectedTeamName: String? = "",
+    var dataAndTime: String = getDateAndTime()
+) : Parcelable {
     companion object {
         @SuppressLint("SimpleDateFormat")
         private fun getDateAndTime(): String {

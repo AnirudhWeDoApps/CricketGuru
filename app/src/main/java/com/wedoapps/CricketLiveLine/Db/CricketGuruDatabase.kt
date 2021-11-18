@@ -6,12 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchData
-import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionBet
+import com.wedoapps.CricketLiveLine.Model.SessionBet.MainSession
+import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionData
 import com.wedoapps.CricketLiveLine.Utils.Convertors
 
 @Database(
-    entities = [MatchData::class, SessionBet::class],
-    version = 2
+    entities = [MatchData::class, MainSession::class, SessionData::class],
+    version = 1
 )
 
 @TypeConverters(Convertors::class)

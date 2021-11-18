@@ -7,9 +7,9 @@ import com.google.firebase.storage.FirebaseStorage
 import com.wedoapps.CricketLiveLine.Db.CricketGuruDatabase
 import com.wedoapps.CricketLiveLine.Model.*
 import com.wedoapps.CricketLiveLine.Model.Info.Info
-import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchBet
 import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchData
-import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionBet
+import com.wedoapps.CricketLiveLine.Model.SessionBet.MainSession
+import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionData
 import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
 import java.util.*
 import kotlin.collections.ArrayList
@@ -846,18 +846,37 @@ class CricketGuruRepository(val db: CricketGuruDatabase) {
 
     suspend fun deleteMatch(matchData: MatchData) = db.getCricketGuruDao().deleteMatch(matchData)
 
-    suspend fun insertSession(sessionBet: SessionBet) =
-        db.getCricketGuruDao().insertSession(sessionBet)
+    suspend fun insertSession(sessionData: SessionData) =
+        db.getCricketGuruDao().insertSession(sessionData)
 
-    suspend fun updateSession(sessionBet: SessionBet) =
-        db.getCricketGuruDao().updateSession(sessionBet)
+    suspend fun updateSession(sessionData: SessionData) =
+        db.getCricketGuruDao().updateSession(sessionData)
 
-    suspend fun deleteSession(sessionBet: SessionBet) =
-        db.getCricketGuruDao().deleteSession(sessionBet)
+    suspend fun deleteSession(sessionData: SessionData) =
+        db.getCricketGuruDao().deleteSession(sessionData)
 
     fun getAllMatchBet(matchid: String) = db.getCricketGuruDao().getAllMatches(matchid)
 
-    suspend fun getMatchByName(playerName: String) = db.getCricketGuruDao().getMatchesByName(playerName)
+    suspend fun getMatchByName(playerName: String) =
+        db.getCricketGuruDao().getMatchesByName(playerName)
 
-    fun getAllSessionBet(matchid: String) = db.getCricketGuruDao().getAllSessions(matchid)
+    fun getAllSessionBet(sessionID: String) = db.getCricketGuruDao().getAllSessions(sessionID)
+
+    suspend fun getSessionByName(playerName: String) =
+        db.getCricketGuruDao().getSessionByName(playerName)
+
+    suspend fun deleteSessionItem(id: String) =
+        db.getCricketGuruDao().deleteSessionItem(id)
+
+    suspend fun insertMainSession(mainSession: MainSession) =
+        db.getCricketGuruDao().insertMainSession(mainSession)
+
+    suspend fun updateMainSession(mainSession: MainSession) =
+        db.getCricketGuruDao().updateMainSession(mainSession)
+
+    suspend fun deleteMainSession(mainSession: MainSession) =
+        db.getCricketGuruDao().deleteMainSession(mainSession)
+
+    fun getAllMainSession(matchid: String) =
+        db.getCricketGuruDao().getMainSession(matchid)
 }

@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 @Entity(
-    tableName = "matchData"
+    tableName = "MatchData"
 )
 @Parcelize
 data class MatchData(

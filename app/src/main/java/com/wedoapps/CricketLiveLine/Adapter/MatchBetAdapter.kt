@@ -34,12 +34,11 @@ class MatchBetAdapter(val listener: SetOn) :
 
                 tvTeamName.text = matchBet.team
                 tvKl.text = matchBet.type
-                tvPlayerName.text = matchBet.playerName
                 tvTotal.text = "${matchBet.amount} * ${matchBet.rate}"
                 tvTime1.text = matchBet.date
 
                 ivSDelete.setOnClickListener {
-                    listener.onDelete(matchBet)
+                    listener.onDelete(matchBet, adapterPosition)
                 }
 
                 itemView.setOnClickListener {
@@ -99,7 +98,7 @@ class MatchBetAdapter(val listener: SetOn) :
     val differ = AsyncListDiffer(this, differCallback)
 
     interface SetOn {
-        fun onDelete(matchBet: MatchBet)
+        fun onDelete(matchBet: MatchBet, position: Int)
         fun onEdit(matchBet: MatchBet)
     }
 

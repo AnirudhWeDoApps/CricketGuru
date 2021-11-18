@@ -11,6 +11,7 @@ import androidx.work.WorkerParameters
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
+import com.wedoapps.CricketLiveLine.Utils.Constants.isAdsVisible
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -73,9 +74,13 @@ class DownloadImageWorker(mContext: Context, workerParams: WorkerParameters) :
                 if (value != null) {
                     Log.d(TAG, "doWork Data: ${value.data}")
                     if (value.data!!.containsKey("AdVisible")) {
-                        Constants.isAdsVisible = value.getBoolean("AdVisible")!!
-                        preference.setAdsVisible(Constants.isAdsVisible)
-                        Constants.isAdsVisible = preference.getAdsVisible()
+                        isAdsVisible = value.getBoolean("AdVisible")!!
+                        preference.setAdsVisible(isAdsVisible)
+                        isAdsVisible = preference.getAdsVisible()
+                    } else {
+                        isAdsVisible = false
+                        preference.setAdsVisible(isAdsVisible)
+                        isAdsVisible = preference.getAdsVisible()
                     }
 
                     if (value.data!!.containsKey("IsFullAdsShow")) {

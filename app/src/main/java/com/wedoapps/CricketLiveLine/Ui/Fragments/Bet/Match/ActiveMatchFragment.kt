@@ -3,7 +3,6 @@ package com.wedoapps.CricketLiveLine.Ui.Fragments.Bet.Match
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.wedoapps.CricketLiveLine.Adapter.MatchBetAdapter
 import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchBet
@@ -12,6 +11,7 @@ import com.wedoapps.CricketLiveLine.Ui.BottomSheets.MatchBottomSheetFragment
 import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
 import com.wedoapps.CricketLiveLine.Ui.Fragments.Bet.BettingActivity
 import com.wedoapps.CricketLiveLine.Utils.Constants.ID
+import com.wedoapps.CricketLiveLine.Utils.Constants.PID
 import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
 import com.wedoapps.CricketLiveLine.databinding.FragmentActiveMatchBinding
 
@@ -50,7 +50,7 @@ class ActiveMatchFragment : Fragment(R.layout.fragment_active_match),
                 binding.rvActiveMatch.visibility = View.VISIBLE
                 it.sortedBy { k -> k.playerName }
                 it.forEach { data ->
-                    val bet = MatchBet(2, playerName = data.playerName)
+                    val bet = MatchBet(row_type = 2, playerName = data.playerName)
                     if (betList.find { k -> k.playerName == bet.playerName && k.row_type == 2 } == null) {
                         betList.add(bet)
                     }
@@ -80,19 +80,6 @@ class ActiveMatchFragment : Fragment(R.layout.fragment_active_match),
         }
     }
 
-    /* override fun onDelete(matchData: MatchData) {
-         Log.d(TAG, "onDelete: ")
-         viewModel.deleteMatchBet(matchData)
-     }
-
-     override fun onEdit(matchData: MatchData) {
-         val matchSheet = MatchBottomSheetFragment()
-         val bundle = Bundle()
-         bundle.putParcelable(PID, matchData)
-         matchSheet.arguments = bundle
-         matchSheet.setTargetFragment(this, 1)
-         matchSheet.show(parentFragmentManager, matchSheet.tag)
-     }*/
 
     override fun onResume() {
         super.onResume()
@@ -104,6 +91,9 @@ class ActiveMatchFragment : Fragment(R.layout.fragment_active_match),
                 binding.tvTeam2Total.text = temp1.toString()
             } else {
                 it.forEach { data1 ->
+                    if (data1.matchBet.isNullOrEmpty()) {
+                        viewModel.deleteMatchBet(data1)
+                    }
                     data1.matchBet?.forEach { data ->
                         temp += data.team1Value!!
                         temp1 += data.team2Value!!
@@ -143,12 +133,18 @@ class ActiveMatchFragment : Fragment(R.layout.fragment_active_match),
         return myFragment
     }
 
-    override fun onDelete(matchBet: MatchBet) {
-        Toast.makeText(requireContext(), "Delete Krenge", Toast.LENGTH_SHORT).show()
+    override fun onDelete(matchBet: MatchBet, position: Int) {
+        viewModel.deleteItemMatch(matchBet.id!!, matchBet.playerName!!)
+        matchAdapter.notifyItemRemoved(position)
     }
 
     override fun onEdit(matchBet: MatchBet) {
-        Toast.makeText(requireContext(), "Edit Krenge", Toast.LENGTH_SHORT).show()
+        val matchSheet = MatchBottomSheetFragment()
+        val bundle = Bundle()
+        bundle.putParcelable(PID, matchBet)
+        matchSheet.arguments = bundle
+        matchSheet.setTargetFragment(this, 1)
+        matchSheet.show(parentFragmentManager, matchSheet.tag)
     }
 
 }

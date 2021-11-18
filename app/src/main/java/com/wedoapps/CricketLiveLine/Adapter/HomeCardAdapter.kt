@@ -49,7 +49,7 @@ class HomeCardAdapter(private val listener: SetOnClick) :
                 tvMatchStatus.text = match.MatchStatus
                 tvFirstTeam.text = match.Team1
                 tvSecondTeam.text = match.Team2
-                tvDayStatus.text = match.MatchResult
+
                 val sdf =
                     SimpleDateFormat("dd MMMM, h:mm a", Locale.ENGLISH)
                 val cal = Calendar.getInstance(Locale.ENGLISH)
@@ -103,6 +103,12 @@ class HomeCardAdapter(private val listener: SetOnClick) :
                         binding.apply {
                             tvFStrike.text = value.get("Rate1").toString()
                             tvSStrike.text = value.get("Rate2").toString()
+
+                            if (match.MatchResult.isNullOrEmpty()) {
+                                tvDayStatus.text = value.get("FavTeam").toString()
+                            } else {
+                                tvDayStatus.text = match.MatchResult
+                            }
                         }
                     }
                 }

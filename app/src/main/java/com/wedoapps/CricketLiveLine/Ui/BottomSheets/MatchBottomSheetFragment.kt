@@ -15,13 +15,13 @@ import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchBet
-import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchData
 import com.wedoapps.CricketLiveLine.R
 import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
 import com.wedoapps.CricketLiveLine.Ui.Fragments.Bet.BettingActivity
 import com.wedoapps.CricketLiveLine.Utils.Constants.ID
 import com.wedoapps.CricketLiveLine.Utils.Constants.PID
 import com.wedoapps.CricketLiveLine.databinding.FragmentBottomMatchBinding
+import kotlin.random.Random
 
 
 class MatchBottomSheetFragment : DialogFragment() {
@@ -32,7 +32,7 @@ class MatchBottomSheetFragment : DialogFragment() {
     private lateinit var viewModel: CricketGuruViewModel
     private lateinit var onBottom: OnMatchBetListener
     private lateinit var id: String
-    private var jsonObj: MatchData? = MatchData()
+    private var jsonObj: MatchBet? = MatchBet()
     private var team1: String = ""
     private var team2: String = ""
     private var teamArray = arrayListOf<String>()
@@ -47,6 +47,7 @@ class MatchBottomSheetFragment : DialogFragment() {
     private var currentScore2 = 0
     private var currentScore3 = 0
     private var isInitialText = false
+    private val charPool: List<Char> = ('A'..'Z') + ('0'..'9') + ('a'..'z')
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -93,7 +94,7 @@ class MatchBottomSheetFragment : DialogFragment() {
 
         if (jsonObj != null) {
 
-            viewModel.getInfo(jsonObj?.matchId.toString()).observe(requireActivity(), {
+            viewModel.getInfo(jsonObj?.matchID.toString()).observe(requireActivity(), {
                 team1 = it.Team1.toString()
                 team2 = it.Team2.toString()
 
@@ -109,31 +110,27 @@ class MatchBottomSheetFragment : DialogFragment() {
                 )
                 teamAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 binding.teamSpinner.adapter = teamAdapter
-                jsonObj!!.matchBet?.forEach { data ->
-                    val teamPosition = teamAdapter.getPosition(data.team)
+                val teamPosition = teamAdapter.getPosition(jsonObj?.team)
                     binding.teamSpinner.setSelection(teamPosition)
-                }
             })
 
             binding.apply {
-                jsonObj!!.matchBet?.forEach {
-                    /* 
-                    tvCr1.text = jsonObj?.team1Value.toString()
-                    tvCr2.text = jsonObj?.drawValue.toString()
-                    tvCr3.text = jsonObj?.team2Value.toString()*/
-                    etRate.setText(it.rate.toString())
-                    etAmount.setText(it.amount.toString())
-                    /* if (!etRate.hasFocus() && !etAmount.hasFocus()) {
-                         etRate.removeTextChangedListener(textWatcher2)
-                         etAmount.removeTextChangedListener(textWatcher)
-                     }*/
-                    if (it.type.equals("Khai")) {
-                        isSelected = false
-                        khaiSelected()
-                    } else {
-                        isSelected = true
-                        lagaiSelected()
-                    }
+                /*
+                tvCr1.text = jsonObj?.team1Value.toString()
+                tvCr2.text = jsonObj?.drawValue.toString()
+                tvCr3.text = jsonObj?.team2Value.toString()*/
+                etRate.setText(jsonObj?.rate.toString())
+                etAmount.setText(jsonObj?.amount.toString())
+                /* if (!etRate.hasFocus() && !etAmount.hasFocus()) {
+                     etRate.removeTextChangedListener(textWatcher2)
+                     etAmount.removeTextChangedListener(textWatcher)
+                 }*/
+                if (jsonObj?.type.equals("Khai")) {
+                    isSelected = false
+                    khaiSelected()
+                } else {
+                    isSelected = true
+                    lagaiSelected()
                 }
                 etPlayerName.setText(jsonObj?.playerName.toString())
                 if (!matchList.isNullOrEmpty()) {
@@ -210,13 +207,15 @@ class MatchBottomSheetFragment : DialogFragment() {
                         if (isSelected) {
                             // Lagai Portion
                             val bet = MatchBet(
+                                randomID(),
+                                id,
                                 1,
                                 binding.etRate.text.toString().toInt(),
                                 binding.etAmount.text.toString().toInt(),
                                 binding.tvLagai.text.toString(),
                                 binding.teamSpinner.selectedItem.toString(),
                                 false,
-                                binding.etPlayerName.text.toString(),
+                                binding.etPlayerName.text.toString().trim(),
                                 getValue1(
                                     binding.etAmount.text.toString()
                                         .toInt(),
@@ -225,18 +224,32 @@ class MatchBottomSheetFragment : DialogFragment() {
                                 -binding.etAmount.text.toString().toInt(),
                                 -binding.etAmount.text.toString().toInt()
                             )
-                            viewModel.getMatchByName(id, binding.etPlayerName.text.toString(), bet)
-                            dismiss()
+                            if (jsonObj != null) {
+                                viewModel.updateMatchBetItem(
+                                    jsonObj?.id.toString(),
+                                    jsonObj?.playerName.toString(), bet
+                                )
+                                dismiss()
+                            } else {
+                                viewModel.getMatchByName(
+                                    id,
+                                    binding.etPlayerName.text.toString().trim(),
+                                    bet
+                                )
+                                dismiss()
+                            }
                         } else {
                             // Khai Portion
                             val bet = MatchBet(
+                                randomID(),
+                                id,
                                 1,
                                 binding.etRate.text.toString().toInt(),
                                 binding.etAmount.text.toString().toInt(),
                                 binding.tvKhai.text.toString(),
                                 binding.teamSpinner.selectedItem.toString(),
                                 false,
-                                binding.etPlayerName.text.toString(),
+                                binding.etPlayerName.text.toString().trim(),
                                 getValue1(
                                     binding.etAmount.text.toString()
                                         .toInt(),
@@ -245,21 +258,35 @@ class MatchBottomSheetFragment : DialogFragment() {
                                 binding.etAmount.text.toString().toInt(),
                                 binding.etAmount.text.toString().toInt()
                             )
-                            viewModel.getMatchByName(id, binding.etPlayerName.text.toString(), bet)
-                            dismiss()
+                            if (jsonObj != null) {
+                                viewModel.updateMatchBetItem(
+                                    jsonObj?.id.toString(),
+                                    jsonObj?.playerName.toString(), bet
+                                )
+                                dismiss()
+                            } else {
+                                viewModel.getMatchByName(
+                                    id,
+                                    binding.etPlayerName.text.toString().trim(),
+                                    bet
+                                )
+                                dismiss()
+                            }
                         }
                     }
                     team2 -> {
                         if (isSelected) {
                             // Lagai Portion
                             val bet = MatchBet(
+                                randomID(),
+                                id,
                                 1,
                                 binding.etRate.text.toString().toInt(),
                                 binding.etAmount.text.toString().toInt(),
                                 binding.tvLagai.text.toString(),
                                 binding.teamSpinner.selectedItem.toString(),
                                 false,
-                                binding.etPlayerName.text.toString(),
+                                binding.etPlayerName.text.toString().trim(),
                                 -binding.etAmount.text.toString().toInt(),
                                 getValue1(
                                     binding.etAmount.text.toString().toInt(),
@@ -267,18 +294,32 @@ class MatchBottomSheetFragment : DialogFragment() {
                                 ),
                                 -binding.etAmount.text.toString().toInt()
                             )
-                            viewModel.getMatchByName(id, binding.etPlayerName.text.toString(), bet)
-                            dismiss()
+                            if (jsonObj != null) {
+                                viewModel.updateMatchBetItem(
+                                    jsonObj?.id.toString(),
+                                    jsonObj?.playerName.toString(), bet
+                                )
+                                dismiss()
+                            } else {
+                                viewModel.getMatchByName(
+                                    id,
+                                    binding.etPlayerName.text.toString().trim(),
+                                    bet
+                                )
+                                dismiss()
+                            }
                         } else {
                             // Khai Portion
                             val bet = MatchBet(
+                                randomID(),
+                                id,
                                 1,
                                 binding.etRate.text.toString().toInt(),
                                 binding.etAmount.text.toString().toInt(),
                                 binding.tvKhai.text.toString(),
                                 binding.teamSpinner.selectedItem.toString(),
                                 false,
-                                binding.etPlayerName.text.toString(),
+                                binding.etPlayerName.text.toString().trim(),
                                 binding.etAmount.text.toString().toInt(),
                                 getValue1(
                                     binding.etAmount.text.toString().toInt(),
@@ -286,21 +327,35 @@ class MatchBottomSheetFragment : DialogFragment() {
                                 ),
                                 binding.etAmount.text.toString().toInt()
                             )
-                            viewModel.getMatchByName(id, binding.etPlayerName.text.toString(), bet)
-                            dismiss()
+                            if (jsonObj != null) {
+                                viewModel.updateMatchBetItem(
+                                    jsonObj?.id.toString(),
+                                    jsonObj?.playerName.toString(), bet
+                                )
+                                dismiss()
+                            } else {
+                                viewModel.getMatchByName(
+                                    id,
+                                    binding.etPlayerName.text.toString().trim(),
+                                    bet
+                                )
+                                dismiss()
+                            }
                         }
                     }
                     else -> {
                         if (isSelected) {
                             // Lagai Portion
                             val bet = MatchBet(
+                                randomID(),
+                                id,
                                 1,
                                 binding.etRate.text.toString().toInt(),
                                 binding.etAmount.text.toString().toInt(),
                                 binding.tvLagai.text.toString(),
                                 binding.teamSpinner.selectedItem.toString(),
                                 false,
-                                binding.etPlayerName.text.toString(),
+                                binding.etPlayerName.text.toString().trim(),
                                 -binding.etAmount.text.toString().toInt(),
                                 -binding.etAmount.text.toString().toInt(),
                                 getValue1(
@@ -308,18 +363,32 @@ class MatchBottomSheetFragment : DialogFragment() {
                                     binding.etRate.text.toString().toInt()
                                 )
                             )
-                            viewModel.getMatchByName(id, binding.etPlayerName.text.toString(), bet)
-                            dismiss()
+                            if (jsonObj != null) {
+                                viewModel.updateMatchBetItem(
+                                    jsonObj?.id.toString(),
+                                    jsonObj?.playerName.toString(), bet
+                                )
+                                dismiss()
+                            } else {
+                                viewModel.getMatchByName(
+                                    id,
+                                    binding.etPlayerName.text.toString().trim(),
+                                    bet
+                                )
+                                dismiss()
+                            }
                         } else {
                             // Khai Portion
                             val bet = MatchBet(
+                                randomID(),
+                                id,
                                 1,
                                 binding.etRate.text.toString().toInt(),
                                 binding.etAmount.text.toString().toInt(),
                                 binding.tvKhai.text.toString(),
                                 binding.teamSpinner.selectedItem.toString(),
                                 false,
-                                binding.etPlayerName.text.toString(),
+                                binding.etPlayerName.text.toString().trim(),
                                 binding.etAmount.text.toString().toInt(),
                                 binding.etAmount.text.toString().toInt(),
                                 getValue1(
@@ -327,8 +396,20 @@ class MatchBottomSheetFragment : DialogFragment() {
                                     -binding.etRate.text.toString().toInt()
                                 )
                             )
-                            viewModel.getMatchByName(id, binding.etPlayerName.text.toString(), bet)
-                            dismiss()
+                            if (jsonObj != null) {
+                                viewModel.updateMatchBetItem(
+                                    jsonObj?.id.toString(),
+                                    jsonObj?.playerName.toString(), bet
+                                )
+                                dismiss()
+                            } else {
+                                viewModel.getMatchByName(
+                                    id,
+                                    binding.etPlayerName.text.toString().trim(),
+                                    bet
+                                )
+                                dismiss()
+                            }
                         }
                     }
                 }
@@ -610,5 +691,13 @@ class MatchBottomSheetFragment : DialogFragment() {
             tvCr2.text = currentScore2.toString()
             tvCr3.text = currentScore3.toString()
         }
+    }
+
+    private fun randomID(): String {
+
+        return (1..5)
+            .map { Random.nextInt(0, charPool.size) }
+            .map(charPool::get)
+            .joinToString("")
     }
 }

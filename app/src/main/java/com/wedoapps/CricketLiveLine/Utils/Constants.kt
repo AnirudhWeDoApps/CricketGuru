@@ -25,5 +25,6 @@ object Constants {
     const val TEAM2 = "Team2"
     const val REQUEST_PERMISSION = 100
     const val JOB_ID = 123
-
+    const val SESSION_ID = "SessionID"
+    const val SESSION_NAME = "SessionName"
 }

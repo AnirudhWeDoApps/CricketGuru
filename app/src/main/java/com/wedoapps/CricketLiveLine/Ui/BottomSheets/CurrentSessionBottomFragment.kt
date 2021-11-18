@@ -1,34 +1,34 @@
 package com.wedoapps.CricketLiveLine.Ui.BottomSheets
 
-import android.app.Dialog
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ArrayAdapter
-import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionBet
 import com.wedoapps.CricketLiveLine.R
 import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
 import com.wedoapps.CricketLiveLine.Ui.Fragments.Bet.BettingActivity
+import com.wedoapps.CricketLiveLine.Ui.Fragments.Bet.Session.SessionEntryActivity
 import com.wedoapps.CricketLiveLine.Utils.Constants.ID
 import com.wedoapps.CricketLiveLine.Utils.Constants.PID
+import com.wedoapps.CricketLiveLine.Utils.Constants.SESSION_ID
 import com.wedoapps.CricketLiveLine.databinding.FragmentBottomCurrentSessionBinding
+import kotlin.random.Random
 
 class CurrentSessionBottomFragment : DialogFragment() {
 
     private lateinit var binding: FragmentBottomCurrentSessionBinding
     private lateinit var viewModel: CricketGuruViewModel
     private lateinit var id: String
+    private lateinit var sessionID: String
     private var isComm = false
     private var jsonObj: SessionBet? = SessionBet()
+    private val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,30 +38,15 @@ class CurrentSessionBottomFragment : DialogFragment() {
         return inflater.inflate(R.layout.fragment_bottom_current_session, container, false)
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState)
-
-        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        dialog.setOnShowListener {
-            Handler().post {
-                val bottomSheet =
-                    (dialog as? BottomSheetDialog)?.findViewById<View>(R.id.design_bottom_sheet) as? FrameLayout
-                bottomSheet?.let {
-                    BottomSheetBehavior.from(it).state = BottomSheetBehavior.STATE_EXPANDED
-                }
-            }
-        }
-
-        return dialog
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentBottomCurrentSessionBinding.bind(view)
 
         id = arguments?.getString(ID).toString()
+        sessionID = arguments?.getString(SESSION_ID).toString()
+
         jsonObj = arguments?.getParcelable(PID)
-        viewModel = (activity as BettingActivity).viewModel
+        viewModel = (activity as SessionEntryActivity).viewModel
 
         if (jsonObj != null) {
             val comArray = arrayListOf("Yes", "No")
@@ -81,6 +66,7 @@ class CurrentSessionBottomFragment : DialogFragment() {
                 etSessionFp.setText(jsonObj?.FandP.toString())
                 etSessionAs.setText(jsonObj?.actualScore.toString())
                 etSessionPlayerName.setText(jsonObj?.playerName.toString())
+                etCommision.setText(jsonObj?.commission.toString())
             }
         } else {
             val comArray = arrayListOf("Yes", "No")
@@ -110,37 +96,35 @@ class CurrentSessionBottomFragment : DialogFragment() {
         binding.ivCancel.setOnClickListener {
             dismiss()
         }
+
         binding.btnAdd.setOnClickListener {
             if (validated()) {
+                val sessionBet = SessionBet(
+                    randomID(),
+                    sessionID,
+                    1,
+                    binding.etSessionAmt.text.toString().toInt(),
+                    binding.etSessionInn.text.toString().toInt(),
+                    binding.etSessionOver.text.toString(),
+                    binding.etSessionFp.text.toString().toInt(),
+                    binding.ynSpinner.selectedItem.toString(),
+                    binding.etSessionAs.text.toString().toInt(),
+                    binding.etSessionPlayerName.text.toString().trim(),
+                    commissionValue()
+                )
                 if (jsonObj != null) {
-                    viewModel.updateSession(
-                        jsonObj?.id!!,
-                        jsonObj?.matchId!!,
-                        binding.etSessionAmt.text.toString().toInt(),
-                        binding.etSessionInn.text.toString().toInt(),
-                        binding.etSessionOver.text.toString(),
-                        binding.etSessionFp.text.toString().toInt(),
-                        binding.ynSpinner.selectedItem.toString(),
-                        binding.etSessionAs.text.toString().toInt(),
-                        binding.etSessionPlayerName.text.toString()
-                    )
+                    viewModel.updateSessionItem(jsonObj?.id!!, jsonObj?.playerName!!, sessionBet)
                     dismiss()
                 } else {
-                    viewModel.saveSession(
-                        id,
-                        binding.etSessionAmt.text.toString().toInt(),
-                        binding.etSessionInn.text.toString().toInt(),
-                        binding.etSessionOver.text.toString(),
-                        binding.etSessionFp.text.toString().toInt(),
-                        binding.ynSpinner.selectedItem.toString(),
-                        binding.etSessionAs.text.toString().toInt(),
-                        binding.etSessionPlayerName.text.toString()
+                    viewModel.getSessionByName(
+                        sessionID,
+                        binding.etSessionPlayerName.text.toString().trim(),
+                        sessionBet
                     )
                     dismiss()
                 }
             }
         }
-
     }
 
     private fun validated(): Boolean {
@@ -196,6 +180,22 @@ class CurrentSessionBottomFragment : DialogFragment() {
             tvTake.setTextColor(Color.WHITE)
             tvTake.background =
                 ContextCompat.getDrawable(requireContext(), R.drawable.reverse_select_bg)
+        }
+    }
+
+    private fun randomID(): String {
+
+        return (1..5)
+            .map { Random.nextInt(0, charPool.size) }
+            .map(charPool::get)
+            .joinToString("")
+    }
+
+    private fun commissionValue(): Int {
+        return if (binding.etCommision.text.toString().isEmpty()) {
+            0
+        } else {
+            binding.etCommision.text.toString().toInt()
         }
     }
 

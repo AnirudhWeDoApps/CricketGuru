@@ -44,7 +44,7 @@ class LiveLineFragment : Fragment(R.layout.fragment_live_line) {
     private var ballByBallSpeech: String? = ""
     private lateinit var id: String
     private var f: File? = null
-    private lateinit var b: Bitmap
+    private var b: Bitmap? = null
 
     @SuppressLint("SetTextI18n", "NewApi")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

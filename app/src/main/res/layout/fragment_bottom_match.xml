@@ -384,11 +384,11 @@
 
         <EditText
             android:id="@+id/et_commision"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:hint="@string/amount_hint"
+            android:hint="@string/_0_0"
             android:importantForAutofill="no"
-
+            android:gravity="center"
             android:inputType="number"
             app:layout_constraintBottom_toBottomOf="@+id/textViewComm"
             app:layout_constraintEnd_toStartOf="@+id/linearLayout7"

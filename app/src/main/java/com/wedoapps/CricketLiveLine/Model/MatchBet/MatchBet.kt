@@ -9,11 +9,14 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @Entity(
-    tableName = "matchBet"
+    tableName = "MatchBet"
 )
 
 @Parcelize
 data class  MatchBet(
+    @PrimaryKey(autoGenerate = true)
+    var id: String? = "",
+    var matchID: String? = "",
     var row_type: Int? = 1,
     var rate: Int? = null,
     var amount: Int? = null,

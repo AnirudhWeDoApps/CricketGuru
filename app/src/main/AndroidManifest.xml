@@ -15,11 +15,14 @@
         android:name=".Utils.CricketGuruApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:requestLegacyExternalStorage="true"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CricketGuru">
+        <activity
+            android:name=".Ui.Fragments.Bet.Session.SessionEntryActivity"
+            android:exported="false" />
         <activity
             android:name=".Ui.Fragments.Bet.BettingActivity"
             android:exported="true" />

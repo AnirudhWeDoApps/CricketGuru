@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto"
-            android:text="@string/innings"
+            android:text="@string/rate"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_session_amt" />
@@ -139,10 +139,11 @@
 
         <EditText
             android:id="@+id/et_commision"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:hint="@string/amount_hint"
+            android:hint="@string/_0_0"
             android:importantForAutofill="no"
+            android:gravity="center"
             android:inputType="number"
             app:layout_constraintBottom_toBottomOf="@+id/textViewComm"
             app:layout_constraintEnd_toStartOf="@+id/linearLayout7"

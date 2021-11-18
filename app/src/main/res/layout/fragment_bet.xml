@@ -28,6 +28,7 @@
         android:backgroundTint="@color/purple_500"
         android:hint="@string/team_1"
         android:textColor="@color/white"
+        android:editable="false"
         android:textColorHint="@color/black"
         android:inputType="textCapSentences"
         android:padding="10dp"
@@ -77,6 +78,7 @@
         android:hint="@string/team_2"
         android:inputType="textCapSentences"
         android:padding="10dp"
+        android:editable="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title_t2" />
