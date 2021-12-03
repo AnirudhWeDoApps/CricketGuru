@@ -96,7 +96,5 @@ dependencies {
     // Work Manager
     implementation "android.arch.work:work-runtime-ktx:1.0.1"
 
-    implementation 'com.afollestad:sectioned-recyclerview:0.2.3'
-
 
 }

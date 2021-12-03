@@ -1,24 +1,28 @@
 package com.wedoapps.CricketLiveLine.Ui.BottomSheets
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionBet
 import com.wedoapps.CricketLiveLine.R
 import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
-import com.wedoapps.CricketLiveLine.Ui.Fragments.Bet.BettingActivity
 import com.wedoapps.CricketLiveLine.Ui.Fragments.Bet.Session.SessionEntryActivity
 import com.wedoapps.CricketLiveLine.Utils.Constants.ID
 import com.wedoapps.CricketLiveLine.Utils.Constants.PID
 import com.wedoapps.CricketLiveLine.Utils.Constants.SESSION_ID
+import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
 import com.wedoapps.CricketLiveLine.databinding.FragmentBottomCurrentSessionBinding
-import kotlin.random.Random
 
 class CurrentSessionBottomFragment : DialogFragment() {
 
@@ -28,7 +32,7 @@ class CurrentSessionBottomFragment : DialogFragment() {
     private lateinit var sessionID: String
     private var isComm = false
     private var jsonObj: SessionBet? = SessionBet()
-    private val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
+    private val nameList = hashSetOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,11 +61,11 @@ class CurrentSessionBottomFragment : DialogFragment() {
             )
             comAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.ynSpinner.adapter = comAdapter
-            val teamPosition = comAdapter.getPosition(jsonObj?.YorN)
+            val teamPosition = comAdapter.getPosition(yornRetrive(jsonObj?.YorN!!))
             binding.ynSpinner.setSelection(teamPosition)
             binding.apply {
                 etSessionAmt.setText(jsonObj?.amount.toString())
-                etSessionInn.setText(jsonObj?.innings.toString())
+                etSessionInn.setText(jsonObj?.rate.toString())
                 etSessionOver.setText(jsonObj?.over.toString())
                 etSessionFp.setText(jsonObj?.FandP.toString())
                 etSessionAs.setText(jsonObj?.actualScore.toString())
@@ -81,50 +85,40 @@ class CurrentSessionBottomFragment : DialogFragment() {
 
 
         binding.apply {
-                tvGive.setOnClickListener {
-                    isComm = false
-                    giveSelected()
-                }
-
-                tvTake.setOnClickListener {
-                    isComm = true
-                    takeSelected()
-                }
+            tvGive.setOnClickListener {
+                isComm = false
+                giveSelected()
             }
 
+            tvTake.setOnClickListener {
+                isComm = true
+                takeSelected()
+            }
+        }
+
+        viewModel.sessionNameList().observe(requireActivity(), {
+            Log.d(TAG, "SessionNameList: $it")
+            it.forEach { name ->
+                nameList.add(name)
+            }
+        })
+
+        binding.etSessionPlayerName.setOnDismissListener {
+            val im =
+                requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            im.hideSoftInputFromWindow(requireActivity().currentFocus?.applicationWindowToken, 0)
+        }
 
         binding.ivCancel.setOnClickListener {
             dismiss()
         }
 
         binding.btnAdd.setOnClickListener {
-            if (validated()) {
-                val sessionBet = SessionBet(
-                    randomID(),
-                    sessionID,
-                    1,
-                    binding.etSessionAmt.text.toString().toInt(),
-                    binding.etSessionInn.text.toString().toInt(),
-                    binding.etSessionOver.text.toString(),
-                    binding.etSessionFp.text.toString().toInt(),
-                    binding.ynSpinner.selectedItem.toString(),
-                    binding.etSessionAs.text.toString().toInt(),
-                    binding.etSessionPlayerName.text.toString().trim(),
-                    commissionValue()
-                )
-                if (jsonObj != null) {
-                    viewModel.updateSessionItem(jsonObj?.id!!, jsonObj?.playerName!!, sessionBet)
-                    dismiss()
-                } else {
-                    viewModel.getSessionByName(
-                        sessionID,
-                        binding.etSessionPlayerName.text.toString().trim(),
-                        sessionBet
-                    )
-                    dismiss()
-                }
-            }
+            onSave()
         }
+
+        binding.etSessionPlayerName.addTextChangedListener(etSessionPlayerNameTextWatcher)
+
     }
 
     private fun validated(): Boolean {
@@ -183,20 +177,81 @@ class CurrentSessionBottomFragment : DialogFragment() {
         }
     }
 
-    private fun randomID(): String {
-
-        return (1..5)
-            .map { Random.nextInt(0, charPool.size) }
-            .map(charPool::get)
-            .joinToString("")
-    }
-
-    private fun commissionValue(): Int {
+    private fun commissionValue(): Double {
         return if (binding.etCommision.text.toString().isEmpty()) {
-            0
+            0.0
         } else {
-            binding.etCommision.text.toString().toInt()
+            binding.etCommision.text.toString().toDouble()
         }
     }
 
+    private fun yornValue(): Int {
+        return if (binding.ynSpinner.selectedItem.toString() == "Yes") {
+            1
+        } else {
+            0
+        }
+    }
+
+    private fun yornRetrive(yornValue: Int): String {
+        return if (yornValue == 1) {
+            "Yes"
+        } else {
+            "No"
+        }
+    }
+
+    private val etSessionPlayerNameTextWatcher = object : TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            val names = ArrayList(nameList)
+            val arrayAdapter = ArrayAdapter(
+                requireActivity().applicationContext,
+                android.R.layout.simple_spinner_dropdown_item,
+                names
+            )
+            binding.etSessionPlayerName.threshold = 1
+            binding.etSessionPlayerName.setAdapter(arrayAdapter)
+        }
+
+        override fun afterTextChanged(p0: Editable?) {
+        }
+    }
+
+    private fun onSave() {
+        if (validated()) {
+            val sessionBet = SessionBet(
+                null,
+                sessionID,
+                binding.etSessionAmt.text.toString().toInt(),
+                binding.etSessionInn.text.toString().toInt(),
+                binding.etSessionOver.text.toString(),
+                binding.etSessionFp.text.toString().toInt(),
+                yornValue(),
+                binding.etSessionAs.text.toString().toInt(),
+                binding.etSessionPlayerName.text.toString().trim(),
+                commissionValue()
+            )
+            if (jsonObj != null) {
+                viewModel.updateSessionBet(
+                    jsonObj?.id!!,
+                    jsonObj?.sessionID!!,
+                    binding.etSessionAmt.text.toString().toInt(),
+                    binding.etSessionInn.text.toString().toInt(),
+                    binding.etSessionOver.text.toString(),
+                    binding.etSessionFp.text.toString().toInt(),
+                    yornValue(),
+                    binding.etSessionAs.text.toString().toInt(),
+                    binding.etSessionPlayerName.text.toString().trim(),
+                    commissionValue()
+                )
+                dismiss()
+            } else {
+                viewModel.completeSessionBet(sessionBet)
+                dismiss()
+            }
+        }
+    }
 }

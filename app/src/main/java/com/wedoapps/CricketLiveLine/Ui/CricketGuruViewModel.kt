@@ -1,19 +1,17 @@
 package com.wedoapps.CricketLiveLine.Ui
 
-import android.annotation.SuppressLint
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.wedoapps.CricketLiveLine.Model.*
 import com.wedoapps.CricketLiveLine.Model.Info.Info
 import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchBet
-import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchData
 import com.wedoapps.CricketLiveLine.Model.SessionBet.MainSession
 import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionBet
-import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionData
 import com.wedoapps.CricketLiveLine.Repository.CricketGuruRepository
-import kotlinx.coroutines.Dispatchers
+import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
 import kotlinx.coroutines.launch
 
 class CricketGuruViewModel(
@@ -133,168 +131,51 @@ class CricketGuruViewModel(
         return repository.getFirstInnings(id)
     }
 
-    private fun saveMatchBet(
-        matchId: String,
-        playerName: String,
-        matchBet: MutableList<MatchBet>
-    ) = viewModelScope.launch {
-        val matchData = MatchData(
-            null,
-            matchId,
-            playerName,
-            matchBet
-        )
-        repository.insertMatch(matchData)
-    }
-
-    fun deleteMatchBet(matchBet: MatchData) = viewModelScope.launch {
-        repository.deleteMatch(matchBet)
+    fun saveMatchBet(matchBet: MatchBet) = viewModelScope.launch {
+        repository.insertMatch(matchBet)
     }
 
     fun updateMatchBet(
         id: Int,
         matchId: String,
+        rate: Int,
+        amount: Int,
+        type: String,
+        team: String,
+        default: Boolean,
         playerName: String,
-        matchBet: MutableList<MatchBet>
+        team1Value: Int,
+        team2Value: Int,
+        drawValue: Int,
     ) = viewModelScope.launch {
-        val matchData = MatchData(
+        val matchBet = MatchBet(
             id,
             matchId,
+            rate,
+            amount,
+            type,
+            team,
+            default,
             playerName,
-            matchBet
+            team1Value,
+            team2Value,
+            drawValue
         )
-        repository.updateMatch(matchData)
+        repository.updateMatch(matchBet)
+    }
+
+    fun deleteMatchBet(matchBet: MatchBet) = viewModelScope.launch {
+        repository.deleteMatch(matchBet)
     }
 
     fun getAllMatchBet(matchId: String) = repository.getAllMatchBet(matchId)
 
-    fun getMatchByName(id: String, playerName: String, matchBet: MatchBet) =
-        viewModelScope.launch(Dispatchers.Main) {
-            val data = repository.getMatchByName(playerName)
-//            if (data.matchId == id || data.matchId!!.isNotEmpty()) {
-            if (data == null) {
-                saveMatchBet(id, playerName, mutableListOf(matchBet))
-            } else {
-                data.matchBet?.add(matchBet)
-                updateMatchBet(
-                    data.id!!,
-                    data.matchId.toString(),
-                    data.playerName.toString(),
-                    data.matchBet!!
-                )
-            }
-            /*} else if (data.matchId.isNullOrEmpty()) {
-                saveMatchBet(id, playerName, mutableListOf(matchBet))
-            }*/
-        }
+    fun getAllSessionsList(sessionID: String) = repository.getAllSessionBetList(sessionID)
 
-    fun updateMatchBetItem(id: String, playerName: String, matchBet: MatchBet) {
-        viewModelScope.launch(Dispatchers.Main) {
-            val data = repository.getMatchByName(playerName)
-            val bet = data.matchBet!!
-            for (i in bet.indices) {
-                if (bet[i].id == id) {
-                    data.matchBet!![i] = matchBet
-                    updateMatchBet(
-                        data.id!!,
-                        data.matchId!!,
-                        data.playerName!!,
-                        data.matchBet!!
-                    )
-                }
-            }
-        }
-    }
+    fun matchBetNameList() = repository.matchBetNameList()
 
-    private fun saveSession(
-        matchId: String,
-        playerName: String,
-        sessionBet: MutableList<SessionBet>
-    ) = viewModelScope.launch {
-        val sessionData = SessionData(
-            null,
-            matchId,
-            playerName,
-            sessionBet
-        )
-        repository.insertSession(sessionData)
-    }
+    fun sessionNameList() = repository.sessionNameList()
 
-    fun deleteSession(sessionData: SessionData) = viewModelScope.launch {
-        repository.deleteSession(sessionData)
-    }
-
-    @SuppressLint("NewApi")
-    fun deleteItemMatch(id: String, playerName: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            val data = repository.getMatchByName(playerName)
-            val bet = data.matchBet!!
-            bet.removeIf { k -> k.id == id }
-            updateMatchBet(data.id!!, data.matchId!!, data.playerName!!, bet)
-        }
-    }
-
-    private fun updateSession(
-        id: Int,
-        matchId: String,
-        playerName: String,
-        sessionBet: MutableList<SessionBet>
-    ) = viewModelScope.launch {
-        val sessionData = SessionData(
-            id,
-            matchId,
-            playerName,
-            sessionBet
-        )
-        repository.updateSession(sessionData)
-    }
-
-    fun getAllSessions(sessionID: String) = repository.getAllSessionBet(sessionID)
-
-    fun getSessionByName(id: String, playerName: String, sessionBet: SessionBet) {
-        viewModelScope.launch(Dispatchers.Main) {
-            val data = repository.getSessionByName(playerName)
-//            if (data.matchId == id) {
-            if (data == null) {
-                saveSession(id, playerName, mutableListOf(sessionBet))
-            } else {
-                data.sessionBet?.add(sessionBet)
-                updateSession(data.id!!, data.sessionID!!, data.playerName!!, data.sessionBet!!)
-            }
-            /* } else {
-                 saveSession(id, playerName, mutableListOf(sessionBet))
-             }*/
-        }
-    }
-
-
-    fun updateSessionItem(id: String, playerName: String, sessionBet: SessionBet) {
-        viewModelScope.launch(Dispatchers.Main) {
-            val data = repository.getSessionByName(playerName)
-            val bet = data.sessionBet!!
-            for (i in bet.indices) {
-                if (bet[i].id == id) {
-                    data.sessionBet!![i] = sessionBet
-                    updateSession(
-                        data.id!!,
-                        data.sessionID!!,
-                        data.playerName!!,
-                        data.sessionBet!!
-                    )
-                }
-            }
-        }
-    }
-
-    @SuppressLint("NewApi")
-    fun deleteItemSession(id: String, playerName: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            val data = repository.getSessionByName(playerName)
-            val bet = data.sessionBet!!
-            bet.removeIf { k -> k.id == id }
-            updateSession(data.id!!, data.sessionID!!, data.playerName!!, bet)
-        }
-    }
 
     fun insertMainSession(
         matchId: String,
@@ -331,4 +212,50 @@ class CricketGuruViewModel(
     }
 
     fun getAllMainSession(matchid: String) = repository.getAllMainSession(matchid)
+
+    fun updateSessionBet(
+        id: Int,
+        sessionID: String,
+        amount: Int,
+        inning: Int,
+        over: String,
+        fandp: Int,
+        yorn: Int,
+        actualScore: Int,
+        playerName: String,
+        commission: Double
+    ) = viewModelScope.launch {
+        val sessionBet = SessionBet(
+            id,
+            sessionID,
+            amount,
+            inning,
+            over,
+            fandp,
+            yorn,
+            actualScore,
+            playerName,
+            commission
+        )
+        repository.updateSession(sessionBet)
+    }
+
+    fun deleteSessionBet(sessionBet: SessionBet) = viewModelScope.launch {
+        repository.deleteSession(sessionBet)
+    }
+
+    fun completeSessionBet(sessionBet: SessionBet) = viewModelScope.launch {
+        repository.insertSessionBet(sessionBet)
+    }
+
+    fun minMax(sessionID: String): ArrayList<Int> {
+        var data = arrayListOf<Int>()
+        viewModelScope.launch {
+            val query =
+                "SELECT MAX(actualScore), MIN(actualScore) FROM sessionBet WHERE sessionID = $sessionID"
+            data = repository.getMinMaxSessionList(query)
+        }
+        Log.d(TAG, "minMax: $data")
+        return data
+    }
 }

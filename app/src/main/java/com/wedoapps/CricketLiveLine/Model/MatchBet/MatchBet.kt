@@ -15,9 +15,8 @@ import java.util.*
 @Parcelize
 data class  MatchBet(
     @PrimaryKey(autoGenerate = true)
-    var id: String? = "",
+    var id: Int? = null,
     var matchID: String? = "",
-    var row_type: Int? = 1,
     var rate: Int? = null,
     var amount: Int? = null,
     var type: String? = "",

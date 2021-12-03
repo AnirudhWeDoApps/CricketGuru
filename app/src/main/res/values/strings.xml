@@ -118,4 +118,22 @@
     <string name="f_c_r">For Current Record</string>
     <string name="no_session_entry_availble">No Session Entry Availble</string>
     <string name="declare">Declare</string>
+    <string name="venue">Venue</string>
+    <string name="series">Series</string>
+    <string name="match">Match</string>
+    <string name="date_amp_time"><![CDATA[Date & Time]]></string>
+    <string name="toss">Toss</string>
+    <string name="avg_1st_innings">Avg 1st Innings</string>
+    <string name="avg_2nd_innings">Avg 2nd Innings</string>
+    <string name="highest_total">Highest Total</string>
+    <string name="lowest_total">Lowest Total</string>
+    <string name="highest_chased">Highest Chased</string>
+    <string name="lowest_defended">Lowest Defended</string>
+    <string name="head_to_head">Head to Head</string>
+    <string name="team_form">Team Form</string>
+    <string name="umpire">Umpire</string>
+    <string name="third_umpire">Third Umpire</string>
+    <string name="man_of_the_match">Man of the Match</string>
+    <string name="refree">Refree</string>
+    <string name="dash">-</string>
 </resources>

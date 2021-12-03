@@ -3,20 +3,18 @@ package com.wedoapps.CricketLiveLine.Repository
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.*
-import com.google.firebase.storage.FirebaseStorage
 import com.wedoapps.CricketLiveLine.Db.CricketGuruDatabase
 import com.wedoapps.CricketLiveLine.Model.*
 import com.wedoapps.CricketLiveLine.Model.Info.Info
-import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchData
+import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchBet
 import com.wedoapps.CricketLiveLine.Model.SessionBet.MainSession
-import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionData
+import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionBet
 import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CricketGuruRepository(val db: CricketGuruDatabase) {
+class CricketGuruRepository(private val db: CricketGuruDatabase) {
     private var firestore = FirebaseFirestore.getInstance()
-    private val storageRef = FirebaseStorage.getInstance().reference
     private var mutableLangName = MutableLiveData<MutableList<HomeMatch>>()
     private var mutableData = MutableLiveData<HomeMatch>()
     private var _team1 = MutableLiveData<Score?>()
@@ -57,6 +55,8 @@ class CricketGuruRepository(val db: CricketGuruDatabase) {
     private val bowlerList = BowlerList()
     private var homeMatch = HomeMatch()
     private var wicketList = AllWicketList()
+    val sessionBookShowModelArrayList = arrayListOf<Int>()
+    val minMaxArrayList = arrayListOf<Int>()
 
     fun team1(id: String): MutableLiveData<Score?> {
         firestoreRef.document(id).collection("LiveMatch").document("ScoreTeam1")
@@ -840,33 +840,21 @@ class CricketGuruRepository(val db: CricketGuruDatabase) {
         return _firstInnings
     }
 
-    suspend fun insertMatch(matchData: MatchData) = db.getCricketGuruDao().insertMatch(matchData)
+    suspend fun insertMatch(matchBet: MatchBet) = db.getCricketGuruDao().insertMatch(matchBet)
 
-    suspend fun updateMatch(matchData: MatchData) = db.getCricketGuruDao().updateMatch(matchData)
+    suspend fun updateMatch(matchBet: MatchBet) = db.getCricketGuruDao().updateMatch(matchBet)
 
-    suspend fun deleteMatch(matchData: MatchData) = db.getCricketGuruDao().deleteMatch(matchData)
+    suspend fun deleteMatch(matchBet: MatchBet) = db.getCricketGuruDao().deleteMatch(matchBet)
 
-    suspend fun insertSession(sessionData: SessionData) =
-        db.getCricketGuruDao().insertSession(sessionData)
+    suspend fun updateSession(sessionBet: SessionBet) =
+        db.getCricketGuruDao().updateSession(sessionBet)
 
-    suspend fun updateSession(sessionData: SessionData) =
-        db.getCricketGuruDao().updateSession(sessionData)
-
-    suspend fun deleteSession(sessionData: SessionData) =
-        db.getCricketGuruDao().deleteSession(sessionData)
+    suspend fun deleteSession(sessionBet: SessionBet) =
+        db.getCricketGuruDao().deleteSession(sessionBet)
 
     fun getAllMatchBet(matchid: String) = db.getCricketGuruDao().getAllMatches(matchid)
 
-    suspend fun getMatchByName(playerName: String) =
-        db.getCricketGuruDao().getMatchesByName(playerName)
-
-    fun getAllSessionBet(sessionID: String) = db.getCricketGuruDao().getAllSessions(sessionID)
-
-    suspend fun getSessionByName(playerName: String) =
-        db.getCricketGuruDao().getSessionByName(playerName)
-
-    suspend fun deleteSessionItem(id: String) =
-        db.getCricketGuruDao().deleteSessionItem(id)
+    fun matchBetNameList() = db.getCricketGuruDao().getMatchNameList()
 
     suspend fun insertMainSession(mainSession: MainSession) =
         db.getCricketGuruDao().insertMainSession(mainSession)
@@ -879,4 +867,34 @@ class CricketGuruRepository(val db: CricketGuruDatabase) {
 
     fun getAllMainSession(matchid: String) =
         db.getCricketGuruDao().getMainSession(matchid)
+
+    suspend fun insertSessionBet(sessionBet: SessionBet) =
+        db.getCricketGuruDao().insertSessionBet(sessionBet)
+
+    fun getAllSessionBetList(sessionID: String) =
+        db.getCricketGuruDao().getSessionBetList(sessionID)
+
+    fun sessionNameList() = db.getCricketGuruDao().getSessionNameList()
+
+
+    fun getMinMaxSessionList(query: String): ArrayList<Int> {
+        val sessionMinMaxList = arrayListOf<Int>()
+        val database = db.openHelper.readableDatabase
+        val c = database.query(query)
+        try {
+            while (c.moveToNext()) {
+                sessionMinMaxList.add(0, c.getInt(0))   // Max Value
+                sessionMinMaxList.add(1, c.getInt(1))  // Min Value
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            if (c != null && c.isClosed) {
+                c.close()
+                database.close()
+            }
+        }
+        Log.d(TAG, "getMinMaxSessionList: $sessionMinMaxList")
+        return sessionMinMaxList
+    }
 }

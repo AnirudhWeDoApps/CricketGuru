@@ -1,25 +1,31 @@
 package com.wedoapps.CricketLiveLine.Ui.Fragments.Bet.Session
 
-import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.wedoapps.CricketLiveLine.Adapter.SessionBetAdapter
+import com.wedoapps.CricketLiveLine.Adapter.SessionDataAdapter
 import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionBet
+import com.wedoapps.CricketLiveLine.Model.SessionBet.SessionData
 import com.wedoapps.CricketLiveLine.R
 import com.wedoapps.CricketLiveLine.Ui.BottomSheets.CurrentSessionBottomFragment
 import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
 import com.wedoapps.CricketLiveLine.Utils.Constants
 import com.wedoapps.CricketLiveLine.Utils.Constants.SESSION_ID
+import com.wedoapps.CricketLiveLine.Utils.Constants.TAG
 import com.wedoapps.CricketLiveLine.databinding.FragmentSessionEntryBinding
 
-class SessionEntryFragment : Fragment(R.layout.fragment_session_entry), SessionBetAdapter.SetOn {
+class SessionEntryFragment : Fragment(R.layout.fragment_session_entry),
+    SessionDataAdapter.SetOn {
 
     private lateinit var binding: FragmentSessionEntryBinding
     private lateinit var viewModel: CricketGuruViewModel
-    private lateinit var sessionAdapter: SessionBetAdapter
+    private lateinit var sessionAdapter: SessionDataAdapter
     private lateinit var id: String
     private lateinit var sessionID: String
+    private val partyIDList = hashSetOf<String>()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,28 +36,38 @@ class SessionEntryFragment : Fragment(R.layout.fragment_session_entry), SessionB
 
         viewModel = (activity as SessionEntryActivity).viewModel
 
-        sessionAdapter = SessionBetAdapter(this)
+        sessionAdapter = SessionDataAdapter(this)
 
-        viewModel.getAllSessions(sessionID).observe(requireActivity(), {
+        viewModel.getAllSessionsList(sessionID).observe(requireActivity(), {
             if (it.isEmpty()) {
                 binding.tvNoCurrentSession.visibility = View.VISIBLE
                 binding.rvCurrentSession.visibility = View.GONE
             } else {
-                val betList = mutableListOf<SessionBet>()
+                val sessionBetArrayList = arrayListOf<SessionBet>()
+                val sessionDataArrayList = arrayListOf<SessionData>()
+                sessionBetArrayList.addAll(it)
                 binding.tvNoCurrentSession.visibility = View.GONE
                 binding.rvCurrentSession.visibility = View.VISIBLE
-                it.sortedBy { k -> k.playerName }
-                it.forEach { data ->
-                    val bet = SessionBet(row_type = 2, playerName = data.playerName)
-                    if (betList.find { k -> k.playerName == bet.playerName && k.row_type == 2 } == null) {
-                        betList.add(bet)
-                    }
-                    betList.addAll(data.sessionBet!!)
-                    if (data.sessionBet.isNullOrEmpty()) {
-                        viewModel.deleteSession(data)
-                    }
+                for (i in sessionBetArrayList.indices) {
+                    val sessionBet = sessionBetArrayList[i]
+                    partyIDList.add(sessionBet.playerName.toString())
                 }
-                sessionAdapter.differ.submitList(betList)
+                val arrSet = ArrayList(partyIDList)
+                for (i in arrSet.indices) {
+                    val setValue = arrSet[i]
+                    val sessionData = SessionData()
+                    for (j in 0 until sessionBetArrayList.size) {
+                        val sessionBet = sessionBetArrayList[j]
+                        if (setValue == sessionBet.playerName.toString()) {
+                            sessionData.sessionID = sessionBet.sessionID
+                            sessionData.playerName = sessionBet.playerName
+                            sessionData.sessionBet.add(sessionBet)
+                        }
+                    }
+                    sessionDataArrayList.add(sessionData)
+                    Log.d(TAG, "onSessionEntryFragment: $sessionDataArrayList")
+                }
+                sessionAdapter.differ.submitList(sessionDataArrayList)
             }
         })
 
@@ -81,25 +97,13 @@ class SessionEntryFragment : Fragment(R.layout.fragment_session_entry), SessionB
         return myFragment
     }
 
-    @SuppressLint("NewApi")
-    override fun onDelete(sessionBet: SessionBet, position: Int) {
-        viewModel.deleteItemSession(sessionBet.id!!, sessionBet.playerName.toString())
+    override fun onDeleteSessionBet(sessionBet: SessionBet, position: Int) {
+        Toast.makeText(requireContext(), "Delete", Toast.LENGTH_SHORT).show()
+        viewModel.deleteSessionBet(sessionBet)
         sessionAdapter.notifyItemRemoved(position)
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        viewModel.getAllSessions(sessionID).observe(requireActivity(), {
-            it.forEach { data ->
-                if (data.sessionBet.isNullOrEmpty()) {
-                    viewModel.deleteSession(data)
-                }
-            }
-        })
-    }
-
-    override fun onEdit(sessionBet: SessionBet) {
+    override fun onEditSessionBet(sessionBet: SessionBet) {
         val sessionSheet = CurrentSessionBottomFragment()
         val bundle = Bundle()
         bundle.putParcelable(Constants.PID, sessionBet)

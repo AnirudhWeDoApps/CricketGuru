@@ -4,8 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.wedoapps.CricketLiveLine.Adapter.MatchBetAdapter
+import com.wedoapps.CricketLiveLine.Adapter.MatchDataAdapter
 import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchBet
+import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchData
 import com.wedoapps.CricketLiveLine.R
 import com.wedoapps.CricketLiveLine.Ui.BottomSheets.MatchBottomSheetFragment
 import com.wedoapps.CricketLiveLine.Ui.CricketGuruViewModel
@@ -17,11 +18,11 @@ import com.wedoapps.CricketLiveLine.databinding.FragmentActiveMatchBinding
 
 
 class ActiveMatchFragment : Fragment(R.layout.fragment_active_match),
-    MatchBetAdapter.SetOn, MatchBottomSheetFragment.OnMatchBetListener {
+    MatchDataAdapter.SetOn, MatchBottomSheetFragment.OnMatchBetListener {
 
     private lateinit var binding: FragmentActiveMatchBinding
     private lateinit var viewModel: CricketGuruViewModel
-    private lateinit var matchAdapter: MatchBetAdapter
+    private lateinit var matchAdapter: MatchDataAdapter
     private lateinit var id: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,7 +32,7 @@ class ActiveMatchFragment : Fragment(R.layout.fragment_active_match),
         id = arguments?.getString(ID).toString()
         viewModel = (activity as BettingActivity).viewModel
 
-        matchAdapter = MatchBetAdapter(this)
+        matchAdapter = MatchDataAdapter(this)
         viewModel.getSpecificIdDetail(id).observe(requireActivity(), {
             binding.apply {
                 tvTeam1.text = it.Team1
@@ -40,24 +41,36 @@ class ActiveMatchFragment : Fragment(R.layout.fragment_active_match),
         })
 
         viewModel.getAllMatchBet(id).observe(requireActivity(), {
-            if (it.isEmpty()) {
+            if (it.isNullOrEmpty()) {
                 binding.tvNoActiveMatch.visibility = View.VISIBLE
                 binding.rvActiveMatch.visibility = View.GONE
             } else {
-                val betList = mutableListOf<MatchBet>()
-                Log.d(TAG, "MatchDataTest: $it")
+                val matchBetArrayList = arrayListOf<MatchBet>()
+                val matchDataArrayList = arrayListOf<MatchData>()
+                val partyIDList = hashSetOf<String>()
+                matchBetArrayList.addAll(it)
                 binding.tvNoActiveMatch.visibility = View.GONE
                 binding.rvActiveMatch.visibility = View.VISIBLE
-                it.sortedBy { k -> k.playerName }
-                it.forEach { data ->
-                    val bet = MatchBet(row_type = 2, playerName = data.playerName)
-                    if (betList.find { k -> k.playerName == bet.playerName && k.row_type == 2 } == null) {
-                        betList.add(bet)
-                    }
-                    betList.addAll(data.matchBet!!)
+                for (i in matchBetArrayList.indices) {
+                    val matchBet = matchBetArrayList[i]
+                    partyIDList.add(matchBet.playerName.toString())
                 }
-                Log.d(TAG, "BetList: $betList")
-                matchAdapter.differ.submitList(betList)
+                val arrSet = ArrayList(partyIDList)
+                for (i in arrSet.indices) {
+                    val setValue = arrSet[i]
+                    val matchData = MatchData()
+                    for (j in 0 until matchBetArrayList.size) {
+                        val matchBet = matchBetArrayList[j]
+                        if (setValue == matchBet.playerName.toString()) {
+                            matchData.matchId = matchBet.matchID
+                            matchData.playerName = matchBet.playerName
+                            matchData.matchBet.add(matchBet)
+                        }
+                    }
+                    matchDataArrayList.add(matchData)
+                    Log.d(TAG, "OnMatchEntryFragment: $matchDataArrayList")
+                }
+                matchAdapter.differ.submitList(matchDataArrayList)
             }
         })
 
@@ -91,21 +104,16 @@ class ActiveMatchFragment : Fragment(R.layout.fragment_active_match),
                 binding.tvTeam2Total.text = temp1.toString()
             } else {
                 it.forEach { data1 ->
-                    if (data1.matchBet.isNullOrEmpty()) {
-                        viewModel.deleteMatchBet(data1)
-                    }
-                    data1.matchBet?.forEach { data ->
-                        temp += data.team1Value!!
-                        temp1 += data.team2Value!!
-                        binding.tvTeam1Total.text = temp.toString()
-                        binding.tvTeam2Total.text = temp1.toString()
-                    }
+                    temp += data1.team1Value!!
+                    temp1 += data1.team2Value!!
+                    binding.tvTeam1Total.text = temp.toString()
+                    binding.tvTeam2Total.text = temp1.toString()
                 }
             }
         })
     }
 
-    override fun onSheetClose(name: String) {
+    override fun onSheetClose() {
         viewModel.getAllMatchBet(id).observe(requireActivity(), {
             var temp = 0
             var temp1 = 0
@@ -114,12 +122,10 @@ class ActiveMatchFragment : Fragment(R.layout.fragment_active_match),
                 binding.tvTeam2Total.text = temp1.toString()
             } else {
                 it.forEach { data1 ->
-                    data1.matchBet?.forEach { data ->
-                        temp += data.team1Value!!
-                        temp1 += data.team2Value!!
-                        binding.tvTeam1Total.text = temp.toString()
-                        binding.tvTeam2Total.text = temp1.toString()
-                    }
+                    temp += data1.team1Value!!
+                    temp1 += data1.team2Value!!
+                    binding.tvTeam1Total.text = temp.toString()
+                    binding.tvTeam2Total.text = temp1.toString()
                 }
             }
         })
@@ -133,12 +139,11 @@ class ActiveMatchFragment : Fragment(R.layout.fragment_active_match),
         return myFragment
     }
 
-    override fun onDelete(matchBet: MatchBet, position: Int) {
-        viewModel.deleteItemMatch(matchBet.id!!, matchBet.playerName!!)
-        matchAdapter.notifyItemRemoved(position)
+    override fun onDeleteMatchBet(matchBet: MatchBet) {
+        viewModel.deleteMatchBet(matchBet)
     }
 
-    override fun onEdit(matchBet: MatchBet) {
+    override fun onEditMatchBet(matchBet: MatchBet) {
         val matchSheet = MatchBottomSheetFragment()
         val bundle = Bundle()
         bundle.putParcelable(PID, matchBet)

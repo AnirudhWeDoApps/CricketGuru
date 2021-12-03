@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
+    android:orientation="vertical"
     android:padding="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -446,12 +447,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewComm" />
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/et_playerName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/player_name_hint"
-            android:importantForAutofill="no"
+            android:completionHint="Player Hint"
+            android:completionThreshold="1"
             android:inputType="textCapSentences"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView20" />
@@ -478,4 +480,4 @@
             app:layout_constraintTop_toBottomOf="@+id/et_playerName" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+</ScrollView>

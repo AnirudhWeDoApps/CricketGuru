@@ -4,7 +4,6 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.wedoapps.CricketLiveLine.Model.MatchBet.MatchBet
 import kotlinx.parcelize.Parcelize
 
 @Entity(
@@ -18,5 +17,5 @@ data class SessionData(
     var sessionID: String? = null,
     var playerName: String? = null,
     @ColumnInfo(name = "sessionBet")
-    var sessionBet: MutableList<SessionBet>? = null
+    var sessionBet: ArrayList<SessionBet> = arrayListOf()
 ) : Parcelable

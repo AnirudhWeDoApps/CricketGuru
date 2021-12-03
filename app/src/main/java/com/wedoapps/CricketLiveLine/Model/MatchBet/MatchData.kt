@@ -14,5 +14,5 @@ data class MatchData(
     var id: Int? = null,
     var matchId: String? = null,
     var playerName: String? = null,
-    var matchBet: MutableList<MatchBet>? = null
+    var matchBet: ArrayList<MatchBet> = arrayListOf()
 ) : Parcelable
